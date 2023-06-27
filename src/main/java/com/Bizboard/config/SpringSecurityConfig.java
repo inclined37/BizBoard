@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +23,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public SpringSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+    
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomLoginSuccessHandler();
+    }
+    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,7 +43,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
                 .loginPage("/common/login")
-                .defaultSuccessUrl("/common/main")
+                //.defaultSuccessUrl("/common/main")
+                .successHandler(successHandler()) 
                 .failureUrl("/common/login")
                 .permitAll()
                 .and()

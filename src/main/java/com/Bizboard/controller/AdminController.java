@@ -10,7 +10,7 @@ public class AdminController {
 
 	
 	
-	@GetMapping("adminMain")
+	@GetMapping("main")
 	public void main() {
 		
 	}

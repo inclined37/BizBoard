@@ -91,7 +91,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>관리자 메뉴</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="${pageContext.request.contextPath}/admin/adminMain" class="dropdown-item">관리자 메인</a>
+                            <a href="${pageContext.request.contextPath}/admin/main" class="dropdown-item">관리자 메인</a>
                             <a href="#" class="dropdown-item">회원관리</a>
                             <a href="#" class="dropdown-item">Blank Page</a>
                         </div>
@@ -216,6 +216,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         	<se:authorize access="!hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
                             <a href="${pageContext.request.contextPath}/common/login" class="dropdown-item">로그인</a>
+                            <a href="${pageContext.request.contextPath}/common/signup" class="dropdown-item">회원가입</a>
                             </se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
                             <a href="#" class="dropdown-item">내정보</a>
