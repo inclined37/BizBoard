@@ -1,9 +1,22 @@
 /********** Template CSS **********/
+@font-face {
+    font-family: 'Jalnan';
+    src: url('../font/Jalnan.ttf') format('truetype');
+}
+
 :root {
     --primary: #009CFF;
     --light: #F3F6F9;
     --dark: #191C24;
 }
+
+/*
+
+*/
+body {
+    font-family: 'Jalnan' , sans-serif;
+}
+
 
 .back-to-top {
     position: fixed;
