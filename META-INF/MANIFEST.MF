@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Security
+Bundle-SymbolicName: Security
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: Security
+Export-Package: com.Bizboard,
+ com.Bizboard.aspect,
+ com.Bizboard.config,
+ com.Bizboard.controller,
+ com.Bizboard.vo,
+ com.example.demo,
+ mapper

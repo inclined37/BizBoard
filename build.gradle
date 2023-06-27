@@ -1,0 +1,47 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.12'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.Bizboard'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+ implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'javax.servlet:jstl'
+	
+	implementation 'com.google.code.gson:gson:2.8.8'
+
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation 'org.projectlombok:lombok'	
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    
+    // Log4j
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	// Log4j Core - Log4j의 핵심 구성 요소인 로깅 코어 라이브러리입니다.
+	implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+	// Log4j API - Log4j의 로깅 API를 제공하는 라이브러리입니다.
+	implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+	// HikariCP - 고성능 JDBC 커넥션 풀인 HikariCP를 추가합니다.
+	implementation 'com.zaxxer:HikariCP:4.0.3'
+    
+    //시큐리티
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-taglibs:5.5.3'
+    
+    
+    
+}
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Bizboard.dao.MemberDao">
+
+<!-- 파일업로드전
+<insert id="insertMembersAndMembersdetailAndRolls" parameterType="map">
+  <![CDATA[
+  INSERT ALL
+    INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 'ROLE_USER')
+    INTO MEMBERSDETAIL (userid, empno, deptno, job, hiredate, birthday, sal,phonenumber,email) 
+      VALUES (#{membersDetail.userid}, #{membersDetail.empno}, #{membersDetail.deptno}, 
+      #{membersDetail.job}, #{membersDetail.hiredate}, 
+      #{membersDetail.birthday}, #{membersDetail.sal},#{membersDetail.phonenumber},#{membersDetail.email})
+    INTO members (userid, password, status) VALUES (#{member.userid}, #{member.password}, 1)
+  SELECT 1 FROM DUAL
+  ]]>
+</insert>
+ -->
+  
+  <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map">
+    <trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+      INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 'ROLE_USER')
+      INTO MEMBERSDETAIL (userid, empno, membername , deptno, job, hiredate, birthday, sal, phonenumber, email
+        <if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
+          , fileoriginalname, filestoredname, filepath
+        </if>
+      ) 
+      VALUES (#{membersDetail.userid}, #{membersDetail.empno}, #{membersDetail.membername} ,#{membersDetail.deptno}, #{membersDetail.job}, #{membersDetail.hiredate}, 
+        #{membersDetail.birthday}, #{membersDetail.sal}, #{membersDetail.phonenumber}, #{membersDetail.email}
+        <if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
+          , #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName}, #{membersDetail.filePath}
+        </if>
+      )
+      INTO members (userid, password, status) VALUES (#{member.userid}, #{member.password}, 1)
+    </trim>
+  </insert>
+
+</mapper>
+
+
+
+
