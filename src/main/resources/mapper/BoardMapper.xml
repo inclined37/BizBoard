@@ -4,14 +4,25 @@
 <mapper namespace="com.Bizboard.dao.BoardDao">
 
 <!-- 공지사항 insert -->
-<insert id="insertNoticeBoard" parameterType="map">
+<insert id="insertNoticeBoard" parameterType="com.Bizboard.vo.Board">
 	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
 		INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
-			VALUES (board_seq.NEXTVAL, #{board.b_id}, #{board.b_name}, #{board.b_email}, #{board.b_dname}, #{board.b_title}, #{board.b_content}, 0, sysdate, #{board.bt_code})
+			VALUES (board_seq.NEXTVAL, #{b_id}, #{b_name}, #{b_email}, #{b_dname}, #{b_title}, #{b_content}, 0, sysdate, #{bt_code})
 		INTO NOTICEBOARD (nb_code, b_code)
 			VALUES (notice_seq.NEXTVAL, board_seq.CURRVAL)
 	</trim>
 </insert>
+
+<!-- 
+<insert id="insertNoticeBoard" parameterType="com.Bizboard.vo.Board">
+	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+		INTO BOARD (b_code, b_id)
+			VALUES (board_seq.NEXTVAL, #{b_id})
+		INTO NOTICEBOARD (nb_code, b_code)
+			VALUES (notice_seq.NEXTVAL, board_seq.CURRVAL)
+	</trim>
+</insert>
+ -->
 
 
 </mapper>
