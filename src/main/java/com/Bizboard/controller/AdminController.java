@@ -15,6 +15,9 @@ public class AdminController {
 		
 	}
 	
-	
+	@GetMapping("noticeBoardInsert")
+	public void noticeBoard() {
+		
+	}
 	
 }
