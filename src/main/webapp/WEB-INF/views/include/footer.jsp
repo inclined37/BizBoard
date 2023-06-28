@@ -6,8 +6,8 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
             -->
-            <div class="container-fluid pt-4">
-                <div class="bg-light rounded-top p-4">
+            <div class="container-fluid pt-5"><!-- pt 푸터와 위영역사이에 거리 -->
+                <div class="bg-light rounded-top p-4"><!-- p-  푸터가 차지하는 회색영역 크기 -->
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
                             &copy; <a href="${pageContext.request.contextPath}/common/main">BizBoard</a>, All Right Reserved. 
@@ -24,7 +24,6 @@
             <!-- Footer End -->
         </div>
         <!-- Content End -->
-
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
