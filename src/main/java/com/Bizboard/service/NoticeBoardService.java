@@ -17,6 +17,7 @@ public class NoticeBoardService {
 	public int insertNoticeBoard(Board board, NoticeBoard noticeBoard) {
 		
 		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+		
 		int result = dao.insertNoticeBoard(board, noticeBoard);
 		return result;
 	}

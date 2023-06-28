@@ -9,19 +9,19 @@
 			<!-- xl 숫자 건드리면 input 태그 길어지거나 짧아짐 -->
 			<div class="bg-light rounded h-100 p-4">
 				<h6 class="mb-4">공지사항 작성</h6>
-				<form>
+				<form action="noticeBoardInsert" method="post">
 					<div class="form-floating mb-3">
-						<input type="text" class="form-control" id="floatingInput"
+						<input type="text" class="form-control" id="floatingInput" name="b_title"
 							placeholder="글제목"> <label for="floatingInput">글제목</label>
 					</div>
 					<div class="form-floating mb-3">
-						<input type="text" class="form-control" id="floatingInput"
+						<input type="text" class="form-control" id="floatingInput" name="b_id"
 							placeholder="작성자" value="admin" readonly="readonly"> <label
 							for="floatingInput">작성자</label>
 					</div>
 					<div class="form-floating">
 						<textarea class="form-control" placeholder="Leave a comment here"
-							id="floatingTextarea" style="height: 150px;"></textarea>
+							id="floatingTextarea" name="b_content" style="height: 150px;"></textarea>
 						<label for="floatingTextarea">글내용</label>
 					</div>
 					<div class="form-floating">
