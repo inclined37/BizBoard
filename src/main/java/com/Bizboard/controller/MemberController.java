@@ -14,4 +14,19 @@ public class MemberController {
 
 	}
 	
+	@GetMapping("noticeBoard")
+	public void noticeBoardGet() {
+		
+	}
+	
+	@GetMapping("AlbumBoard")
+	public void albumBoardGet() {
+		
+	}
+	
+	@GetMapping("FileBoard")
+	public void fileBoardGet() {
+		
+	}
+	
 }
