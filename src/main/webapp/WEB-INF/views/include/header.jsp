@@ -7,13 +7,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>BizBoard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
+    <!-- Favicon 
     <link href="../img/favicon.ico" rel="icon">
+    -->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +59,7 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </se:authorize>
                     <se:authorize access="hasAnyRole('ROLE_USER')">
-                        <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </se:authorize>
                     </div>
@@ -78,15 +79,17 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>게시판</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">-공지게시판</a>
-                            <a href="#" class="dropdown-item">-앨범게시판</a>
-                            <a href="#" class="dropdown-item">-파일공유게시판</a>
+                            <a href="${pageContext.request.contextPath}/member/noticeBoard" class="dropdown-item">-공지게시판</a>
+                            <a href="${pageContext.request.contextPath}/member/AlbumBoard" class="dropdown-item">-앨범게시판</a>
+                            <a href="${pageContext.request.contextPath}/member/FileBoard" class="dropdown-item">-파일공유게시판</a>
                         </div>
                     </div>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
+                    <!-- 
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                     -->
                  <se:authorize access="hasAnyRole('ROLE_ADMIN')">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>관리자 메뉴</a>
@@ -147,7 +150,7 @@
                                     	<img class="rounded-circle" src="img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
-	                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -162,7 +165,7 @@
                                     	<img class="rounded-circle" src="img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
-	                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -204,7 +207,7 @@
                             <span class="d-none d-lg-inline-flex">로그인 해주세요.</span>
                             </se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_USER')">
-	                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
+	                            <img class="rounded-circle me-lg-2" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
                         	</se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 	                            <img class="rounded-circle me-lg-2" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
@@ -219,7 +222,7 @@
                             <a href="${pageContext.request.contextPath}/common/signup" class="dropdown-item">회원가입</a>
                             </se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-                            <a href="#" class="dropdown-item">내정보</a>
+                            <a href="${pageContext.request.contextPath}/member/myInfo" class="dropdown-item">내정보</a>
                             <a href="#" class="dropdown-item">미정</a>
                             <a href="${pageContext.request.contextPath}/logout" class="dropdown-item">로그아웃</a>
                             </se:authorize>
