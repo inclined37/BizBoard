@@ -14,4 +14,9 @@ public class MemberController {
 
 	}
 	
+	@GetMapping("searchResult")
+	public void searchResult() {
+		
+	}
+	
 }

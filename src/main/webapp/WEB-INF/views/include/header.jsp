@@ -80,7 +80,7 @@
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="#" class="dropdown-item">-공지게시판</a>
                             <a href="#" class="dropdown-item">-앨범게시판</a>
-                            <a href="#" class="dropdown-item">-자유게시판</a>
+                            <a href="#" class="dropdown-item">-파일공유게시판</a>
                         </div>
                     </div>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
@@ -116,8 +116,8 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="${pageContext.request.contextPath}/member/searchResult">
+                    <input class="form-control border-0" type="search" placeholder="Search" id="headerSearch">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
