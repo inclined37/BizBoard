@@ -53,9 +53,10 @@ public class CommonController {
 				// 파일 업로드 처리
 				String originalFilename = file.getOriginalFilename();
 				String storedFilename = FileUtils.generateStoredFilename(originalFilename);
+				//경로 : C:\Duzon\Spring\SpringBootLabs\BizBoard\src\main\webapp\
+				System.out.println("경로 : " + request.getSession().getServletContext().getRealPath("")); // getParent로 상위경로 이동
 				String uploadpath = new File(request.getSession().getServletContext().getRealPath("")).getParent()
 						+ uploadDirectory.replace("/", File.separator); // File.separator "\"를 나타냄
-					
 				System.out.println(uploadpath);
 				// 해당 폴더가 없을 경우 생성
 				FileUtils.createDirectory(uploadpath);

@@ -1,13 +1,21 @@
 package com.Bizboard.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
+import com.Bizboard.service.MemberService;
+import com.Bizboard.vo.MemberAllData;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
@@ -15,10 +23,24 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    
+    @Autowired
+    private MemberService memberService;
+    
     @Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         String targetUrl = determineTargetUrl(authentication);
-
+        
+        // Spring Security 인증 정보에서 사용자 이름을 가져옵니다.
+        User user = (User) authentication.getPrincipal();
+        String username = user.getUsername();
+        // username을 사용하여 추가적인 사용자 데이터를 불러옵니다.
+        MemberAllData result = memberService.getOneMemberData(username);
+        // 세션에 사용자 데이터를 저장합니다.
+        HttpSession session = request.getSession();
+        session.setAttribute("profileUrl", result.getFilePath()+ File.separator + result.getFileStoredName());        
+        
+        
         if (response.isCommitted()) {
             return;
         }
