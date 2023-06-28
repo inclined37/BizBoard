@@ -39,6 +39,11 @@ public class MemberController {
 	
 	}
 	
+	@GetMapping("FileBoardInsert")
+	public void fileBoardInsert() {
+	
+	}
+	
 	@GetMapping("searchResult")
 	public void searchResult() {
 		
