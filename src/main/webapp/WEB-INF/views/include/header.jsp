@@ -96,7 +96,7 @@
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/admin/main" class="dropdown-item">관리자 메인</a>
                             <a href="#" class="dropdown-item">회원관리</a>
-                            <a href="#" class="dropdown-item">Blank Page</a>
+                            <a href="${pageContext.request.contextPath}/admin/dept" class="dropdown-item">부서관리</a>
                         </div>
                     </div>
                 </se:authorize>
