@@ -26,6 +26,11 @@ public class MemberController {
 	
 	@GetMapping("FileBoard")
 	public void fileBoardGet() {
+	
+	}
+	
+	@GetMapping("searchResult")
+	public void searchResult() {
 		
 	}
 	
