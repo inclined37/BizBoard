@@ -20,4 +20,9 @@ public class AdminController {
 		
 	}
 	
+	@GetMapping("deptManagement")
+	public void deptManagement() {
+		
+	}
+	
 }
