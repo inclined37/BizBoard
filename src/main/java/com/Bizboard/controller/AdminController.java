@@ -38,11 +38,13 @@ public class AdminController {
 	@PostMapping("noticeBoardInsert")
 	public String noticeBoardInsert(Board board) {
 		System.out.println("noticeBoardInsert POST 요청 진입");
+		//사원의 추가정보 가져오기 -> 주입
 		MemberAllData mad = memberService.getOneMemberData(board.getB_id());
 		board.setB_name(mad.getMembername());
 		board.setB_email(mad.getEmail());
 		board.setB_dname(mad.getDname());
 		System.out.println(board.toString());
+		
 		int result = noticeBoardService.insertNoticeBoard(board);
 		return "redirect:/member/noticeBoard";
 	}

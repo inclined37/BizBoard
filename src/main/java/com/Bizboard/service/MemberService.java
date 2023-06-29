@@ -32,9 +32,4 @@ public class MemberService {
     	return result;
     }
     
-//    public MemberSimpleData getMemberSimpleDataForBoard(String userid) {
-//    	MemberDao dao = sqlSession.getMapper(MemberDao.class);
-//    	MemberSimpleData msd = dao.additionalMemberDataforBoard(userid);
-//    	return msd;
-//    }
 }

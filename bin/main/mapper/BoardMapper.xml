@@ -3,64 +3,7 @@
 
 <mapper namespace="com.Bizboard.dao.BoardDao">
 
-<!-- 공지사항 insert와 추가 정보 select를 한 번에 처리 -->
-<!-- 
-<insert id="insertNoticeBoardWithAdditionalInfo" parameterType="com.Bizboard.vo.Board">
-  <selectKey keyColumn="b_name, b_email, b_dname" keyProperty="b_name, b_email, b_dname" resultType="hashmap">
-    SELECT m.membername, m.email, d.dname
-    FROM MembersDetail m
-    JOIN Dept d
-    ON m.deptno = d.deptno
-    WHERE m.userid = #{b_id}
-  </selectKey>
-  <insert>
-
-    <trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
-      INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
-        VALUES (board_seq.NEXTVAL, #{b_id}, #{b_name}, #{b_email}, #{b_dname}, #{b_title}, #{b_content}, 0, sysdate, #{bt_code})
-      INTO NOTICEBOARD (nb_code, b_code)
-        VALUES (notice_seq.NEXTVAL, board_seq.CURRVAL)
-    </trim>
-  </insert>
-</insert>
-
-	<selectKey keyColumn="b_name, b_email, b_dname" keyProperty="b_name, b_email, b_dname" resultType="hashmap" order="BEFORE">
-		SELECT m.membername, m.email, d.dname
-		FROM MembersDetail m
-		JOIN Dept d
-		ON m.deptno = d.deptno
-		WHERE m.userid = #{b_id}
-	</selectKey>
-
- -->
 <!-- 공지사항 insert -->
-<!-- 
-<insert id="insertNoticeBoard" parameterType="com.Bizboard.vo.Board">
-	<selectKey keyColumn="membername" keyProperty="b_name" resultType="String" order="BEFORE">
-		SELECT m.membername
-		FROM MembersDetail m
-		WHERE m.userid = #{b_id}
-	</selectKey>
-	<selectKey keyColumn="email" keyProperty="b_email" resultType="String" order="BEFORE">
-		SELECT m.email
-		FROM MembersDetail m
-		WHERE m.userid = #{b_id}
-	</selectKey>
-	<selectKey keyColumn="dname" keyProperty="b_dname" resultType="String" order="BEFORE">
-		SELECT d.dname
-		FROM MembersDetail m
-		JOIN Dept d
-		ON m.deptno = d.deptno
-		WHERE m.userid = #{b_id}
-	</selectKey>
-	INSERT ALL
-	INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
-		VALUES (board_seq.NEXTVAL, #{b_id}, #{b_name}, #{b_email}, #{b_dname}, #{b_title}, #{b_content}, 0, sysdate, #{bt_code})
-	INTO NOTICEBOARD (nb_code, b_code)
-		VALUES (notice_seq.NEXTVAL, board_seq.CURRVAL)
-</insert>
- --> 
-
 <insert id="insertNoticeBoard" parameterType="com.Bizboard.vo.Board">
 	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
 		INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)

@@ -13,8 +13,5 @@ public interface MemberDao {
 	
 	public MemberAllData getOneMemberData(String userid);
 		
-	//사원의 정보와 해당 사원이 속한 부서의 정보 가져오기
-	//public Object additionalMemberDataforBoard();
-	//public MemberSimpleData additionalMemberDataforBoard(String userid);
 	
 }

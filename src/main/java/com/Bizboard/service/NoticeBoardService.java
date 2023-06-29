@@ -31,12 +31,6 @@ public class NoticeBoardService {
         boardForm.setBf_code(10);
         boardType.setBt_code(1000);
         
-        //사원의 추가 정보 가져오기(임시 데이터 주입)
-        System.out.println("****************************");
-//        board.setB_name("관리자");
-//        board.setB_email("hong@email.com");
-//        board.setB_dname("인사과");
-        
         board.setBt_code(boardType.getBt_code());
         
         //int result = 0;
