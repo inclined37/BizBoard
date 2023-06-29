@@ -14,5 +14,6 @@ public interface MemberDao {
 	public MemberAllData getOneMemberData(String userid); // 한명의 유저의 모든 데이터
 		
 	public int idChk(Members members); //아이디 중복체크
+		
 	
 }

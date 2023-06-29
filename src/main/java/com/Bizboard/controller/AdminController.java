@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Bizboard.service.AdminService;
+import com.Bizboard.service.MemberService;
 import com.Bizboard.service.NoticeBoardService;
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.MemberAllData;
@@ -24,6 +25,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("main")
 	public void main() {
@@ -43,8 +47,14 @@ public class AdminController {
 	@PostMapping("noticeBoardInsert")
 	public String noticeBoardInsert(Board board) {
 		System.out.println("noticeBoardInsert POST 요청 진입");
+		//사원의 추가정보 가져오기 -> 주입
+		MemberAllData mad = memberService.getOneMemberData(board.getB_id());
+		board.setB_name(mad.getMembername());
+		board.setB_email(mad.getEmail());
+		board.setB_dname(mad.getDname());
 		System.out.println(board.toString());
 		
+		int result = noticeBoardService.insertNoticeBoard(board);
 		return "redirect:/member/noticeBoard";
 	}
 	

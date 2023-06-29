@@ -29,20 +29,6 @@
 								<td>jhon@email.com</td>
 								<td>1</td>
 							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>mark@email.com</td>
-								<td>10</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>jacob@email.com</td>
-								<td>20</td>
-							</tr>
 						</tbody>
 					</table>
 					<se:authorize access="hasAnyRole('ROLE_ADMIN')">
