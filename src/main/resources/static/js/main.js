@@ -32,7 +32,6 @@
         return false;
     });
 
-
     // Progress Bar
     $('.pg-bar').waypoint(function () {
         $('.progress .progress-bar').each(function () {
@@ -46,7 +45,6 @@
         inline: true,
         format: 'L'
     });
-
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({

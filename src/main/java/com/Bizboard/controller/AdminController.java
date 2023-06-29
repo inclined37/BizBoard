@@ -28,6 +28,11 @@ public class AdminController {
 		System.out.println("noticeBoardInsert 페이지 이동");
 	}
 	
+	@GetMapping("deptManagement")
+	public void deptManagement() {
+		
+	}
+	
 	@PostMapping("noticeBoardInsert")
 	public String noticeBoardInsert(Board board) {
 		System.out.println("noticeBoardInsert POST 요청 진입");
@@ -36,4 +41,14 @@ public class AdminController {
 		int result = noticeBoardService.insertNoticeBoard(board);
 		return "redirect:/member/noticeBoard";
 	}
+	
+	@GetMapping("memberManagement")
+	public void memberManagement() {
+		System.out.println("memberManagement 진입");
+		//총사원수를 알고있어야함
+		
+		
+		
+	}
+
 }

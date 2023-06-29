@@ -21,6 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -35,6 +36,10 @@
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/jinstyle.css" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    
 </head>
 
 <body>
@@ -95,8 +100,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>관리자 메뉴</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/admin/main" class="dropdown-item">관리자 메인</a>
-                            <a href="#" class="dropdown-item">회원관리</a>
-                            <a href="${pageContext.request.contextPath}/admin/dept" class="dropdown-item">부서관리</a>
+                            <a href="${pageContext.request.contextPath}/admin/deptManagement" class="dropdown-item">부서관리</a>
+                            <a href="${pageContext.request.contextPath}/admin/memberManagement" class="dropdown-item">회원관리</a>
                         </div>
                     </div>
                 </se:authorize>
@@ -132,7 +137,7 @@
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
                                 	<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-                                    	<img class="rounded-circle" src="img/admin.png" alt="" style="width: 40px; height: 40px;">
+                                    	<img class="rounded-circle" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
 	                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
@@ -147,7 +152,7 @@
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
                                 	<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-                                    	<img class="rounded-circle" src="img/admin.png" alt="" style="width: 40px; height: 40px;">
+                                    	<img class="rounded-circle" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
 	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
@@ -162,7 +167,7 @@
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
                                 	<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-                                    	<img class="rounded-circle" src="img/admin.png" alt="" style="width: 40px; height: 40px;">
+                                    	<img class="rounded-circle" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
 	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">

@@ -9,8 +9,6 @@ import com.Bizboard.dao.MemberDao;
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardForm;
 import com.Bizboard.vo.BoardType;
-import com.Bizboard.vo.MemberSimpleData;
-import com.Bizboard.vo.NoticeBoard;
 
 @Service
 public class NoticeBoardService {

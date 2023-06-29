@@ -2,9 +2,7 @@ package com.Bizboard.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.Bizboard.vo.Board;
 import com.Bizboard.vo.MemberAllData;
-import com.Bizboard.vo.MemberSimpleData;
 import com.Bizboard.vo.Members;
 import com.Bizboard.vo.MembersDetail;
 
