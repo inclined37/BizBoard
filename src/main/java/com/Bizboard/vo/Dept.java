@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class Dept {
-	private int deptno;
+
+	private String deptno;
 	private String dname;
 	private String loc;
+	
 }
