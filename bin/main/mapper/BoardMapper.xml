@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Bizboard.dao.BoardDao">
+
+<!-- 공지사항 전체 select -->
+<!-- 
+<select id="selectAllNoticeBoard" resultType="com.Bizboard.vo.Board">
+	SELECT b_code, b_id, b_name, b_email, b_title, b_content, b_views, b_created, bt_code
+	FROM Board
+	WHERE bt_code = #{bt_code}
+	ORDER BY b_code DESC
+</select>
+ -->
+<select id="selectAllNoticeBoard" resultType="com.Bizboard.vo.Board">
+	SELECT *
+	FROM Board
+	WHERE bt_code = #{btCode}
+	ORDER BY b_code DESC
+</select>
+
+
+<!-- 공지사항 insert -->
+<insert id="insertNoticeBoard" parameterType="com.Bizboard.vo.Board">
+	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+		INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
+		VALUES (board_seq.NEXTVAL, #{bId}, #{bName}, #{bEmail}, #{bDname}, #{bTitle}, #{bContent}, 0, sysdate, #{btCode})
+		INTO NOTICEBOARD (nb_code, b_code)
+		VALUES (notice_seq.NEXTVAL, board_seq.CURRVAL)
+	</trim>
+</insert>
+
+
+<select id="selectAllFileStorageBoard" resultType="com.Bizboard.vo.Board">
+	SELECT *
+	FROM Board
+	WHERE bt_code = #{btCode}
+	ORDER BY b_code DESC
+</select>
+
+<!-- 파일게시판 insert -->
+<insert id="insertFileStorageBoard" parameterType="com.Bizboard.vo.Board">
+	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+	INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
+		VALUES (board_seq.NEXTVAL, #{bId}, #{bName}, #{bEmail}, #{bDname}, #{bTitle}, #{bContent}, 0, sysdate, #{btCode})
+			
+     INTO FileStorageBoard (fb_code, b_code, fb_originfile, fb_savedfile, fb_filesize)
+    	VALUES (file_seq.NEXTVAL, board_seq.CURRVAL, '원본', '저장', 500) 
+  	</trim>
+  </insert>
+  
+</mapper>
