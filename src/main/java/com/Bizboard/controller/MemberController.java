@@ -53,6 +53,7 @@ public class MemberController {
 	public void myInfo(@AuthenticationPrincipal UserDetails user, Model model) {
 		System.out.println(user.getUsername());// 회원의 아이디 정보 
 		MemberAllData result = memberService.getOneMemberData(user.getUsername());
+		System.out.println(result);
 		model.addAttribute("memberData", result);
 		
 		

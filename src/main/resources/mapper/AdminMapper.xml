@@ -5,13 +5,17 @@
 
 
 <select id="getDeptList" resultType="com.Bizboard.vo.Dept">
-	select * from dept
+	select * from dept order by deptno asc
 </select>
 
 <insert id="deptInsert" parameterType="com.Bizboard.vo.Dept">
 	insert into dept(deptno,dname,loc) values(#{deptno},#{dname},#{loc})
 </insert>
 
+
+<update id="deptUpdate" parameterType="com.Bizboard.vo.Dept">
+	update dept set dname = #{dname} , loc = #{loc} where  deptno = #{deptno} 
+</update>
 
 
 

@@ -26,7 +26,8 @@ public class MemberAllData {
     private String fileOriginalName;
     private String fileStoredName;
     private String filePath;
-
+    private String dname;
+    private String loc;
     
 	
 }

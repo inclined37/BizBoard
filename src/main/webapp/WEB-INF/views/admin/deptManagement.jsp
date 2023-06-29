@@ -2,14 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
-<style>
-.pagination {
-    display: inline-block;
-}
-.pagination-link {
-    margin-right: 5px;
-}
-</style>
+
 
 <div class="container-fluid pt-4 px-2">
     <div class="row g-12 align-items-center justify-content-center">
@@ -117,7 +110,12 @@ $(document).ready(function(){
         var deptno = parentRow.find("th").text();
         
         var dname = parentRow.find("a").text();
-        var loc = parentRow.find("td").text();
+        //var loc = parentRow.find("td").text();
+        var loc = parentRow.find("td:nth-child(3)").text();
+        
+        console.log("***********************");
+        console.log(loc);
+        console.log("***********************");
         
         var editForm = $("<form class='deptEditForm mt-2'></form>");
         editForm.append("<input type='text' id='editDeptno' class='form-control mb-2 deptno' value='" + deptno + "' readonly>");
@@ -160,6 +158,8 @@ $(document).ready(function(){
             error: function(xhr) {
                 console.log("통신에러");
                 console.log(xhr.status + "에러코드");
+                alert()
+                
             }
         });
     });

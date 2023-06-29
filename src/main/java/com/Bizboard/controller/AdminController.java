@@ -38,5 +38,14 @@ public class AdminController {
 		
 		return "redirect:/member/noticeBoard";
 	}
+	
+	@GetMapping("memberManagement")
+	public void memberManagement() {
+		System.out.println("memberManagement 진입");
+		//총사원수를 알고있어야함
+		
+		
+		
+	}
 
 }

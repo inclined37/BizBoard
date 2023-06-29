@@ -46,11 +46,18 @@ public class ApiController {
     	System.out.println("*************************");
     	System.out.println(dept);
     	System.out.println("*************************");
-    	
-    	return new ResponseEntity<>(dept, HttpStatus.OK);
+    	int result = adminService.deptUpdate(dept);
+    	return new ResponseEntity<>(result, HttpStatus.OK);
     }
 	
     
+    @PostMapping("memberSearch")
+    public ResponseEntity<?> memberSearchList(){
+    	//회원 검색결과 리스트 를 반환해야함
+    	
+    	
+    	return new ResponseEntity<>("1", HttpStatus.OK);
+    }
     
     
 }

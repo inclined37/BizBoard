@@ -10,4 +10,6 @@ public interface AdminDao {
 	
 	public int deptInsert(Dept dept);
 	
+	public int deptUpdate(Dept dept);
+	
 }

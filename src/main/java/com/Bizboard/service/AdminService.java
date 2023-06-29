@@ -28,6 +28,12 @@ public class AdminService {
     	return dao.deptInsert(dept);
     }
     
+    public int deptUpdate(Dept dept) {
+    	AdminDao dao = sqlSession.getMapper(AdminDao.class);
+    	
+    	return dao.deptUpdate(dept);
+    }
+    
     
     
     
