@@ -3,55 +3,6 @@
 
 <mapper namespace="com.Bizboard.dao.MemberDao">
 
-	<!-- 파일업로드전 <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map"> 
-		<![CDATA[ INSERT ALL INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 
-		'ROLE_USER') INTO MEMBERSDETAIL (userid, empno, deptno, job, hiredate, birthday, 
-		sal,phonenumber,email) VALUES (#{membersDetail.userid}, #{membersDetail.empno}, 
-		#{membersDetail.deptno}, #{membersDetail.job}, #{membersDetail.hiredate}, 
-		#{membersDetail.birthday}, #{membersDetail.sal},#{membersDetail.phonenumber},#{membersDetail.email}) 
-		INTO members (userid, password, status) VALUES (#{member.userid}, #{member.password}, 
-		1) SELECT 1 FROM DUAL ]]> </insert> -->
-	<!-- sal 빼기전 <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map"> 
-		<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL"> INTO ROLLS (userid, 
-		role_name) VALUES (#{member.userid}, 'ROLE_USER') INTO MEMBERSDETAIL (userid, 
-		empno, membername , deptno, job, hiredate, birthday, sal, phonenumber, email 
-		<if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName 
-		!= null and membersDetail.filePath != null"> , fileoriginalname, filestoredname, 
-		filepath </if> ) VALUES (#{membersDetail.userid}, #{membersDetail.empno}, 
-		#{membersDetail.membername} ,#{membersDetail.deptno}, #{membersDetail.job}, 
-		#{membersDetail.hiredate}, #{membersDetail.birthday}, #{membersDetail.sal}, 
-		#{membersDetail.phonenumber}, #{membersDetail.email} <if test="membersDetail.fileOriginalName 
-		!= null and membersDetail.fileStoredName != null and membersDetail.filePath 
-		!= null"> , #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName}, 
-		#{membersDetail.filePath} </if> ) INTO members (userid, password, status) 
-		VALUES (#{member.userid}, #{member.password}, 1) </trim> </insert> -->
-	<!-- sal 제거 -->
-	<insert id="insertMembersAndMembersdetailAndRolls"
-		parameterType="map">
-		<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
-			INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 'ROLE_USER')
-			INTO MEMBERSDETAIL (userid, empno, membername , deptno, job,
-			hiredate, birthday, phonenumber, email
-			<if
-				test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
-				, fileoriginalname, filestoredname, filepath
-			</if>
-			)
-			VALUES (#{membersDetail.userid}, #{membersDetail.empno},
-			#{membersDetail.membername} ,#{membersDetail.deptno},
-			#{membersDetail.job}, #{membersDetail.hiredate},
-			#{membersDetail.birthday}, #{membersDetail.phonenumber},
-			#{membersDetail.email}
-			<if
-				test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
-				, #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName},
-				#{membersDetail.filePath}
-			</if>
-			)
-			INTO members (userid, password, status) VALUES (#{member.userid},
-			#{member.password}, 1)
-		</trim>
-	</insert>
 
 	<insert id="insertMembersAndMembersdetailAndRolls"
 		parameterType="map">
@@ -71,8 +22,7 @@
 			#{membersDetail.phonenumber}, #{membersDetail.email}
 			<if
 				test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
-				, #{membersDetail.fileOriginalName},
-				#{membersDetail.fileStoredName},
+				, #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName},
 				#{membersDetail.filePath}
 			</if>
 			)
@@ -90,25 +40,20 @@
 	<select id="getOneMemberData"
 		resultType="com.Bizboard.vo.MemberAllData">
 		SELECT m.userid, m.password, m.status,
-		md.empno,
-		md.membername, md.deptno, md.job,
-		md.hiredate, md.enddate, md.sal,
-		md.birthday,
+		md.empno, md.membername, md.deptno, md.job,
+		md.hiredate, md.enddate, md.sal, md.birthday,
 		md.phonenumber, md.tel, md.email, md.fileoriginalname,
 		md.filestoredname, md.filepath,
 		d.dname, d.loc
 		FROM members m
-		JOIN
-		membersdetail md ON m.userid = md.userid
-		JOIN dept d ON md.deptno =
-		d.deptno
+		JOIN membersdetail md ON m.userid = md.userid
+		JOIN dept d ON md.deptno = d.deptno
 		WHERE m.userid = #{userid}
 	</select>
 
-	<select id="idChk" parameterType="com.Bizboard.vo.Members"
-		resultType="int">
-		select count(*) from members where userid = #{userid}
-	</select>
+<select id="idChk" parameterType="com.Bizboard.vo.Members" resultType="int">
+	select count(*) from members where userid = #{userid}
+</select>
 
 
 
