@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.Bizboard.dao.MemberDao;
 import com.Bizboard.vo.MemberAllData;
-import com.Bizboard.vo.MemberSimpleData;
 import com.Bizboard.vo.Members;
 import com.Bizboard.vo.MembersDetail;
 
