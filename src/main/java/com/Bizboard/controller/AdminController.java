@@ -1,20 +1,29 @@
 package com.Bizboard.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Bizboard.service.AdminService;
 import com.Bizboard.service.NoticeBoardService;
 import com.Bizboard.vo.Board;
+import com.Bizboard.vo.MemberAllData;
 
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
 
 	@Autowired
-	private NoticeBoardService noticeBoardService; 
+	private NoticeBoardService noticeBoardService;
+	
+	@Autowired
+	private AdminService adminService;
 	
 	@GetMapping("main")
 	public void main() {
@@ -40,12 +49,30 @@ public class AdminController {
 	}
 	
 	@GetMapping("memberManagement")
-	public void memberManagement() {
-		System.out.println("memberManagement 진입");
-		//총사원수를 알고있어야함
-		
-		
-		
+	public String memberManagement(Model model, @RequestParam(defaultValue = "1") int page) {
+	    System.out.println("memberManagement 진입");
+	    // 총사원수를 알고있어야함
+	    int totalMemberCount = adminService.getTotalMemberCount();
+	    System.out.println(totalMemberCount);
+	    model.addAttribute("totalMemberCount", totalMemberCount);
+	    
+	    int pageSize = 10; // 페이지 크기
+	    int totalPage = (int) Math.ceil((double) totalMemberCount / pageSize); // 총 페이지 수
+	    
+	    if (page < 1) page = 1;
+	    if (page > totalPage) page = totalPage;
+	    
+	    int startRow = (page - 1) * pageSize; // 시작 행
+	    
+	    List<MemberAllData> list = adminService.getMemberAllDataPagingList(startRow, pageSize);
+	    System.out.println(list);
+	    model.addAttribute("memberList", list);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+	    
+	    return "admin/memberManagement";
+
 	}
+
 
 }

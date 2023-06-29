@@ -27,13 +27,22 @@ public class MemberService {
     }
     
     public MemberAllData getOneMemberData(String userid) {
-    	
     	MemberDao dao = sqlSession.getMapper(MemberDao.class);
     	
     	MemberAllData result = dao.getOneMemberData(userid);
     	
     	return result;
     }
+    
+    public int idChk(Members members) {
+    	MemberDao dao = sqlSession.getMapper(MemberDao.class);
+    	
+    	int result = dao.idChk(members);
+    	
+    	return result;
+    }
+    
+    
     
     
 }

@@ -17,7 +17,7 @@
   ]]>
 </insert>
  -->
-  
+  <!-- sal 빼기전 
   <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map">
     <trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
       INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 'ROLE_USER')
@@ -28,6 +28,25 @@
       ) 
       VALUES (#{membersDetail.userid}, #{membersDetail.empno}, #{membersDetail.membername} ,#{membersDetail.deptno}, #{membersDetail.job}, #{membersDetail.hiredate}, 
         #{membersDetail.birthday}, #{membersDetail.sal}, #{membersDetail.phonenumber}, #{membersDetail.email}
+        <if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
+          , #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName}, #{membersDetail.filePath}
+        </if>
+      )
+      INTO members (userid, password, status) VALUES (#{member.userid}, #{member.password}, 1)
+    </trim>
+  </insert>
+  -->
+  <!-- sal 제거 -->
+  <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map">
+    <trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+      INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 'ROLE_USER')
+      INTO MEMBERSDETAIL (userid, empno, membername , deptno, job, hiredate, birthday, phonenumber, email
+        <if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
+          , fileoriginalname, filestoredname, filepath
+        </if>
+      ) 
+      VALUES (#{membersDetail.userid}, #{membersDetail.empno}, #{membersDetail.membername} ,#{membersDetail.deptno}, #{membersDetail.job}, #{membersDetail.hiredate}, 
+        #{membersDetail.birthday}, #{membersDetail.phonenumber}, #{membersDetail.email}
         <if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
           , #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName}, #{membersDetail.filePath}
         </if>
@@ -60,6 +79,10 @@ FROM members m
 JOIN membersdetail md ON m.userid = md.userid
 JOIN dept d ON md.deptno = d.deptno
 WHERE m.userid = #{userid}
+</select>
+
+<select id="idChk" parameterType="com.Bizboard.vo.Members" resultType="int">
+	select count(*) from members where userid = #{userid}
 </select>
 
 

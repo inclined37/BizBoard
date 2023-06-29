@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
-
-
 <div class="container-fluid pt-4 px-2">
 	<div class="row g-12 align-items-center justify-content-center">
 		<div class="col-sm-12 col-xl-12">
@@ -25,24 +23,14 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<th scope="row">10</th>
-												<td>7781</td>
-												<td>비서실</td>
-												<td>이재훈</td>
-											</tr>
-											<tr>
-												<th scope="row">20</th>
-												<td>7782</td>
-												<td>사장실</td>
-												<td>김재훈</td>
-											</tr>
-											<tr>
-												<th scope="row">10</th>
-												<td>7783</td>
-												<td>비서실</td>
-												<td>김재훈</td>
-											</tr>
+											<c:forEach var="member" items="${memberList}">
+												<tr>
+													<td>${member.deptno}</td>
+													<td>${member.empno}</td>
+													<td>${member.dname}</td>
+													<td>${member.membername}</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -59,57 +47,86 @@
 						<option value="empno">사원번호</option>
 						<option value="deptno">부서번호</option>
 						<option value="membername">사원명</option>
-					</select><p>&nbsp;&nbsp;</p><input class="form-control border-0 mb-2 empSearchTag" type="number"
-						placeholder="Search" id="memberSearchTag">
+					</select>
+					<p>&nbsp;&nbsp;</p>
+					<input class="form-control border-0 mb-2 empSearchTag"
+						type="number" placeholder="Search" id="memberSearchTag">
 				</div>
+				<div class="d-flex justify-content-center mt-4">
+					<nav>
+						<ul class="pagination">
+							<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+								<a class="page-link"
+								href="/admin/memberManagement?page=${currentPage-1}"
+								tabindex="-1" aria-disabled="true">이전</a>
+							</li>
+							<c:forEach var="i" begin="1" end="${totalPage}">
+								<li class="page-item ${currentPage == i ? 'active' : ''}">
+									<a class="page-link" href="/admin/memberManagement?page=${i}">${i}</a>
+								</li>
+							</c:forEach>
+							<li
+								class="page-item ${currentPage == totalPage ? 'disabled' : ''}">
+								<a class="page-link"
+								href="/admin/memberManagement?page=${currentPage+1}">다음</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
 			</div>
 		</div>
 	</div>
 </div>
 <script>
 	$(document).ready(function() {
-	    $('#memberSearchTag').keypress(function(event) {
-	        if (event.keyCode === 13) { // 엔터 키를 눌렀을 때
-	            event.preventDefault(); // 기본 동작 중지
-	            var searchText = $(this).val(); // 입력된 검색어 가져오기
-	            var searchType = $('#empSearchSelectTag').val(); // 선택된 검색 유형 가져오기
-	            console.log('Search Text:', searchText);
-	            console.log('Search Type:', searchType);
-	            
-	            // Ajax 요청 실행
-	            $.ajax({
-	                type: 'POST', // 요청 방식 설정 (GET 또는 POST)
-	                url: '/api/memberSearch', // 서버 요청 경로 설정
-	                data: { // 전송할 데이터 설정
-	                    searchText: searchText,
-	                    searchType: searchType
-	                },
-	                success: function(result) {
-	                    console.log('통신 성공');
-	                    console.log(result);
-	                    
-	                    // 결과 처리 로직 작성
-	                },
-	                error: function(xhr) {
-	                    console.log('통신 에러');
-	                    console.log(xhr.status + '에러 코드');
-	                }
-	            });
-	        }
-	    });
+		$('#memberSearchTag').keypress(function(event) {
+			if (event.keyCode === 13) { // 엔터 키를 눌렀을 때
+				event.preventDefault(); // 기본 동작 중지
+				var searchText = $(this).val(); // 입력된 검색어 가져오기
+				var searchType = $('#empSearchSelectTag').val(); // 선택된 검색 유형 가져오기
+				console.log('Search Text:', searchText);
+				console.log('Search Type:', searchType);
 
-	$('#empSearchSelectTag').on('change', function() {
-		console.log('변경이벤트 실행');
-		var selectedValue = $(this).val();
-		console.log(selectedValue);
-		var inputElement = $('#memberSearchTag');
-		console.log(inputElement);
+				var memberSearchData = {
+					searchText : searchText,
+					searchType : searchType
+				}
 
-		if (selectedValue == 'empno' || selectedValue == 'deptno') {
-			inputElement.attr('type', 'number');
-		} else {
-			inputElement.attr('type', 'text');
-		}
+				// Ajax 요청 실행
+				$.ajax({
+					type : 'POST', // 요청 방식 설정 (GET 또는 POST)
+					url : '/api/memberSearch', // 서버 요청 경로 설정
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					data : JSON.stringify(memberSearchData),
+					success : function(result) {
+						console.log('통신 성공');
+						console.log(result);
+
+						// 결과 처리 로직 작성
+					},
+					error : function(xhr) {
+						console.log('통신 에러');
+						console.log(xhr.status + '에러 코드');
+					}
+				});
+			}
+		});
+
+		$('#empSearchSelectTag').on('change', function() {
+			console.log('변경이벤트 실행');
+			var selectedValue = $(this).val();
+			console.log(selectedValue);
+			var inputElement = $('#memberSearchTag');
+			console.log(inputElement);
+
+			if (selectedValue == 'empno' || selectedValue == 'deptno') {
+				inputElement.attr('type', 'number');
+			} else {
+				inputElement.attr('type', 'text');
+			}
+		});
 	});
 </script>
 
