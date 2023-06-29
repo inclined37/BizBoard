@@ -1,5 +1,10 @@
 package com.Bizboard.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +27,13 @@ public class NoticeBoardService {
     @Autowired
     private BoardType boardType;
 	
+    //공지게시판 전체 select
+    public List<Board> selectAllNoticeBoard(int bt_code) {
+    	BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+    	ArrayList<Board> blist = bdao.selectAllNoticeBoard(bt_code);
+    	return blist;
+    }
+    
 	//공지게시판 insert
 	public int insertNoticeBoard(Board board) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);

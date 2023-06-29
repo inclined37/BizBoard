@@ -3,6 +3,13 @@
 
 <mapper namespace="com.Bizboard.dao.BoardDao">
 
+<!-- 공지사항 전체 select -->
+<select id="selectAllNoticeBoard" resultType="com.Bizboard.vo.Board">
+	SELECT b_code, b_id, b_name, b_email, b_title, b_content, b_views, b_created, bt_code
+	FROM Board
+	WHERE bt_code = #{bt_code}
+</select>
+
 <!-- 공지사항 insert -->
 <insert id="insertNoticeBoard" parameterType="com.Bizboard.vo.Board">
 	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">

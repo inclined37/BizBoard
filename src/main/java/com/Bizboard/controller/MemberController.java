@@ -1,5 +1,8 @@
 package com.Bizboard.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Bizboard.service.MemberService;
+import com.Bizboard.service.NoticeBoardService;
+import com.Bizboard.vo.Board;
 import com.Bizboard.vo.MemberAllData;
 
 @Controller
@@ -17,6 +22,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private NoticeBoardService noticeBoardService;
 	
 	
 	@GetMapping("main")
@@ -24,9 +31,19 @@ public class MemberController {
 
 	}
 	
+	//공지사항 게시판 페이지 이동
 	@GetMapping("noticeBoard")
-	public void noticeBoardGet() {
+	public void noticeBoardGet(Model model) {
+		int bt_code = 1000;
+		List<Board> blist = noticeBoardService.selectAllNoticeBoard(bt_code);
+		try {
+			System.out.println(blist.get(0).toString());
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
+		model.addAttribute("data", blist);
 	}
 	
 	@GetMapping("AlbumBoard")
