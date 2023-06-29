@@ -48,10 +48,10 @@ public class AdminController {
 	public String noticeBoardInsert(Board board) {
 		System.out.println("noticeBoardInsert POST 요청 진입");
 		//사원의 추가정보 가져오기 -> 주입
-		MemberAllData mad = memberService.getOneMemberData(board.getBId());
-		board.setBName(mad.getMembername());
-		board.setBEmail(mad.getEmail());
-		board.setBDname(mad.getDname());
+		MemberAllData mad = memberService.getOneMemberData(board.getBid());
+		board.setBname(mad.getMembername());
+		board.setBemail(mad.getEmail());
+		board.setBdname(mad.getDname());
 		System.out.println(board.toString());
 		
 		int result = noticeBoardService.insertNoticeBoard(board);
