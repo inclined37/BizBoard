@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 @Component
 public class BoardForm {
-	private int bf_code;		//게시판 형식 코드
-	private String bf_name;		//게시판 형식 이름
+	private int bfCode;		//게시판 형식 코드
+	private String bfName;		//게시판 형식 이름
 }

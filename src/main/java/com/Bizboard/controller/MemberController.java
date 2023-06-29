@@ -32,17 +32,12 @@ public class MemberController {
 	}
 	
 	//공지사항 게시판 페이지 이동
-	@GetMapping("noticeBoard")
+	@RequestMapping("noticeBoard")
 	public void noticeBoardGet(Model model) {
-		int bt_code = 1000;
-		List<Board> blist = noticeBoardService.selectAllNoticeBoard(bt_code);
-		try {
-			System.out.println(blist.get(0).toString());
+		int btCode = 1000;
+		List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode);
+		System.out.println(blist.get(0));
 			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		
 		model.addAttribute("data", blist);
 	}
 	

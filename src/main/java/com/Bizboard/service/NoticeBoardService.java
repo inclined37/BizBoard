@@ -1,9 +1,6 @@
 package com.Bizboard.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +25,9 @@ public class NoticeBoardService {
     private BoardType boardType;
 	
     //공지게시판 전체 select
-    public List<Board> selectAllNoticeBoard(int bt_code) {
+    public List<Board> selectAllNoticeBoard(int btCode) {
     	BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-    	ArrayList<Board> blist = bdao.selectAllNoticeBoard(bt_code);
+    	List<Board> blist = bdao.selectAllNoticeBoard(btCode);
     	return blist;
     }
     
@@ -40,10 +37,10 @@ public class NoticeBoardService {
 		MemberDao mdao = sqlSession.getMapper(MemberDao.class);
 		
 		//공지사항 게시판의 게시판 기본정보 설정
-        boardForm.setBf_code(10);
-        boardType.setBt_code(1000);
+        boardForm.setBfCode(10);
+        boardType.setBtCode(1000);
         
-        board.setBt_code(boardType.getBt_code());
+        board.setBtCode(boardType.getBtCode());
         
         //int result = 0;
 		int result = bdao.insertNoticeBoard(board);
