@@ -6,17 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Bizboard.service.AdminService;
+import com.Bizboard.service.MemberService;
 import com.Bizboard.vo.Dept;
 import com.Bizboard.vo.MemberAllData;
 import com.Bizboard.vo.MemberSearchData;
+import com.Bizboard.vo.Members;
+
 
 @RestController
 @RequestMapping("/api/*")
@@ -25,6 +26,10 @@ public class ApiController {
 	@Autowired
 	private AdminService adminService;
 	
+
+	@Autowired
+	private MemberService memberService;
+
 	
     @GetMapping("deptList")
     public ResponseEntity<?> deptList(){
@@ -64,5 +69,17 @@ public class ApiController {
     	return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
+
+    @PostMapping("checkId")
+    public ResponseEntity<?> checkId(@RequestBody Members members){
+    	System.out.println("userid" + members.getUserid());
+    	int result = memberService.idChk(members);
+    	
+    	return new ResponseEntity<String>(String.valueOf(result), HttpStatus.OK);
+    }
     
+    
+    
+    
+
 }

@@ -25,66 +25,73 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private NoticeBoardService noticeBoardService;
+
 	@Autowired
 	private FileStorageBoardBoardService fileStorageBoardBoardService;
+
+
+	
+	
 
 	@GetMapping("main")
 	public void mainGet() {
 
 	}
-
-	// 공지사항 게시판 페이지 이동
-	@GetMapping("noticeBoard")
+	
+	//공지사항 게시판 페이지 이동
+	@RequestMapping("noticeBoard")
 	public void noticeBoardGet(Model model) {
 		int btCode = 1000;
 		List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode);
-		System.out.println(blist.get(0).toString());
-
+		System.out.println(blist.get(0));
+			
 		model.addAttribute("data", blist);
 	}
-
+	
 	@GetMapping("AlbumBoard")
 	public void albumBoardGet() {
-
+		
 	}
-
+	
 	@GetMapping("FileBoard")
 	public void fileBoardGet() {
-
+	
 	}
-
+	
 	@GetMapping("FileBoardInsert")
 	public void fileBoard() {
 		System.out.println("fileBoardInsert 페이지 이동");
 	}
-
+	
 	@PostMapping("FileBoardInsert")
 	public String fileBoardInsert(Board board) {
 		System.out.println("fileBoardInsert POST 요청 진입");
 
 		// 사원의 추가정보 가져오기 -> 주입
-		MemberAllData mad = memberService.getOneMemberData(board.getBId());
-		board.setBName(mad.getMembername());
-		board.setBEmail(mad.getEmail());
-		board.setBDname(mad.getDname());
+		MemberAllData mad = memberService.getOneMemberData(board.getBid());
+		board.setBname(mad.getMembername());
+		board.setBemail(mad.getEmail());
+		board.setBdname(mad.getDname());
 		System.out.println(board.toString());
 		
 		fileStorageBoardBoardService.insertFileStorageBoard(board);
 		return "redirect:/member/FileBoard";
 	}
-
+	
 	@GetMapping("searchResult")
 	public void searchResult() {
-
+		
 	}
-
+	
 	@GetMapping("myInfo")
 	public void myInfo(@AuthenticationPrincipal UserDetails user, Model model) {
-		System.out.println(user.getUsername());// 회원의 아이디 정보
+		System.out.println(user.getUsername());// 회원의 아이디 정보 
 		MemberAllData result = memberService.getOneMemberData(user.getUsername());
 		System.out.println(result);
 		model.addAttribute("memberData", result);
-
+		
+		
 	}
+	
 
 }

@@ -24,11 +24,14 @@
 <insert id="insertNoticeBoard" parameterType="com.Bizboard.vo.Board">
 	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
 		INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
-		VALUES (board_seq.NEXTVAL, #{bId}, #{bName}, #{bEmail}, #{bDname}, #{bTitle}, #{bContent}, 0, sysdate, #{btCode})
+
+		VALUES (board_seq.NEXTVAL, #{bid}, #{bname}, #{bemail}, #{bdname}, #{btitle}, #{bcontent}, 0, sysdate, #{btCode})
+
 		INTO NOTICEBOARD (nb_code, b_code)
 		VALUES (notice_seq.NEXTVAL, board_seq.CURRVAL)
 	</trim>
 </insert>
+
 
 
 <select id="selectAllFileStorageBoard" resultType="com.Bizboard.vo.Board">
@@ -49,4 +52,5 @@
   	</trim>
   </insert>
   
+
 </mapper>

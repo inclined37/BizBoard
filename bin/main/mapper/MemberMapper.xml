@@ -3,6 +3,7 @@
 
 <mapper namespace="com.Bizboard.dao.MemberDao">
 
+
 <!-- 파일업로드전
 <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map">
   <![CDATA[
@@ -63,6 +64,7 @@ WHERE m.userid = #{userid}
 </select>
 
 
+	
 
 
 

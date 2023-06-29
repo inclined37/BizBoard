@@ -22,6 +22,7 @@
 							</tr>
 						</thead>
 						<tbody>
+<<<<<<< HEAD
 							<tr>
 								<th scope="row">1</th>
 								<td>John</td>
@@ -47,16 +48,40 @@
 					</table>
 					<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 					<a class="btn btn-primary m-2" href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글작성</a>
+=======
+							<c:forEach var="board" items="${data}">
+								<tr>
+									<th scope="row">${board.bcode}</th>
+									<td>${board.btitle}</td>
+									<td>${board.bname}</td>
+									<td>${board.bcreated}</td>
+									<td>${board.bviews}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+						<a class="btn btn-primary m-2"
+							href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글작성</a>
+>>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
 					</se:authorize>
 				</div>
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
 	</div>
+=======
+</div>
+>>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
 
 
 
 
 
 
+<<<<<<< HEAD
 	<%@include file="../include/footer.jsp"%>
+=======
+<%@include file="../include/footer.jsp"%>
+>>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace

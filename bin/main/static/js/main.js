@@ -56,6 +56,15 @@
         nav : false
     });
 
+<<<<<<< HEAD
+=======
+    $('.nav-link').click(function() {
+		console.log("nav-item.nav-link 이벤 실행");
+        $('.nav-link.active').removeClass('active');
+        $(this).addClass('active');
+    });
+
+>>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
 	
 /*	
     // Worldwide Sales Chart

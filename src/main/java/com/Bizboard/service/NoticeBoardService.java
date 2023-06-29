@@ -18,6 +18,7 @@ public class NoticeBoardService {
 	@Autowired
 	private SqlSession sqlSession;
 
+
 	@Autowired
 	private BoardForm boardForm;
 
@@ -46,5 +47,6 @@ public class NoticeBoardService {
 		int result = bdao.insertNoticeBoard(board);
 		return result;
 	}
+
 
 }
