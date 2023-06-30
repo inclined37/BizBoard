@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Bizboard.dao.BoardDao;
-import com.Bizboard.dao.MemberDao;
 import com.Bizboard.vo.Board;
+import com.Bizboard.vo.BoardFileJoin;
 import com.Bizboard.vo.BoardForm;
 import com.Bizboard.vo.BoardType;
-import com.Bizboard.vo.NoticeBoard;
 
 @Service
-public class FileStorageBoardBoardService {
+public class FileStorageBoardService {
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -26,9 +25,9 @@ public class FileStorageBoardBoardService {
 	private BoardType boardType;
 
 	// 파일게시판 전체 select
-	public List<Board> selectAllFileStorageBoard(int btCode) {
+	public List<BoardFileJoin> selectAllFileStorageBoard(int btCode) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		List<Board> blist = bdao.selectAllFileStorageBoard(btCode);
+		List<BoardFileJoin> blist = bdao.selectAllFileStorageBoard(btCode);
 		return blist;
 	}
 

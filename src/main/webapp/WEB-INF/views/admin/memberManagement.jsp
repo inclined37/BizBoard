@@ -58,11 +58,9 @@
 							<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
 								<a class="page-link"
 								href="/admin/memberManagement?page=${currentPage-1}"
-<<<<<<< HEAD
-								tabindex="-1" aria-disabled="true">Previous</a>
-=======
+
 								tabindex="-1" aria-disabled="true">이전</a>
->>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
+
 							</li>
 							<c:forEach var="i" begin="1" end="${totalPage}">
 								<li class="page-item ${currentPage == i ? 'active' : ''}">
@@ -72,11 +70,9 @@
 							<li
 								class="page-item ${currentPage == totalPage ? 'disabled' : ''}">
 								<a class="page-link"
-<<<<<<< HEAD
-								href="/admin/memberManagement?page=${currentPage+1}">Next</a>
-=======
+
 								href="/admin/memberManagement?page=${currentPage+1}">다음</a>
->>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
+
 							</li>
 						</ul>
 					</nav>

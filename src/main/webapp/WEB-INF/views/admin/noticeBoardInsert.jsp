@@ -11,21 +11,19 @@
 				<h6 class="mb-4">공지사항 작성</h6>
 				<form action="noticeBoardInsert" method="post">
 					<div class="form-floating mb-3">
-						<input type="text" class="form-control" id="floatingInput" name="bTitle"
+						<input type="text" class="form-control" id="floatingInput" name="btitle"
 							placeholder="글제목"> <label for="floatingInput">글제목</label>
 					</div>
 					<div class="form-floating mb-3">
-						<input type="text" class="form-control" id="floatingInput" name="bId"
-<<<<<<< HEAD
-							placeholder="작성자" value="admin" readonly="readonly"> <label
-=======
+						<input type="text" class="form-control" id="floatingInput" name="bid"
+
 							placeholder="작성자" value="${pageContext.request.userPrincipal.name}" readonly="readonly"> <label
->>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
+
 							for="floatingInput">작성자</label>
 					</div>
 					<div class="form-floating">
 						<textarea class="form-control" placeholder="Leave a comment here"
-							id="floatingTextarea" name="bContent" style="height: 150px;"></textarea>
+							id="floatingTextarea" name="bcontent" style="height: 150px;"></textarea>
 						<label for="floatingTextarea">글내용</label>
 					</div>
 					<div class="form-floating">

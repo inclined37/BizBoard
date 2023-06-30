@@ -80,40 +80,31 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-<<<<<<< HEAD
+
                     <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>메인</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>게시판</a>
-=======
-                    <a href="#" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>메인</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-table me-2"></i>게시판</a>
->>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
+
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/member/noticeBoard" class="dropdown-item">-공지게시판</a>
                             <a href="${pageContext.request.contextPath}/member/AlbumBoard" class="dropdown-item">-앨범게시판</a>
                             <a href="${pageContext.request.contextPath}/member/FileBoard" class="dropdown-item">-파일공유게시판</a>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <!-- 
-=======
+
                     
                     <!-- 
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
->>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
+
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                      -->
                  <se:authorize access="hasAnyRole('ROLE_ADMIN')">
                     <div class="nav-item dropdown">
-<<<<<<< HEAD
+
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>관리자 메뉴</a>
-=======
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-keyboard me-2"></i>관리자 메뉴</a>
->>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
+
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/admin/main" class="dropdown-item">관리자 메인</a>
                             <a href="${pageContext.request.contextPath}/admin/deptManagement" class="dropdown-item">부서관리</a>

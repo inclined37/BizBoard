@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.Bizboard.service.FileStorageBoardBoardService;
+import com.Bizboard.service.FileStorageBoardService;
 import com.Bizboard.service.MemberService;
 import com.Bizboard.service.NoticeBoardService;
 import com.Bizboard.vo.Board;
+import com.Bizboard.vo.BoardFileJoin;
 import com.Bizboard.vo.MemberAllData;
 
 @Controller
@@ -27,7 +28,7 @@ public class MemberController {
 	private NoticeBoardService noticeBoardService;
 
 	@Autowired
-	private FileStorageBoardBoardService fileStorageBoardBoardService;
+	private FileStorageBoardService fileStorageBoardService;
 
 
 	
@@ -53,9 +54,14 @@ public class MemberController {
 		
 	}
 	
-	@GetMapping("FileBoard")
-	public void fileBoardGet() {
-	
+	//파일 게시판 리스트
+	@RequestMapping("FileBoard")
+	public void fileBoardGet(Model model) {
+		int btCode = 2000;
+		List<BoardFileJoin> blist = fileStorageBoardService.selectAllFileStorageBoard(btCode);
+		System.out.println(blist.get(0));
+			
+		model.addAttribute("data", blist);
 	}
 	
 	@GetMapping("FileBoardInsert")
@@ -74,7 +80,7 @@ public class MemberController {
 		board.setBdname(mad.getDname());
 		System.out.println(board.toString());
 		
-		fileStorageBoardBoardService.insertFileStorageBoard(board);
+		fileStorageBoardService.insertFileStorageBoard(board);
 		return "redirect:/member/FileBoard";
 	}
 	
