@@ -32,6 +32,13 @@ public class NoticeBoardService {
 		return blist;
 	}
 
+	//공지게시판 조건 select
+	public Board selectNoticeBoard(int bcode) {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		Board board = bdao.selectNoticeBoard(bcode);
+		return board;
+	}
+	
 	// 공지게시판 insert
 	public int insertNoticeBoard(Board board) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
