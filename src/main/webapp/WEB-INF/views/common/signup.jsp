@@ -37,12 +37,14 @@
 							id="floatingText" placeholder="jhondoe"> <label
 							for="floatingText">이름</label>
 					</div>
+					<!--
 					<div class="form-floating mb-2">
 						<input type="text" name="empno" class="form-control"
 							id="floatingText" placeholder="jhondoe"> <label
 							for="floatingText">사원번호</label>
 					</div>
-					<!-- 원본 
+					-->
+					<!--
 					<div class="form-floating mb-2">
 						<input type="text" name="deptno" class="form-control"
 							id="floatingText" placeholder="jhondoe"> <label
@@ -62,26 +64,14 @@
 							for="floatingText">직급</label>
 					</div>
 					<div class="form-floating mb-2">
-						<!-- 
-						<input type="date" name="hiredate" class="form-control "
-							id="floatingDate" placeholder="입사일"> <label
-							for="floatingDate">입사일</label>
-						 -->
 						<input type="date" name="hiredate" class="form-control "
 							id="floatingDate" placeholder="입사일"> <label
 							for="floatingDate">입사일</label>
 					</div>
-					<!-- sal 제거
->>>>>>> 5fe5a5cc18cb3c9626c7659e65af479438ef04cc
-				<div class="form-floating mb-2">
-					<input type="text" name="sal" class="form-control" id="floatingText"
-						placeholder="연봉"> <label for="floatingText">연봉</label>
-				</div>
-<<<<<<< HEAD
-
-				 
-=======
-				 -->
+					<div class="form-floating mb-2">
+						<input type="text" name="sal" class="form-control" id="floatingText"
+							placeholder="연봉"> <label for="floatingText">연봉</label>
+					</div>
 					<div class="form-floating mb-2">
 						<input type="date" name="birthday" class="form-control"
 							id="floatingDate" placeholder="생년월일"> <label
@@ -112,91 +102,61 @@
 			</div>
 		</div>
 	</div>
-
-
 </div>
+
 <script>
-	$(document)
-			.ready(
-					function() {
-						$('#signupForm')
-								.submit(
-										function(event) {
-											var emptyField = false;
-											$('input[type="text"]')
-													.each(
-															function() {
-																if ($(this)
-																		.val() === '') {
-																	emptyField = true;
-																	return false;
-																}
-															});
+$(document).ready(function() {
+	// 폼 제출 시 필드 유효성 검사
+	$('#signupForm').submit(function(event) {
+		var emptyField = false;
+		$('input[type="text"]').each(function() {
+			if ($(this).val() === '') {
+				emptyField = true;
+				return false;
+			}
+		});
 
-											if (emptyField) {
-												event.preventDefault(); // 폼 제출 막기
-												alert('입력 필드를 모두 채워주세요.');
-											} else if ($('#checkIdResult').css(
-													'color') === 'rgb(255, 0, 0)') {
-												event.preventDefault(); // 폼 제출 막기
-												alert('이미 사용 중인 아이디입니다. 아이디를 수정해주세요.');
-											}
-										});
+		if (emptyField) {
+			event.preventDefault(); // 폼 제출 막기
+			alert('입력 필드를 모두 채워주세요.');
+		} else if ($('#checkIdResult').css('color') === 'rgb(255, 0, 0)') {
+			event.preventDefault(); // 폼 제출 막기
+			alert('이미 사용 중인 아이디입니다. 아이디를 수정해주세요.');
+		}
+	});
 
-						$('#signupuserid')
-								.blur(
-										function() {
-											$('#checkIdResult').empty();
-											var userid = $(this).val();
-											if (userid.length < 5) {
-												alert('아이디가 짧습니다.');
-												$('#signupuserid').val(''); // 값초기화
-												return;
-											}
+	// 아이디 중복 체크
+	$('#signupuserid').blur(function() {
+		$('#checkIdResult').empty();
+		var userid = $(this).val();
+		if (userid.length < 5) {
+			alert('아이디가 짧습니다.');
+			$('#signupuserid').val(''); // 값 초기화
+			return;
+		}
 
-											console.log('아이디 중복체크 실행');
-											var userData = {
-												userid : userid
-											}
-											$
-													.ajax({
-														url : '/api/checkId',
-														type : 'POST',
-														contentType : "application/json; charset=utf-8",
-														dataType : "json",
-														data : JSON
-																.stringify(userData),
-														success : function(data) {
-															if (data == 1) {
-																$(
-																		'#checkIdResult')
-																		.text(
-																				'이미 사용 중인 아이디입니다.')
-																		.css(
-																				'color',
-																				'red');
-																$(
-																		'#signupuserid')
-																		.focus(); // 아이디 입력 필드로 포커스 이동
-															} else if (data == 0) {
-																$(
-																		'#checkIdResult')
-																		.text(
-																				'사용 가능한 아이디입니다.')
-																		.css(
-																				'color',
-																				'green');
-															}
-														}
-													});
-										});
-						$(".datepicker").datepicker({
-							changeMonth : true,
-							changeYear : true
-						});
-
-					});
+		console.log('아이디 중복체크 실행');
+		var userData = {
+			userid: userid
+		};
+		$.ajax({
+			url: '/api/checkId',
+			type: 'POST',
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			data: JSON.stringify(userData),
+			success: function(data) {
+				console.log(data)
+				if (data == 1) {
+					$('#checkIdResult').text('이미 사용 중인 아이디입니다.').css('color', 'red');
+					$('#signupuserid').focus(); // 아이디 입력 필드로 포커스 이동
+				} else if (data == 0) {
+					$('#checkIdResult').text('사용 가능한 아이디입니다.').css('color', 'green');
+				}
+			}
+		});
+	});
+});
 </script>
-
 
 <%@include file="../include/footer.jsp"%>

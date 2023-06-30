@@ -64,7 +64,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .dataSource(dataSource)
             //.usersByUsernameQuery("select userid, pwd as password, 1 enabled from member where userid=?") // 원본
             //.usersByUsernameQuery("select userid, password, 1 enabled from member where userid=?") //  안되는거
-            .usersByUsernameQuery("select userid, password, 1 status from members where userid=?")  //되는거
+            .usersByUsernameQuery("select userid, password, 1 enabled from members where userid=? and status=1")  //되는거
             //.usersByUsernameQuery("select userid, password from members where userid=?")  // 안되는거
             //.usersByUsernameQuery("select userid, password from members where userid=?") 안되는거 
             //.usersByUsernameQuery("select userid, password from members where userid=? and status = 1") 안되는거

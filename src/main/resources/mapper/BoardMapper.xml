@@ -95,4 +95,17 @@
 	</insert>
 
 
+<!-- 파일게시판 insert -->
+<insert id="insertFileStorageBoard" parameterType="com.Bizboard.vo.Board">
+	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+	INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
+		VALUES (board_seq.NEXTVAL, #{bid}, #{bname}, #{bemail}, #{bdname}, #{btitle}, #{bcontent}, 0, sysdate, #{btCode})
+			
+     INTO FileStorageBoard (fb_code, b_code, fb_originfile, fb_savedfile, fb_filesize)
+    	VALUES (file_seq.NEXTVAL, board_seq.CURRVAL, #{fbOriginfile}, #{fbSavedfile}, #{fbFilesize}) 
+  	</trim>
+  </insert>
+  
+
+
 </mapper>
