@@ -49,7 +49,6 @@ public class MemberController {
 	public void noticeBoardGet(Model model) {
 		int btCode = 1000;
 		List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode);
-		System.out.println(blist.get(0));
 			
 		model.addAttribute("data", blist);
 	}
