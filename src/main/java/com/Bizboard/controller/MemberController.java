@@ -69,8 +69,6 @@ public class MemberController {
 	public void fileBoardGet(Model model) {
 		int btCode = 2000;
 		List<BoardFileJoin> blist = fileStorageBoardService.selectAllFileStorageBoard(btCode);
-		System.out.println(blist.get(0));
-			
 		model.addAttribute("data", blist);
 	}
 	
