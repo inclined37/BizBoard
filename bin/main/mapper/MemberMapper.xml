@@ -15,7 +15,7 @@
 				, fileoriginalname, filestoredname, filepath
 			</if>
 			)
-			VALUES (#{membersDetail.userid}, #{membersDetail.empno},
+			VALUES (#{membersDetail.userid}, EMPNO_SEQ.NEXTVAL,
 			#{membersDetail.membername} ,#{membersDetail.deptno},
 			#{membersDetail.job}, #{membersDetail.hiredate},
 			#{membersDetail.birthday}, #{membersDetail.sal},

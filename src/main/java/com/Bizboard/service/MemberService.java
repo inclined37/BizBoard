@@ -3,6 +3,7 @@ package com.Bizboard.service;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Bizboard.dao.MemberDao;
 import com.Bizboard.vo.MemberAllData;
@@ -14,7 +15,8 @@ public class MemberService {
 
     @Autowired
     private SqlSession sqlSession;
-
+    
+    @Transactional(rollbackFor = Exception.class)
     public int memberInsert(Members member, MembersDetail membersDetail) {
         MemberDao dao = sqlSession.getMapper(MemberDao.class);
 

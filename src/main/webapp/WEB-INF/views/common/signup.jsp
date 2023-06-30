@@ -35,11 +35,13 @@
 							id="floatingText" placeholder="jhondoe"> <label
 							for="floatingText">이름</label>
 					</div>
+					<!-- 
 					<div class="form-floating mb-2">
 						<input type="text" name="empno" class="form-control"
 							id="floatingText" placeholder="jhondoe"> <label
 							for="floatingText">사원번호</label>
 					</div>
+					 -->
 					<!-- 원본 
 					<div class="form-floating mb-2">
 						<input type="text" name="deptno" class="form-control"
@@ -64,6 +66,7 @@
 							id="floatingDate" placeholder="입사일"> <label
 							for="floatingDate">입사일</label>
 					</div>
+
 					<!-- sal 제거
 				<div class="form-floating mb-2">
 					<input type="text" name="sal" class="form-control" id="floatingText"
@@ -105,6 +108,7 @@
 </div>
 <script>
 $(document).ready(function() {
+	
     $('#signupForm').submit(function(event) {
         var emptyField = false;
         $('input[type="text"]').each(function() {
