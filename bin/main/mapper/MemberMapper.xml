@@ -56,6 +56,7 @@
 	JOIN membersdetail md
 	ON m.userid = md.userid
 	WHERE m.userid = #{userid}
+<<<<<<< HEAD
 </select>
  -->
 <select id="getOneMemberData" resultType="com.Bizboard.vo.MemberAllData">
@@ -70,6 +71,9 @@ JOIN membersdetail md ON m.userid = md.userid
 JOIN dept d ON md.deptno = d.deptno
 WHERE m.userid = #{userid}
 </select>
+
+
+	
 
 <select id="idChk" parameterType="com.Bizboard.vo.Members" resultType="int">
 	select count(*) from members where userid=#{userid}

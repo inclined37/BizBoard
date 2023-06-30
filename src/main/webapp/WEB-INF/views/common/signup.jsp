@@ -68,12 +68,10 @@
 							id="floatingDate" placeholder="입사일"> <label
 							for="floatingDate">입사일</label>
 					</div>
-					<!--
 					<div class="form-floating mb-2">
 						<input type="text" name="sal" class="form-control" id="floatingText"
 							placeholder="연봉"> <label for="floatingText">연봉</label>
 					</div>
-					-->
 					<div class="form-floating mb-2">
 						<input type="date" name="birthday" class="form-control"
 							id="floatingDate" placeholder="생년월일"> <label
