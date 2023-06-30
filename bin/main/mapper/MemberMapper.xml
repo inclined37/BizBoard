@@ -31,29 +31,35 @@
 		</trim>
 	</insert>
 
-	<!-- <select id="getOneMemberData" resultType="com.Bizboard.vo.MemberAllData"> 
-		SELECT m.userid, m.password, m.status, md.empno, md.membername, md.deptno, 
-		md.job, md.hiredate, md.enddate, md.sal, md.birthday, md.phonenumber, md.tel, 
-		md.email, md.fileoriginalname, md.filestoredname, md.filepath FROM members 
-		m JOIN membersdetail md ON m.userid = md.userid WHERE m.userid = #{userid} 
-		</select> -->
-	<select id="getOneMemberData"
-		resultType="com.Bizboard.vo.MemberAllData">
-		SELECT m.userid, m.password, m.status,
-		md.empno, md.membername, md.deptno, md.job,
-		md.hiredate, md.enddate, md.sal, md.birthday,
-		md.phonenumber, md.tel, md.email, md.fileoriginalname,
-		md.filestoredname, md.filepath,
-		d.dname, d.loc
-		FROM members m
-		JOIN membersdetail md ON m.userid = md.userid
-		JOIN dept d ON md.deptno = d.deptno
-		WHERE m.userid = #{userid}
-	</select>
 
-<select id="idChk" parameterType="com.Bizboard.vo.Members" resultType="int">
-	select count(*) from members where userid = #{userid}
+<!-- 
+<select id="getOneMemberData" resultType="com.Bizboard.vo.MemberAllData">
+	SELECT m.userid, m.password, m.status, 
+	       md.empno, md.membername, md.deptno, md.job, 
+	       md.hiredate, md.enddate, md.sal, md.birthday, 
+	       md.phonenumber, md.tel, md.email, md.fileoriginalname, 
+	       md.filestoredname, md.filepath
+	FROM members m
+	JOIN membersdetail md
+	ON m.userid = md.userid
+	WHERE m.userid = #{userid}
 </select>
+ -->
+<select id="getOneMemberData" resultType="com.Bizboard.vo.MemberAllData">
+SELECT m.userid, m.password, m.status, 
+       md.empno, md.membername, md.deptno, md.job, 
+       md.hiredate, md.enddate, md.sal, md.birthday, 
+       md.phonenumber, md.tel, md.email, md.fileoriginalname, 
+       md.filestoredname, md.filepath,
+       d.dname, d.loc
+FROM members m
+JOIN membersdetail md ON m.userid = md.userid
+JOIN dept d ON md.deptno = d.deptno
+WHERE m.userid = #{userid}
+</select>
+
+
+	
 
 
 

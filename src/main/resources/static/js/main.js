@@ -56,11 +56,13 @@
         nav : false
     });
 
+
     $('.nav-link').click(function() {
 		console.log("nav-item.nav-link 이벤 실행");
         $('.nav-link.active').removeClass('active');
         $(this).addClass('active');
     });
+
 
 	
 /*	

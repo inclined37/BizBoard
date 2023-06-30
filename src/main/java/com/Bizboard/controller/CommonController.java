@@ -30,9 +30,11 @@ public class CommonController {
 
 	@Autowired
 	private MemberService memberService;
+
 	
 	@Autowired
 	private AdminService adminService;
+
 
 	@Value("${file.upload.directory.profile}")
 	private String uploadDirectory;
@@ -48,6 +50,7 @@ public class CommonController {
 	}
 
 	@GetMapping("signup")
+
 	public void signup(Model model) {
 		
 		List<Dept> deptList= adminService.getDeptList();
@@ -55,6 +58,7 @@ public class CommonController {
 		//부서목록
 		model.addAttribute("deptList", deptList);
 		
+
 	}
 
 	@PostMapping("signup")

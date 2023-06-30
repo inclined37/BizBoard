@@ -35,6 +35,10 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         User user = (User) authentication.getPrincipal();
         String username = user.getUsername();
         // username을 사용하여 추가적인 사용자 데이터를 불러옵니다.
+
+        System.out.println("**********************");
+        System.out.println(username);
+        System.out.println("**********************");
         MemberAllData result = memberService.getOneMemberData(username);
         // 세션에 사용자 데이터를 저장합니다.
         HttpSession session = request.getSession();
@@ -44,7 +48,9 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         if(result.getFilePath() != null) {
         	session.setAttribute("profileUrl", result.getFilePath()+ File.separator + result.getFileStoredName());        
         }
+
         
+
         if (response.isCommitted()) {
             return;
         }
