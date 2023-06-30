@@ -25,7 +25,7 @@
 							<c:forEach var="board" items="${data}">
 								<tr>
 									<th scope="row">${board.bcode}</th>
-									<td>${board.btitle}</td>
+									<td><a href="${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}">${board.btitle}</a></td>
 									<td>${board.bname}</td>
 									<td>${board.bcreated}</td>
 									<td>${board.bviews}</td>
@@ -33,6 +33,9 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					<c:if test="${empty data}">
+						<div class="container-fluid pt-4 pb-4">등록된 게시물이 없습니다</div>
+					</c:if>
 					<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 						<a class="btn btn-primary m-2"
 							href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글작성</a>

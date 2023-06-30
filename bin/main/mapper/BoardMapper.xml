@@ -57,6 +57,12 @@
 		    b_updated = SYSDATE
 		WHERE b_code = #{bcode}
 	</update>
+	
+	<delete id="deleteNoticeBoard">
+		DELETE 
+		FROM Board 
+		WHERE b_code = #{bcode}
+	</delete>
 
 	<select id="selectAllFileStorageBoard"
 		resultType="com.Bizboard.vo.BoardFileJoin">

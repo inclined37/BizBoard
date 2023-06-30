@@ -40,12 +40,10 @@ public class MemberController {
 	}
 	
 	//공지사항 게시판 페이지 이동
-	@RequestMapping("noticeBoard")
+	@GetMapping("noticeBoard")
 	public void noticeBoardGet(Model model) {
 		int btCode = 1000;
 		List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode);
-		System.out.println(blist.get(0));
-			
 		model.addAttribute("data", blist);
 	}
 	
@@ -53,7 +51,6 @@ public class MemberController {
 	@GetMapping("noticeBoardDetail")
 	public void noticeBoardDetailGet(int bcode, Model model) {
 		Board board = noticeBoardService.selectNoticeBoard(bcode);
-		
 		model.addAttribute("data", board);
 	}
 	

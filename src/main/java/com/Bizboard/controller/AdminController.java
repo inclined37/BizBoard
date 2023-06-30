@@ -67,6 +67,13 @@ public class AdminController {
 		return "redirect:/member/noticeBoard";
 	}
 	
+	@GetMapping("noticeBoardDelete")
+	public String noticeBoardDelete(int bcode) {
+		System.out.println("noticeBoardDelete GET 요청 진입");
+		int result = noticeBoardService.deleteNoticeBoard(bcode);
+		return "redirect:/member/noticeBoard";
+	}
+	
 	@GetMapping("memberManagement")
 	public String memberManagement(Model model, @RequestParam(defaultValue = "1") int page) {
 	    System.out.println("memberManagement 진입");

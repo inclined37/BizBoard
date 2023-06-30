@@ -63,5 +63,13 @@ public class NoticeBoardService {
 		
 		return result;
 	}
-
+	
+	//공지게시판 delete
+	public int deleteNoticeBoard(int bcode) {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		int result = bdao.deleteNoticeBoard(bcode);
+		
+		return result;
+	}
+	
 }
