@@ -60,6 +60,13 @@ public class AdminController {
 		return "redirect:/member/noticeBoard";
 	}
 	
+	@PostMapping("noticeBoardUpdate")
+	public String noticeBoardUpdate(Board board) {
+		System.out.println("noticeBoardUpdate POST 요청 진입");
+		int result = noticeBoardService.updateNoticeBoard(board);
+		return "redirect:/member/noticeBoard";
+	}
+	
 	@GetMapping("memberManagement")
 	public String memberManagement(Model model, @RequestParam(defaultValue = "1") int page) {
 	    System.out.println("memberManagement 진입");

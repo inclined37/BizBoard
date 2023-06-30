@@ -19,7 +19,6 @@ public interface BoardDao {
 	// 공지형 게시판 insert
 	public int insertNoticeBoard(Board board);
 	
-	
 	// 공지형 게시판 update
 	public int updateNoticeBoard(Board board);
 	
