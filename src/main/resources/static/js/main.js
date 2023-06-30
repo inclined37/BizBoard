@@ -107,7 +107,7 @@
 	});
 
 	// 검색 조건 변경시 (사원번호,부서번호,사원명) input 태그 속성 변경 -memberManagement.jsp
-	$('#empSearchSelectTag').on('change', function() {
+	$('.empSearchSelectTag').on('change', function() {
 		console.log('변경이벤트 실행');
 		var selectedValue = $(this).val();
 		console.log(selectedValue);

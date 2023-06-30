@@ -41,7 +41,7 @@
 				</div>
 				<div id="memberSearchResults" class="mt-4"></div>
 				<div class="d-none d-md-flex ms-4">
-					<select id="empSearchSelectTag"
+					<select class="empSearchSelectTag"
 						class="form-select form-select-sm mb-2 form-control"
 						aria-label=".form-select-sm example">
 						<option value="" disabled="disabled">--검색--</option>

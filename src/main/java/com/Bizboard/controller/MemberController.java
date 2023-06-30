@@ -22,6 +22,7 @@ import com.Bizboard.utils.FileUtils;
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
 import com.Bizboard.vo.MemberAllData;
+import com.Bizboard.vo.ProjectBoard;
 
 @Controller
 @RequestMapping("/member/*")
@@ -129,5 +130,19 @@ public class MemberController {
 		
 	}
 	
+	@GetMapping("projectAdd")
+	public void projectAdd() {
+		
+		
+	} 
+	
+	@PostMapping("createProject")
+	public String createProject(ProjectBoard projectBoard) {
+		
+		System.out.println(projectBoard);
+		
+		
+		return "member/main";
+	}
 
 }

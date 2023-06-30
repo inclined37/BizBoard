@@ -89,6 +89,10 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
+                	<button onclick='window.location="${pageContext.request.contextPath}/member/projectAdd"' type="button" class="btn btn-primary rounded-pill m-2">프로젝트 생성</button>
+                	<!-- 
+                	<button type="button" class="btn btn-secondary rounded-pill m-2">프로젝트 생성</button>
+                	 -->
                     <a href="#" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>메인</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-table me-2"></i>게시판</a>
