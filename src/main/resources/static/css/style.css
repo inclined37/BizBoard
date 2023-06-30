@@ -17,7 +17,6 @@ body {
     font-family: 'Jalnan' , sans-serif;
 }
 
-
 .back-to-top {
     position: fixed;
     display: none;
@@ -287,5 +286,10 @@ body {
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+/*이재훈 별도 추가*/
+.memberTableBodyTdTag {
+	color:  #009CFF;
+	cursor:pointer;	
 }
 

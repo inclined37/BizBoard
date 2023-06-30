@@ -68,7 +68,7 @@ public class AdminController {
 	    System.out.println(totalMemberCount);
 	    model.addAttribute("totalMemberCount", totalMemberCount);
 	    
-	    int pageSize = 10; // 페이지 크기
+	    int pageSize = 5; // 페이지 크기
 	    int totalPage = (int) Math.ceil((double) totalMemberCount / pageSize); // 총 페이지 수
 	    
 	    if (page < 1) page = 1;

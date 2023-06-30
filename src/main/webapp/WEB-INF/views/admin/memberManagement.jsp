@@ -22,11 +22,11 @@
 												<th scope="col">이름</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="memberTableBody">
 											<c:forEach var="member" items="${memberList}">
 												<tr>
 													<td>${member.deptno}</td>
-													<td>${member.empno}</td>
+													<td class="memberTableBodyTdTag">${member.empno}</td>
 													<td>${member.dname}</td>
 													<td>${member.membername}</td>
 												</tr>
@@ -53,7 +53,7 @@
 					<input class="form-control border-0 mb-2 empSearchTag"
 						type="number" placeholder="Search" id="memberSearchTag">
 				</div>
-				<div class="d-flex justify-content-center mt-4">
+				<div id="memberManagementPagingDiv" class="d-flex justify-content-center mt-4">
 					<nav>
 						<ul class="pagination">
 							<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
@@ -79,68 +79,4 @@
 		</div>
 	</div>
 </div>
-<script>
-	$(document).ready(function() {
-		
-		// 사원목록 불러오기 
-		$('#adminPageGetMemberList').on('click',function(e){
-			e.preventDefault(); // 기존이벤트 제거
-			window.location='${pageContext.request.contextPath}/admin/memberManagement';
-		});
-		
-		
-		
-		
-		// 회원검색시
-		$('#memberSearchTag').keypress(function(event) {
-			if (event.keyCode === 13) { // 엔터 키를 눌렀을 때
-				event.preventDefault(); // 기본 동작 중지
-				var searchText = $(this).val(); // 입력된 검색어 가져오기
-				var searchType = $('#empSearchSelectTag').val(); // 선택된 검색 유형 가져오기
-				console.log('Search Text:', searchText);
-				console.log('Search Type:', searchType);
-
-				var memberSearchData = {
-					searchText : searchText,
-					searchType : searchType
-				}
-
-				// Ajax 요청 실행
-				$.ajax({
-					type : 'POST', // 요청 방식 설정 (GET 또는 POST)
-					url : '/api/memberSearch', // 서버 요청 경로 설정
-					contentType : "application/json; charset=utf-8",
-					dataType : "json",
-					data : JSON.stringify(memberSearchData),
-					success : function(result) {
-						console.log('통신 성공');
-						console.log(result);
-
-						// 결과 처리 로직 작성
-					},
-					error : function(xhr) {
-						console.log('통신 에러');
-						console.log(xhr.status + '에러 코드');
-					}
-				});
-			}
-		});
-
-		$('#empSearchSelectTag').on('change', function() {
-			console.log('변경이벤트 실행');
-			var selectedValue = $(this).val();
-			console.log(selectedValue);
-			var inputElement = $('#memberSearchTag');
-			console.log(inputElement);
-
-			if (selectedValue == 'empno' || selectedValue == 'deptno') {
-				inputElement.attr('type', 'number');
-			} else {
-				inputElement.attr('type', 'text');
-			}
-		});
-	});
-</script>
-
-
 <%@include file="../include/footer.jsp"%>
