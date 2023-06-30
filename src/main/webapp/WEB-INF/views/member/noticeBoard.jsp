@@ -22,27 +22,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>John</td>
-								<td>Doe</td>
-								<td>jhon@email.com</td>
-								<td>1</td>
-							</tr>
+							<c:forEach var="board" items="${data}">
+								<tr>
+									<th scope="row">${board.bcode}</th>
+									<td>${board.btitle}</td>
+									<td>${board.bname}</td>
+									<td>${board.bcreated}</td>
+									<td>${board.bviews}</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 					<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-					<a class="btn btn-primary m-2" href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글작성</a>
+						<a class="btn btn-primary m-2"
+							href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글작성</a>
 					</se:authorize>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+</div>
 
 
 
 
 
 
-	<%@include file="../include/footer.jsp"%>
+<%@include file="../include/footer.jsp"%>

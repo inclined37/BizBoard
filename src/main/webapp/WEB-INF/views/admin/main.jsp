@@ -2,6 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
+
+	
+	<h1>관리자 메뉴</h1>
+
+
+
+
 <div class="container-fluid pt-4 px-4">
 	<div class="row h-100 align-items-center justify-content-center"
 		style="min-height: 100vh;">
@@ -13,6 +20,7 @@
 		</div>
 	</div>
 </div>
+
 
 
 

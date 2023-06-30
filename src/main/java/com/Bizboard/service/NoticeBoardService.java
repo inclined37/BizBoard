@@ -17,33 +17,44 @@ public class NoticeBoardService {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
-	@Autowired
-    private BoardForm boardForm;
 
-    @Autowired
-    private BoardType boardType;
+
+	@Autowired
+	private BoardForm boardForm;
+
+	@Autowired
+	private BoardType boardType;
+
+	// 공지게시판 전체 select
+	public List<Board> selectAllNoticeBoard(int btCode) {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		List<Board> blist = bdao.selectAllNoticeBoard(btCode);
+		return blist;
+	}
+
+	//공지게시판 조건 select
+	public Board selectNoticeBoard(int bcode) {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		bdao.increaseBoardViews(bcode);
+		Board board = bdao.selectNoticeBoard(bcode);
+		return board;
+	}
 	
-    //공지게시판 전체 select
-    public List<Board> selectAllNoticeBoard(int btCode) {
-    	BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-    	List<Board> blist = bdao.selectAllNoticeBoard(btCode);
-    	return blist;
-    }
-    
-	//공지게시판 insert
+	// 공지게시판 insert
 	public int insertNoticeBoard(Board board) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		MemberDao mdao = sqlSession.getMapper(MemberDao.class);
-		
-		//공지사항 게시판의 게시판 기본정보 설정
-        boardForm.setBfCode(10);
-        boardType.setBtCode(1000);
-        
-        board.setBtCode(boardType.getBtCode());
-        
-        //int result = 0;
+		//MemberDao mdao = sqlSession.getMapper(MemberDao.class);
+
+		// 공지사항 게시판의 게시판 기본정보 설정
+		boardForm.setBfCode(10);
+		boardType.setBtCode(1000);
+
+		board.setBtCode(boardType.getBtCode());
+
+		// int result = 0;
 		int result = bdao.insertNoticeBoard(board);
 		return result;
 	}
+
+
 }

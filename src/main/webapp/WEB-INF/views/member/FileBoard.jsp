@@ -23,42 +23,29 @@
 							</tr>
 						</thead>
 						<tbody>
+						
+						<c:forEach var="board" items="${data}">
 							<tr>
-								<th scope="row">1</th>
-								<td>2월 10일 정신교육자료 입니다</td>
-								<td>kosa</td>
-								<td>2021.02.10</td>
-								<td>4</td>
-								<td>aa.jpg</td>
+								<th scope="row">${board.bcode}</th>
+								<td>${board.btitle}</td>
+								<td>${board.bname}</td>
+								<td>${board.bcreated}</td>
+								<td>${board.bviews}</td>
+								<td>${board.fbOriginfile}</td>
 							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>바이러스 아닙니다. 좋은 자료^^</td>
-								<td>kosa2</td>
-								<td>2021.02.15</td>
-								<td>4</td>
-								<td>vvv.jpg</td>
-								
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>개발에 도움되는 툴 입니다.</td>
-								<td>kosa</td>
-								<td>2021.02.19</td>
-								<td>4</td>
-								<td>tool.zip</td>
-							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
-					
+
 					<se:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-					<a class="btn btn-primary m-2" href="${pageContext.request.contextPath}/member/FileBoardInsert">글작성</a>
+						<a class="btn btn-primary m-2"
+							href="${pageContext.request.contextPath}/member/FileBoardInsert">글작성</a>
 					</se:authorize>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+</div>
 
 
-	<%@include file="../include/footer.jsp"%>
+<%@include file="../include/footer.jsp"%>
