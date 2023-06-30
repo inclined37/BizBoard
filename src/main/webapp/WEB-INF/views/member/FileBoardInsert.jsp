@@ -10,7 +10,7 @@
 			<div class="bg-light rounded h-100 p-4">
 				<h3 class="mb-4">파일공유게시판 글쓰기</h3>
 
-				<form action="${pageContext.request.contextPath}/member/FileBoardInsert" method="post">
+				<form action="${pageContext.request.contextPath}/member/FileBoardInsert" method="post" enctype="multipart/form-data">
 					<div class="form-floating mb-3">
 						<input type="text" class="form-control" id="floatingInput" name="btitle"
 							placeholder="글제목"> <label for="floatingInput">글제목</label>
@@ -31,7 +31,7 @@
 					<div class="form-floating mb-2">
 						<input type="file" name="file" class="form-control"
 
-							id="floatingFile" name="fbOriginfile" placeholder="파일선택"> <label
+							id="floatingFile" name="fbOriginfile" placeholder="파일선택" > <label
 
 							for="floatingFile">파일 </label>
 					</div>

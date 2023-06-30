@@ -21,7 +21,7 @@ public interface BoardDao {
 	public List<BoardFileJoin> selectAllFileStorageBoard(int btCode);
 
 	// 파일형 게시판 insert
-	public int insertFileStorageBoard(Board board);
+	public int insertFileStorageBoard(BoardFileJoin board);
 
 
 }

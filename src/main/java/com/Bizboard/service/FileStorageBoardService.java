@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Bizboard.dao.BoardDao;
-import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
 import com.Bizboard.vo.BoardForm;
 import com.Bizboard.vo.BoardType;
@@ -32,7 +31,7 @@ public class FileStorageBoardService {
 	}
 
 	// 파일게시판 insert
-	public int insertFileStorageBoard(Board board) {
+	public int insertFileStorageBoard(BoardFileJoin board) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
 		// MemberDao mdao = sqlSession.getMapper(MemberDao.class);
 

@@ -49,7 +49,7 @@ ORDER BY B.b_code DESC
 		VALUES (board_seq.NEXTVAL, #{bid}, #{bname}, #{bemail}, #{bdname}, #{btitle}, #{bcontent}, 0, sysdate, #{btCode})
 			
      INTO FileStorageBoard (fb_code, b_code, fb_originfile, fb_savedfile, fb_filesize)
-    	VALUES (file_seq.NEXTVAL, board_seq.CURRVAL, '원본', '저장', 500) 
+    	VALUES (file_seq.NEXTVAL, board_seq.CURRVAL, #{fbOriginfile}, #{fbSavedfile}, #{fbFilesize}) 
   	</trim>
   </insert>
   
