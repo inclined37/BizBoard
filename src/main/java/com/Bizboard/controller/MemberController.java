@@ -54,6 +54,14 @@ public class MemberController {
 		model.addAttribute("data", blist);
 	}
 	
+	//공지사항 글 상세보기 페이지 이동
+	@GetMapping("noticeBoardDetail")
+	public void noticeBoardDetailGet(int bcode, Model model) {
+		Board board = noticeBoardService.selectNoticeBoard(bcode);
+		
+		model.addAttribute("data", board);
+	}
+	
 	@GetMapping("AlbumBoard")
 	public void albumBoardGet() {
 		

@@ -10,7 +10,7 @@
 				<div class="container-fluid pt-4 px-4">
 					<div class="row g-4">
 						<div class="col-12">
-							<div class="bg-light rounded h-100 p-4">
+							<div class="bg-light rounded h-100 p-4 ">
 								<h3 class="mb-4">사원목록</h3>
 								<div class="table-responsive">
 									<table class="table">
@@ -34,6 +34,7 @@
 										</tbody>
 									</table>
 								</div>
+								<button type="button" id="adminPageGetMemberList" class="btn btn-outline-primary m-2">목록불러오기</button>
 							</div>
 						</div>
 					</div>
@@ -80,6 +81,17 @@
 </div>
 <script>
 	$(document).ready(function() {
+		
+		// 사원목록 불러오기 
+		$('#adminPageGetMemberList').on('click',function(e){
+			e.preventDefault(); // 기존이벤트 제거
+			window.location='${pageContext.request.contextPath}/admin/memberManagement';
+		});
+		
+		
+		
+		
+		// 회원검색시
 		$('#memberSearchTag').keypress(function(event) {
 			if (event.keyCode === 13) { // 엔터 키를 눌렀을 때
 				event.preventDefault(); // 기본 동작 중지

@@ -42,12 +42,13 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         MemberAllData result = memberService.getOneMemberData(username);
         // 세션에 사용자 데이터를 저장합니다.
         HttpSession session = request.getSession();
-        System.out.println("**********************");
-        System.out.println(result.getFilePath()+ File.separator + result.getFileStoredName());
-        System.out.println("**********************");
-        session.setAttribute("profileUrl", result.getFilePath()+ File.separator + result.getFileStoredName());        
-        
-        
+        System.out.println("***********");
+        System.out.println("파일 경로 주소"+result.getFilePath());
+        System.out.println("***********");
+        if(result.getFilePath() != null) {
+        	session.setAttribute("profileUrl", result.getFilePath()+ File.separator + result.getFileStoredName());        
+        }
+
         
 
         if (response.isCommitted()) {

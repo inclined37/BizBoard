@@ -4,6 +4,32 @@
 <mapper namespace="com.Bizboard.dao.MemberDao">
 
 
+	<insert id="insertMembersAndMembersdetailAndRolls"
+		parameterType="map">
+		<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+			INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 'ROLE_USER')
+			INTO MEMBERSDETAIL (userid, empno, membername , deptno, job,
+			hiredate, birthday, sal, phonenumber, email
+			<if
+				test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
+				, fileoriginalname, filestoredname, filepath
+			</if>
+			)
+			VALUES (#{membersDetail.userid}, EMPNO_SEQ.NEXTVAL,
+			#{membersDetail.membername} ,#{membersDetail.deptno},
+			#{membersDetail.job}, #{membersDetail.hiredate},
+			#{membersDetail.birthday}, #{membersDetail.sal},
+			#{membersDetail.phonenumber}, #{membersDetail.email}
+			<if
+				test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
+				, #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName},
+				#{membersDetail.filePath}
+			</if>
+			)
+			INTO members (userid, password, status) VALUES (#{member.userid},
+			#{member.password}, 1)
+		</trim>
+	</insert>
 <!-- 파일업로드전
 <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map">
   <![CDATA[
@@ -17,25 +43,7 @@
   SELECT 1 FROM DUAL
   ]]>
 </insert>
- -->
-  
-  <insert id="insertMembersAndMembersdetailAndRolls" parameterType="map">
-    <trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
-      INTO ROLLS (userid, role_name) VALUES (#{member.userid}, 'ROLE_USER')
-      INTO MEMBERSDETAIL (userid, empno, membername , deptno, job, hiredate, birthday, sal, phonenumber, email
-        <if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
-          , fileoriginalname, filestoredname, filepath
-        </if>
-      ) 
-      VALUES (#{membersDetail.userid}, #{membersDetail.empno}, #{membersDetail.membername} ,#{membersDetail.deptno}, #{membersDetail.job}, #{membersDetail.hiredate}, 
-        #{membersDetail.birthday}, #{membersDetail.sal}, #{membersDetail.phonenumber}, #{membersDetail.email}
-        <if test="membersDetail.fileOriginalName != null and membersDetail.fileStoredName != null and membersDetail.filePath != null">
-          , #{membersDetail.fileOriginalName}, #{membersDetail.fileStoredName}, #{membersDetail.filePath}
-        </if>
-      )
-      INTO members (userid, password, status) VALUES (#{member.userid}, #{member.password}, 1)
-    </trim>
-  </insert>
+ -->  
 
 <!-- 
 <select id="getOneMemberData" resultType="com.Bizboard.vo.MemberAllData">
@@ -48,6 +56,7 @@
 	JOIN membersdetail md
 	ON m.userid = md.userid
 	WHERE m.userid = #{userid}
+<<<<<<< HEAD
 </select>
  -->
 <select id="getOneMemberData" resultType="com.Bizboard.vo.MemberAllData">
@@ -66,6 +75,10 @@ WHERE m.userid = #{userid}
 
 	
 
+<select id="idChk" parameterType="com.Bizboard.vo.Members" resultType="int">
+	select count(*) from members where userid=#{userid}
+</select>
+	
 
 
 </mapper>

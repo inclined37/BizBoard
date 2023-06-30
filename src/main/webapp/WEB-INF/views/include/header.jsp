@@ -36,8 +36,10 @@
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/jinstyle.css" rel="stylesheet">
+
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
     
     
 </head>
@@ -64,7 +66,14 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </se:authorize>
                     <se:authorize access="hasAnyRole('ROLE_USER')">
-                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+                    <c:choose>
+  						<c:when test="${empty sessionScope.profileUrl}">
+	                        <img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
+  						</c:when>
+  						<c:otherwise>
+	                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+  						</c:otherwise>
+					</c:choose>
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </se:authorize>
                     </div>
@@ -171,8 +180,15 @@
                                     	<img class="rounded-circle" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
-	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
-                    				</se:authorize>
+					                    <c:choose>
+					  						<c:when test="${empty sessionScope.profileUrl}">
+						                        <img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
+					  						</c:when>
+					  						<c:otherwise>
+						                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+					  						</c:otherwise>
+										</c:choose>                    				
+									</se:authorize>
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -213,7 +229,14 @@
                             <span class="d-none d-lg-inline-flex">로그인 해주세요.</span>
                             </se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_USER')">
-	                            <img class="rounded-circle me-lg-2" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+	                        	<c:choose>
+	  								<c:when test="${empty sessionScope.profileUrl}">
+		                        		<img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
+	  								</c:when>
+	  								<c:otherwise>
+		                        		<img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+	  								</c:otherwise>
+								</c:choose>
                         	</se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 	                            <img class="rounded-circle me-lg-2" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
