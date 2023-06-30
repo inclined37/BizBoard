@@ -60,6 +60,20 @@ public class AdminController {
 		return "redirect:/member/noticeBoard";
 	}
 	
+	@PostMapping("noticeBoardUpdate")
+	public String noticeBoardUpdate(Board board) {
+		System.out.println("noticeBoardUpdate POST 요청 진입");
+		int result = noticeBoardService.updateNoticeBoard(board);
+		return "redirect:/member/noticeBoard";
+	}
+	
+	@GetMapping("noticeBoardDelete")
+	public String noticeBoardDelete(int bcode) {
+		System.out.println("noticeBoardDelete GET 요청 진입");
+		int result = noticeBoardService.deleteNoticeBoard(bcode);
+		return "redirect:/member/noticeBoard";
+	}
+	
 	@GetMapping("memberManagement")
 	public String memberManagement(Model model, @RequestParam(defaultValue = "1") int page) {
 	    System.out.println("memberManagement 진입");
@@ -68,7 +82,7 @@ public class AdminController {
 	    System.out.println(totalMemberCount);
 	    model.addAttribute("totalMemberCount", totalMemberCount);
 	    
-	    int pageSize = 10; // 페이지 크기
+	    int pageSize = 5; // 페이지 크기
 	    int totalPage = (int) Math.ceil((double) totalMemberCount / pageSize); // 총 페이지 수
 	    
 	    if (page < 1) page = 1;

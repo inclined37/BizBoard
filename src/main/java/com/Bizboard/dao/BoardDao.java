@@ -19,10 +19,11 @@ public interface BoardDao {
 	// 공지형 게시판 insert
 	public int insertNoticeBoard(Board board);
 	
-	
 	// 공지형 게시판 update
 	public int updateNoticeBoard(Board board);
 	
+	// 공지형 게시판 delete
+	public int deleteNoticeBoard(int bcode);
 	
 	// 파일형 게시판 전체 select
 	public List<BoardFileJoin> selectAllFileStorageBoard(int btCode);
