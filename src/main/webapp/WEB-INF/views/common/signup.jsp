@@ -72,10 +72,15 @@
 							for="floatingDate">입사일</label>
 					</div>
 					<!-- sal 제거
+>>>>>>> 5fe5a5cc18cb3c9626c7659e65af479438ef04cc
 				<div class="form-floating mb-2">
 					<input type="text" name="sal" class="form-control" id="floatingText"
 						placeholder="연봉"> <label for="floatingText">연봉</label>
 				</div>
+<<<<<<< HEAD
+
+				 
+=======
 				 -->
 					<div class="form-floating mb-2">
 						<input type="date" name="birthday" class="form-control"
