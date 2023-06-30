@@ -15,7 +15,7 @@
 		resultType="com.Bizboard.vo.Board">
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
 		b_views,
-		b_created, bt_code
+		b_created, b_updated, bt_code
 		FROM Board
 		WHERE bt_code = #{btCode}
 		ORDER BY
@@ -25,7 +25,7 @@
 	<!-- 공지사항 조건 select -->
 	<select id="selectNoticeBoard" resultType="com.Bizboard.vo.Board">
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content, b_views,
-		b_created, bt_code
+		b_created, b_updated, bt_code
 		FROM Board
 		WHERE b_code = #{bcode}
 	</select>
@@ -50,7 +50,19 @@
 		</trim>
 	</insert>
 
-
+	<update id="updateNoticeBoard" parameterType="com.Bizboard.vo.Board">
+		UPDATE Board
+		SET b_title = #{btitle},
+		    b_content = #{bcontent},
+		    b_updated = SYSDATE
+		WHERE b_code = #{bcode}
+	</update>
+	
+	<delete id="deleteNoticeBoard">
+		DELETE 
+		FROM Board 
+		WHERE b_code = #{bcode}
+	</delete>
 
 	<select id="selectAllFileStorageBoard"
 		resultType="com.Bizboard.vo.BoardFileJoin">
@@ -62,25 +74,19 @@
 		ORDER BY B.b_code DESC
 	</select>
 
-	<!-- 파일게시판 insert -->
-	<insert id="insertFileStorageBoard"
-		parameterType="com.Bizboard.vo.Board">
-		<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
-			INTO BOARD (b_code, b_id,
-			b_name, b_email, b_dname, b_title, b_content,
-			b_views, b_created,
-			bt_code)
-			VALUES (board_seq.NEXTVAL, #{bid}, #{bname}, #{bemail},
-			#{bdname},
-			#{btitle}, #{bcontent}, 0, sysdate, #{btCode})
 
-			INTO
-			FileStorageBoard (fb_code, b_code, fb_originfile, fb_savedfile,
-			fb_filesize)
-			VALUES (file_seq.NEXTVAL, board_seq.CURRVAL, '원본', '저장',
-			500)
-		</trim>
-	</insert>
+
+<!-- 파일게시판 insert -->
+<insert id="insertFileStorageBoard" parameterType="com.Bizboard.vo.Board">
+	<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+	INTO BOARD (b_code, b_id, b_name, b_email, b_dname, b_title, b_content, b_views, b_created, bt_code)
+		VALUES (board_seq.NEXTVAL, #{bid}, #{bname}, #{bemail}, #{bdname}, #{btitle}, #{bcontent}, 0, sysdate, #{btCode})
+			
+     INTO FileStorageBoard (fb_code, b_code, fb_originfile, fb_savedfile, fb_filesize)
+    	VALUES (file_seq.NEXTVAL, board_seq.CURRVAL, #{fbOriginfile}, #{fbSavedfile}, #{fbFilesize}) 
+  	</trim>
+  </insert>
+  
 
 
 </mapper>
