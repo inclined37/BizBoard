@@ -38,7 +38,7 @@
 								<td>2021.02.15</td>
 								<td>4</td>
 								<td>vvv.jpg</td>
-								
+
 							</tr>
 							<tr>
 								<th scope="row">3</th>
@@ -50,15 +50,16 @@
 							</tr>
 						</tbody>
 					</table>
-					
+
 					<se:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-					<a class="btn btn-primary m-2" href="${pageContext.request.contextPath}/member/FileBoardInsert">글작성</a>
+						<a class="btn btn-primary m-2"
+							href="${pageContext.request.contextPath}/member/FileBoardInsert">글작성</a>
 					</se:authorize>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+</div>
 
 
-	<%@include file="../include/footer.jsp"%>
+<%@include file="../include/footer.jsp"%>

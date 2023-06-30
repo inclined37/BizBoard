@@ -16,11 +16,7 @@
 					</div>
 					<div class="form-floating mb-3">
 						<input type="text" class="form-control" id="floatingInput" name="bId"
-<<<<<<< HEAD
-							placeholder="작성자" value="admin" readonly="readonly"> <label
-=======
 							placeholder="작성자" value="${pageContext.request.userPrincipal.name}" readonly="readonly"> <label
->>>>>>> d3dd20fbb7dd84e292e0ecefb2bf4e0ad9c4aace
 							for="floatingInput">작성자</label>
 					</div>
 					<div class="form-floating">
