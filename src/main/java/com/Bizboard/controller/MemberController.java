@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,6 +78,15 @@ public class MemberController {
 	public void noticeBoardDetailGet(int bcode, Model model) {
 		Board board = noticeBoardService.selectNoticeBoard(bcode);
 		model.addAttribute("data", board);
+	}
+	
+	//공지사항 글 수정
+	@PostMapping("noticeBoardUpdate")
+	public String noticeBoardUpdate(@ModelAttribute("data") Board board) {
+		System.out.println("noticeBoardUpdate POST 요청 진입");
+		System.out.println(board.toString());
+		int result = noticeBoardService.updateNoticeBoard(board);
+		return "redirect:/member/noticeBoard";
 	}
 	
 	@GetMapping("AlbumBoard")

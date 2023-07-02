@@ -10,7 +10,8 @@
 			<!-- xl 숫자 건드리면 input 태그 길어지거나 짧아짐 -->
 			<div class="bg-light rounded h-100 p-4">
 				<c:set var="data" value="${data}"/>
-				<form action="noticeBoardInsert" method="post">
+				<form id="noticeBoardUpdateForm" action="noticeBoardUpdate" method="post">
+					<input type="hidden" name="bcode" value="${data.bcode}" />
 					<div>
 						<input type="text" class="form-control" id="floatingInput"
 							name="btitle" value="${data.btitle}" placeholder="글제목" readonly="readonly">
@@ -39,8 +40,10 @@
 						</div>
 						<c:if test="${pageContext.request.userPrincipal.name eq data.bid}">
 						  <div>
-						    <button class="btn btn-primary m-2">수정</button>
-						    <button class="btn btn-primary m-2">삭제</button>
+						    <button type="button" id="boardDetailUpdateBtn" class="btn btn-primary m-2">수정</button>
+						    <button type="submit" id="boardDetailSaveBtn" class="btn btn-primary m-2" style="display: none;">저장</button>
+						    <button type="button" id="boardDetailCancelBtn" class="btn btn-primary m-2" style="display: none;">취소</button>
+						    <button type="button" id="boardDetailDeleteBtn" class="btn btn-primary m-2">삭제</button>
 						  </div>
 						</c:if>
 					</div>
@@ -92,5 +95,37 @@
 	
 	window.addEventListener('DOMContentLoaded', adjustTextareaHeight);
 	window.addEventListener('resize', adjustTextareaHeight);
+	
+	const updateBtn = document.getElementById("boardDetailUpdateBtn");
+	const saveBtn = document.getElementById("boardDetailSaveBtn");
+	const cancelBtn = document.getElementById("boardDetailCancelBtn");
+	const deleteBtn = document.getElementById("boardDetailDeleteBtn");
+	
+	updateBtn.addEventListener("click", function() {
+		updateBtn.style.display = "none";
+	    deleteBtn.style.display = "none";
+	    saveBtn.style.display = "inline-block";
+	    cancelBtn.style.display = "inline-block";
+	    
+	    document.getElementById("floatingInput").readOnly = false;
+	    document.getElementById("floatingTextarea").readOnly = false;
+	});
+	
+	saveBtn.addEventListener("click", function() {
+	    saveBtn.style.display = "none";
+	    cancelBtn.style.display = "none";
+	    updateBtn.style.display = "inline-block";
+	    deleteBtn.style.display = "inline-block";
+	    
+	    document.getElementById("noticeBoardUpdateForm").submit();
+	});
+
+	cancelBtn.addEventListener("click", function() {
+	    saveBtn.style.display = "none";
+	    cancelBtn.style.display = "none";
+	    updateBtn.style.display = "inline-block";
+	    deleteBtn.style.display = "inline-block";
+	});
+	
 </script>
 <%@include file="../include/footer.jsp"%>

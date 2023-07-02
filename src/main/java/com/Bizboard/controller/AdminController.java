@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,13 +58,6 @@ public class AdminController {
 		System.out.println(board.toString());
 		
 		int result = noticeBoardService.insertNoticeBoard(board);
-		return "redirect:/member/noticeBoard";
-	}
-	
-	@PostMapping("noticeBoardUpdate")
-	public String noticeBoardUpdate(Board board) {
-		System.out.println("noticeBoardUpdate POST 요청 진입");
-		int result = noticeBoardService.updateNoticeBoard(board);
 		return "redirect:/member/noticeBoard";
 	}
 	
