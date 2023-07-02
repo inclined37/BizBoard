@@ -89,6 +89,14 @@ public class MemberController {
 		return "redirect:/member/noticeBoardDetail?bcode="+board.getBcode();
 	}
 	
+	//공지사항 글 삭제
+	@GetMapping("noticeBoardDelete")
+	public String noticeBoardDelete(int bcode) {
+		System.out.println("noticeBoardDelete GET 요청 진입");
+		noticeBoardService.deleteNoticeBoard(bcode);
+		return "redirect:/member/noticeBoard";
+	}
+	
 	@GetMapping("AlbumBoard")
 	public void albumBoardGet() {
 		

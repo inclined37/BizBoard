@@ -24,6 +24,7 @@ public interface BoardDao {
 	
 	// 공지형 게시판 delete
 	public int deleteNoticeBoard(int bcode);
+	public int deleteAdditionalNoticeBoard(int bcode);
 	
 	// 파일형 게시판 전체 select
 	public List<BoardFileJoin> selectAllFileStorageBoard(int btCode);
