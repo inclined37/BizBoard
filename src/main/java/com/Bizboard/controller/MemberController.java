@@ -86,7 +86,7 @@ public class MemberController {
 		System.out.println("noticeBoardUpdate POST 요청 진입");
 		System.out.println(board.toString());
 		int result = noticeBoardService.updateNoticeBoard(board);
-		return "redirect:/member/noticeBoard";
+		return "redirect:/member/noticeBoardDetail?bcode="+board.getBcode();
 	}
 	
 	@GetMapping("AlbumBoard")

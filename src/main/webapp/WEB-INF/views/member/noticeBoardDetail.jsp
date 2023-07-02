@@ -14,7 +14,7 @@
 					<input type="hidden" name="bcode" value="${data.bcode}" />
 					<div>
 						<input type="text" class="form-control" id="floatingInput"
-							name="btitle" value="${data.btitle}" placeholder="글제목" readonly="readonly">
+							name="btitle" value="${data.btitle}" placeholder="글제목" readonly="readonly" required>
 					</div>
 					<div class="form-floating">
 						<div id="" style="display: flex; align-items: center;">
@@ -32,7 +32,7 @@
 					</div>
 					<div>
 						<textarea class="form-control" placeholder="Leave a comment here"
-							id="floatingTextarea" name="bcontent" readonly="readonly">${data.bcontent}</textarea>
+							id="floatingTextarea" name="bcontent" readonly="readonly" required>${data.bcontent}</textarea>
 					</div>
 					<div id="button-area" class="form-floating">
 						<div>
@@ -87,8 +87,16 @@
 	}
 </style>
 <script>
+	const updateBtn = document.getElementById("boardDetailUpdateBtn");
+	const saveBtn = document.getElementById("boardDetailSaveBtn");
+	const cancelBtn = document.getElementById("boardDetailCancelBtn");
+	const deleteBtn = document.getElementById("boardDetailDeleteBtn");
+	
+	let title = document.getElementById('floatingInput');
+    let content = document.getElementById('floatingTextarea');
+	
 	function adjustTextareaHeight() {
-		const textarea = document.getElementById('floatingTextarea');
+		const textarea = content;
 		textarea.style.height = 'auto'; // 초기값으로 설정
 		textarea.style.height = Math.max(textarea.scrollHeight, 400) + 'px'; // 최소 세로 길이 400px
 	}
@@ -96,28 +104,30 @@
 	window.addEventListener('DOMContentLoaded', adjustTextareaHeight);
 	window.addEventListener('resize', adjustTextareaHeight);
 	
-	const updateBtn = document.getElementById("boardDetailUpdateBtn");
-	const saveBtn = document.getElementById("boardDetailSaveBtn");
-	const cancelBtn = document.getElementById("boardDetailCancelBtn");
-	const deleteBtn = document.getElementById("boardDetailDeleteBtn");
-	
 	updateBtn.addEventListener("click", function() {
 		updateBtn.style.display = "none";
 	    deleteBtn.style.display = "none";
 	    saveBtn.style.display = "inline-block";
 	    cancelBtn.style.display = "inline-block";
 	    
-	    document.getElementById("floatingInput").readOnly = false;
-	    document.getElementById("floatingTextarea").readOnly = false;
+	    previousTitle = title.value;
+	    previousContent = content.value;
+	    
+	    title.readOnly = false;
+	    content.readOnly = false;
 	});
 	
-	saveBtn.addEventListener("click", function() {
-	    saveBtn.style.display = "none";
-	    cancelBtn.style.display = "none";
-	    updateBtn.style.display = "inline-block";
-	    deleteBtn.style.display = "inline-block";
-	    
-	    document.getElementById("noticeBoardUpdateForm").submit();
+	saveBtn.addEventListener("click", function(event) {
+	    if (title.value.trim() == '' || content.value.trim() == '') {
+	      event.preventDefault();
+	      alert('제목과 내용을 모두 입력해주세요.');
+	    } else {
+	    	saveBtn.style.display = "none";
+		    cancelBtn.style.display = "none";
+		    updateBtn.style.display = "inline-block";
+		    deleteBtn.style.display = "inline-block";
+			document.getElementById("noticeBoardUpdateForm").submit();
+	    }
 	});
 
 	cancelBtn.addEventListener("click", function() {
@@ -125,6 +135,10 @@
 	    cancelBtn.style.display = "none";
 	    updateBtn.style.display = "inline-block";
 	    deleteBtn.style.display = "inline-block";
+	    title.value = previousTitle;
+	    content.value = previousContent;
+	    title.readOnly = true;
+	    content.readOnly = true;
 	});
 	
 </script>
