@@ -104,7 +104,8 @@
 		F.fb_Code, F.fb_Originfile, F.fb_Savedfile, F.fb_Filesize
 		FROM Board B
 		JOIN FileStorageBoard F ON B.b_code = F.b_code
-		WHERE B.b_code = #{bcode}
+		WHERE
+		B.b_code = #{bcode}
 	</select>
 
 
@@ -130,6 +131,30 @@
 			#{fbSavedfile}, #{fbFilesize})
 		</trim>
 	</insert>
+
+	<!-- 파일게시판 수정 -->
+	<update id="updateFileStorageBoard"
+		parameterType="com.Bizboard.vo.BoardFileJoin">
+		UPDATE BOARD
+		SET
+		b_code = #{bcode}, b_title = #{btitle}, b_content = #{bcontent}, b_updated = sysdate
+		WHERE b_code = #{bcode}
+	</update>
+
+	<!-- 파일형 게시판 update -->
+	<!-- <update id="updateFileStorageBoard"
+		parameterType="com.Bizboard.vo.BoardFileJoin">
+		UPDATE BOARD SET b_name = #{bname}, b_email = #{bemail}, b_dname = 
+			#{bdname}, b_title = #{btitle}, b_content = #{bcontent}, bt_code = #{btCode} 
+			WHERE b_code = #{bCode}; UPDATE FileStorageBoard SET fb_originfile = #{fbOriginfile}, 
+			fb_savedfile = #{fbSavedfile}, fb_filesize = #{fbFilesize} WHERE b_code = 
+			#{bCode};
+		UPDATE BOARD
+		SET b_title=#{btitle}, b_content=#{bcontest}
+		WHTERE b_code
+		= #{bcode}
+	</update> -->
+
 
 
 

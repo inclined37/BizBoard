@@ -11,11 +11,11 @@
 				<h6 class="mb-4">파일게시판 상세보기</h6>
 				<form
 					action="${pageContext.request.contextPath}/member/FileBoardUpdate"
-					method="post">
+					method="post" enctype="multipart/form-data">
 					<div class="form-floating mb-3">
 						<input type="text" class="form-control" id="floatingInput"
-							name="btitle" value="${data.btitle}" placeholder="글제목"
-							>
+							name="btitle" value="${data.btitle}" placeholder="글제목">
+						<input type="hidden" name="bcode" value="${data.bcode}">
 					</div>
 					<div class="form-floating mb-3">
 						<div style="display: flex; align-items: center;">
@@ -25,7 +25,7 @@
 								<p style="margin-bottom: 0; font-size: 14px">${data.bname}</p>
 								<p style="margin-bottom: 0; font-size: 12px">${data.bcreated}</p>
 								<p style="margin-bottom: 0; font-size: 12px">${data.bupdated}</p>
-							</div>
+							</div> 
 						</div>
 					</div>
 
@@ -37,6 +37,14 @@
 
 					<div class="form-floating mb-3">
 						<a>기존 파일명 : ${data.fbOriginfile}</a>
+					</div>
+					
+					<div class="form-floating mb-2">
+						<input type="file" name="file" class="form-control"
+
+							id="floatingFile" name="fbOriginfile" placeholder="파일선택" > <label
+
+							for="floatingFile">파일 </label>
 					</div>
 
 

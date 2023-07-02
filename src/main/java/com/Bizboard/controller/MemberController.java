@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,13 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bizboard.project.vo.CreateProjectRequest;
 import com.Bizboard.project.vo.JoinProjectSimpleData;
 import com.Bizboard.project.vo.Project;
 import com.Bizboard.project.vo.ProjectMember;
+import com.Bizboard.project.vo.ProjectSchedule;
 import com.Bizboard.service.FileStorageBoardService;
 import com.Bizboard.service.MemberService;
 import com.Bizboard.service.NoticeBoardService;
@@ -47,30 +48,24 @@ public class MemberController {
 	@Autowired
 	private FileStorageBoardService fileStorageBoardService;
 
-
 	@Value("${file.upload.directory.fileBoard}")
 	private String fileUploadDirectory;
 
-
 	@Autowired
 	private ProjectBoardService projectBoardService;
-	
-	
-	
 
 	@GetMapping("main")
-	public String mainGet(HttpSession session,Model model) {
+	public String mainGet(HttpSession session, Model model) {
 		System.out.println("메인 진입!!!!!!!!!!!!!!!");
-		int empno = (int)session.getAttribute("empno");
+		int empno = (int) session.getAttribute("empno");
 		System.out.println(empno);
 		System.out.println("*********************");
-		
+
 		List<JoinProjectSimpleData> joinProjectSimpleDataList = projectBoardService.joinProjectSimpleDataList(empno);
 		model.addAttribute("joinProjectSimpleDataList", joinProjectSimpleDataList);
-		
-	
+
 		return "member/main";
-		
+
 	}
 
 	// 공지사항 게시판 페이지 이동
@@ -116,6 +111,29 @@ public class MemberController {
 		BoardFileJoin board = fileStorageBoardService.selectFileBoard(bcode);
 		model.addAttribute("data", board);
 	}
+
+	// 파일 글 수정하기
+	@PostMapping("FileBoardUpdate")
+	@RequestMapping(value = "/FileBoardUpdate", method = RequestMethod.POST)
+	public String fileBoardUpdate(
+	    @RequestParam("bcode") int bcode,
+	    @RequestParam("btitle") String btitle,
+	    @RequestParam("bcontent") String bcontent
+	) {
+	    BoardFileJoin board = new BoardFileJoin();
+	    board.setBcode(bcode);
+	    board.setBtitle(btitle);
+	    board.setBcontent(bcontent);
+
+	    int result = fileStorageBoardService.updateFileStorageBoard(board);
+
+	    if (result > 0) {
+	        return "redirect:/member/FileBoard";
+	    } else {
+	        return "error";
+	    }
+	}
+
 
 	@GetMapping("FileBoardInsert")
 	public void fileBoard() {
@@ -164,19 +182,6 @@ public class MemberController {
 		return "redirect:/member/FileBoard";
 	}
 
-	@PostMapping("FileBoardUpdate")
-	public String fileBoardUpdate(@RequestParam("bcontent") String updatedContent, @RequestParam("bcode") int bcode) {
-		// bcode를 사용하여 해당 글을 데이터베이스에서 조회하고, 업데이트할 내용을 설정합니다.
-		BoardFileJoin board = fileStorageBoardService.selectFileBoard(bcode);
-		board.setBcontent(updatedContent);
-
-		// 데이터베이스에 업데이트
-		fileStorageBoardService.updateFileStorageBoard(board);
-
-		// 리스트 페이지로 리다이렉트
-		return "redirect:/member/FileBoard";
-	}
-
 	// =================================================================================================================================
 	@GetMapping("searchResult")
 	public void searchResult() {
@@ -192,56 +197,90 @@ public class MemberController {
 
 	}
 
-	
 	@GetMapping("projectAdd")
 	public void projectAdd() {
-		
-		
-	} 
-	
+
+	}
+
 	@PostMapping("createProject")
 	public String createProject(CreateProjectRequest data) {
-		
-        Project project = new Project();
-        List<ProjectMember> members = new ArrayList();
-        
-        //project - projectName , projectDescription
-        project.setProjectName(data.getProjectName());
+
+		Project project = new Project();
+		List<ProjectMember> members = new ArrayList();
+
+		// project - projectName , projectDescription
+		project.setProjectName(data.getProjectName());
 		project.setProjectDescription(data.getProjectDescription());
 		project.setDeptno(data.getDeptno());
 		project.setDeptname(data.getDeptname());
 		project.setMembername(data.getMembername());
-		
+
 		List<Integer> requestData = data.getInvitedMembers();
-        
-		for(int i = 0; i < requestData.size(); i++) {
+
+		for (int i = 0; i < requestData.size(); i++) {
 			ProjectMember projectMember = new ProjectMember();
 			projectMember.setEmpno(requestData.get(i));
 			members.add(projectMember);
 		}
-		
+
 		System.out.println(requestData);
 		System.out.println("***********************");
 		System.out.println(members);
-		
-		
+
 		projectBoardService.insertProjectAndMembers(project, members);
-		
-		
+
 		return "redirect:/member/main";
 	}
-	
-	@PostMapping("projectBoard")
-	public String projectBoard(int projectSeq, Model model) {
+
+	@GetMapping("projectBoard")
+	public String projectBoard(int projectSeq, Model model, HttpSession session) {
 		System.out.println("****************");
+		int empno = (int) session.getAttribute("empno");
 		System.out.println(projectSeq);
 		System.out.println("****************");
-		
-		JoinProjectSimpleData joinProjectSimpleData = projectBoardService.JoinProjectSimpleOneData(projectSeq);
+
+		JoinProjectSimpleData joinProjectSimpleData = projectBoardService.JoinProjectSimpleOneData(projectSeq, empno);
 		model.addAttribute("joinProjectSimpleData", joinProjectSimpleData);
-		
+
+		List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleList(projectSeq);
+		model.addAttribute("projectScheduleList", projectScheduleList);
+		System.out.println("********************************************");
+		System.out.println(projectScheduleList);
+		System.out.println("********************************************");
+
 		return "member/projectBoard";
 	}
-	
+
+	@GetMapping("projectBoardInsert")
+	public String projectBoardInsert(int projectSeq, Model model) {
+
+		/*
+		 * int empno = (int)session.getAttribute("empno"); int deptno =
+		 * (int)session.getAttribute("deptno"); String deptname =
+		 * (String)session.getAttribute("deptname"); String membername =
+		 * (String)session.getAttribute("membername");
+		 * 
+		 * System.out.println("*****************************");
+		 * System.out.println("작성자 부서번호 : " + deptno); System.out.println("프로젝트 고유번호 : "
+		 * +projectSeq); System.out.println("작성자 사원번호 : " +empno);
+		 * System.out.println("작성자 부서명 : " + deptname); System.out.println("작성자 이름 : " +
+		 * membername); System.out.println("*****************************");
+		 */
+		model.addAttribute("projectSeq", projectSeq);
+
+		return "member/projectBoardInsert";
+	}
+
+	@PostMapping("projectBoardInsertOk")
+	public String projectBoardInsertOk(ProjectSchedule projectSchedule, RedirectAttributes redirectAttributes) {
+
+		System.out.println("**************************");
+		System.out.println(projectSchedule);
+		System.out.println("**************************");
+		projectBoardService.insertProjectSchedule(projectSchedule);
+		redirectAttributes.addAttribute("projectSeq", projectSchedule.getProjectSeq());
+
+		return "redirect:/member/projectBoard";
+	}
 
 }

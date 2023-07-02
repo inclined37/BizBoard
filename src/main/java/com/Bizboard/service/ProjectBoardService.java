@@ -12,6 +12,7 @@ import com.Bizboard.dao.ProjectBoardDao;
 import com.Bizboard.project.vo.JoinProjectSimpleData;
 import com.Bizboard.project.vo.Project;
 import com.Bizboard.project.vo.ProjectMember;
+import com.Bizboard.project.vo.ProjectSchedule;
 
 @Service
 public class ProjectBoardService {
@@ -24,7 +25,6 @@ public class ProjectBoardService {
         Map<String, Object> params = new HashMap<>();
         params.put("project", project);
         params.put("members", members);
-        
     	
     	return dao.insertProjectAndMembers(params);
     }
@@ -36,12 +36,26 @@ public class ProjectBoardService {
     	return result;
     }; 
     
-    public JoinProjectSimpleData JoinProjectSimpleOneData(int projectSeq) {
+    public JoinProjectSimpleData JoinProjectSimpleOneData(int projectSeq,int empno) {
     	ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
-    	JoinProjectSimpleData result = dao.JoinProjectSimpleOneData(projectSeq);
+    	JoinProjectSimpleData result = dao.JoinProjectSimpleOneData(projectSeq,empno);
     	
     	return result;
     }
     
+	public int insertProjectSchedule(ProjectSchedule projectSchedule) {
+		ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
+		int result = dao.insertProjectSchedule(projectSchedule);
+		
+		return result;
+	}
+    
+	public List<ProjectSchedule> projectScheduleList(int projectSeq){
+		ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
+		List<ProjectSchedule> result = dao.projectScheduleList(projectSeq);
+		
+		return result;
+	}
+	
     
 }
