@@ -40,5 +40,5 @@ public interface BoardDao {
 
 	// 파일형 게시판 update
 	public int updateFileStorageBoard(BoardFileJoin board);
-
+	public int updateBoard(BoardFileJoin board);
 }

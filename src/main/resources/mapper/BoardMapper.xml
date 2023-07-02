@@ -133,27 +133,26 @@
 	</insert>
 
 	<!-- 파일게시판 수정 -->
-	<update id="updateFileStorageBoard"
+	<update id="updateBoard"
 		parameterType="com.Bizboard.vo.BoardFileJoin">
 		UPDATE BOARD
 		SET
-		b_code = #{bcode}, b_title = #{btitle}, b_content = #{bcontent}, b_updated = sysdate
+		b_code = #{bcode}, b_title = #{btitle},
+		b_content = #{bcontent}, b_updated =
+		sysdate
 		WHERE b_code = #{bcode}
 	</update>
 
-	<!-- 파일형 게시판 update -->
-	<!-- <update id="updateFileStorageBoard"
+	<update id="updateFileStorageBoard"
 		parameterType="com.Bizboard.vo.BoardFileJoin">
-		UPDATE BOARD SET b_name = #{bname}, b_email = #{bemail}, b_dname = 
-			#{bdname}, b_title = #{btitle}, b_content = #{bcontent}, bt_code = #{btCode} 
-			WHERE b_code = #{bCode}; UPDATE FileStorageBoard SET fb_originfile = #{fbOriginfile}, 
-			fb_savedfile = #{fbSavedfile}, fb_filesize = #{fbFilesize} WHERE b_code = 
-			#{bCode};
-		UPDATE BOARD
-		SET b_title=#{btitle}, b_content=#{bcontest}
-		WHTERE b_code
-		= #{bcode}
-	</update> -->
+		UPDATE FILESTORAGEBOARD
+		SET
+		b_code = #{bcode},
+		fb_originfile = #{fbOriginfile}, fb_savedfile =
+		#{fbSavedfile},
+		fb_filesize = #{fbFilesize}
+		WHERE b_code = #{bcode}
+	</update>
 
 
 

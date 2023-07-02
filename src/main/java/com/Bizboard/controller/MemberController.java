@@ -17,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -113,17 +112,45 @@ public class MemberController {
 	}
 
 	// 파일 글 수정하기
-	@PostMapping("FileBoardUpdate")
-	@RequestMapping(value = "/FileBoardUpdate", method = RequestMethod.POST)
+	@PostMapping("/FileBoardUpdate")
 	public String fileBoardUpdate(
 	    @RequestParam("bcode") int bcode,
 	    @RequestParam("btitle") String btitle,
-	    @RequestParam("bcontent") String bcontent
+	    @RequestParam("bcontent") String bcontent,
+	    @RequestParam(value = "file", required = false) MultipartFile file,
+	    HttpServletRequest request
 	) {
 	    BoardFileJoin board = new BoardFileJoin();
 	    board.setBcode(bcode);
 	    board.setBtitle(btitle);
 	    board.setBcontent(bcontent);
+
+	    if (file != null && !file.isEmpty()) {
+	        // 파일 업로드 로직 작성
+				String originalFilename = file.getOriginalFilename();
+				// 파일 저장 로직을 추가하여 파일을 실제로 저장하고 저장된 파일명을 얻을 수 있습니다.
+				String storedFilename = FileUtils.generateStoredFilename(originalFilename);
+				String uploadpath = new File(request.getSession().getServletContext().getRealPath("")).getParent()
+						+ fileUploadDirectory.replace("/", File.separator);
+				FileUtils.createDirectory(uploadpath);
+
+				String fileUploadPath = uploadpath + File.separator + storedFilename;
+				File dest = new File(fileUploadPath);
+
+				int fileSize = (int) file.getSize();
+
+				try {
+					file.transferTo(dest);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				// 게시물 객체에 파일 정보 설정
+				board.setFbOriginfile(originalFilename);
+				board.setFbSavedfile(storedFilename);
+				board.setFbFilesize(fileSize);
+			
+	    }
 
 	    int result = fileStorageBoardService.updateFileStorageBoard(board);
 
@@ -133,6 +160,7 @@ public class MemberController {
 	        return "error";
 	    }
 	}
+
 
 
 	@GetMapping("FileBoardInsert")

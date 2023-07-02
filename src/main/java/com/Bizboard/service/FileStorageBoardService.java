@@ -56,8 +56,44 @@ public class FileStorageBoardService {
 
 	// 파일게시판 update
 	public int updateFileStorageBoard(BoardFileJoin board) {
-		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-	    return bdao.updateFileStorageBoard(board);
+	    BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+	    // 기존의 첨부파일 정보를 가져옵니다.
+	    BoardFileJoin existingBoard = bdao.selectOneFileStorageBoard(board.getBcode());
+	    // 새로운 첨부파일 정보를 가져옵니다.
+	    BoardFileJoin newBoard = board;
+
+	    // 첨부파일이 존재하지 않을 경우 기존의 첨부파일 정보를 유지합니다.
+	    if (newBoard.getFbOriginfile() == null && newBoard.getFbSavedfile() == null && newBoard.getFbFilesize() == 0) {
+	        newBoard.setFbCode(existingBoard.getFbCode());
+	        newBoard.setFbOriginfile(existingBoard.getFbOriginfile());
+	        newBoard.setFbSavedfile(existingBoard.getFbSavedfile());
+	        newBoard.setFbFilesize(existingBoard.getFbFilesize());
+	    } else {
+	        // 첨부파일이 존재할 경우, 기존의 첨부파일 정보를 업데이트합니다.
+	        if (existingBoard.getFbCode() != 0) {
+	            newBoard.setFbCode(existingBoard.getFbCode());
+	            bdao.updateFileStorageBoard(newBoard);
+	        } else {
+	            // 기존의 첨부파일 정보가 없는 경우, 새로운 첨부파일 정보를 추가합니다.
+	            bdao.insertFileStorageBoard(newBoard);
+	        }
+	    }
+
+	    // 게시글 정보를 업데이트합니다.
+	    int result = bdao.updateBoard(newBoard);
+
+	    return result;
 	}
+
+
+
+
+	//public int updateFileStorageBoard(BoardFileJoin board) {
+		//BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		//int result = bdao.updateBoard(board);
+	        //result += bdao.updateFileStorageBoard(board);
+	    
+	    //return result;
+	//}
 
 }
