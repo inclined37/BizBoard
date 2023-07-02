@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/common/test.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/include/footer.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/member/projectBoardInsert.jsp=UTF-8
 encoding/<project>=UTF-8

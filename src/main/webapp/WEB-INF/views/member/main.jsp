@@ -35,7 +35,7 @@ $(document).ready(function() {
     }).on('click', function(e) {
         // 폼을 동적으로 생성
         var form = document.createElement("form");
-        form.setAttribute("method", "post");
+        form.setAttribute("method", "get");
         form.setAttribute("action", "/member/projectBoard");
 
         // projectSeq 값으로 input 요소를 생성
