@@ -33,6 +33,15 @@ public class MemberService {
     	
     	return result;
     }
+    
+    public MemberAllData getOneMemberDataByEmpno(int empno) {
+    	
+    	MemberDao dao = sqlSession.getMapper(MemberDao.class);
+    	
+    	MemberAllData result = dao.getOneMemberDataByEmpno(empno);
+    	
+    	return result;
+    }
 
     public int idChk(Members members) {
     	MemberDao dao = sqlSession.getMapper(MemberDao.class);
