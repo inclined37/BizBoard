@@ -33,7 +33,20 @@
                                     <label>초대 목록:</label>
                                     <button id="projectAddSelect-all" class="btn btn-outline-secondary btn-sm mb-2">전체 선택</button>
                                     <ul id="invite-list" class="list-group">
+                                    	<!-- 
                                     	<li class="list-group-item" id="projectAddSearchBefore">추가된 인원이 없습니다.</li>
+                                    	 -->
+                                    	<li class="list-group-item" id="projectAddSearchBefore">
+                                    	<input id="projectAddMyInvited" type="checkbox" name="invitedMembers" value="${sessionScope.empno}" checked>  ${sessionScope.membername}   (${sessionScope.deptname}) (본인)
+                                    	<input type="hidden" name="deptname" value="${sessionScope.deptname}">
+                                    	<input type="hidden" name="deptno" value="${sessionScope.deptno}">
+                                    	<input type="hidden" name="membername" value="${sessionScope.membername}">
+                                    	<!-- 
+                                    	<input type="hidden" name="deptno" value="${sessionScope.empno}">
+                                    	<input type="checkbox" name="invitedMembers" value="${sessionScope.empno}" checked disabled>
+      									${sessionScope.memberName} (사원번호: ${sessionScope.empno}, 부서번호: ${sessionScope.deptno})
+                                    	 -->
+                                    	</li>
                                     </ul>
 
                                     <input type="hidden" id="selected-users" name="selectedUsers">
@@ -50,73 +63,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	
-	//projectMemberSearchTag memberSearchTag
-    $('#projectMemberSearchTag').keypress(function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            var searchText = $(this).val();
-            var searchType = $('#empSearchSelectTag').val();
-
-            var memberSearchData = {
-                searchText: searchText,
-                searchType: searchType
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: '/api/memberSearch',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(memberSearchData),
-                success: function(result) {
-                	if(result == ''){
-                		alert('검색결과가 없습니다.');
-                		return;
-                	}
-                	$('#projectAddSearchBefore').remove();
-                    for (var i = 0; i < result.length; i++) {
-                        // 이미 리스트에 있는 사원인지 확인
-                        if ($("#invite-list input[value='" + result[i].empno + "']").length === 0) {
-                            var userItem = '<li class="list-group-item">';
-                            userItem += '<input type="checkbox" name="invitedMembers" value="' + result[i].empno + '"> ' + result[i].membername + ' (' + result[i].dname + ')';
-                            userItem += '</li>';
-                            $("#invite-list").append(userItem);
-                        }
-                    }
-                },
-                error: function(xhr) {
-                    console.log('통신 에러');
-                    console.log(xhr.status + '에러 코드');
-                }
-            });
-        }
-    });
-
-    $('.empSearchSelectTag').on('change', function() {
-        var selectedValue = $(this).val();
-        var inputElement = $('#projectMemberSearchTag');
-
-        if (selectedValue == 'empno' || selectedValue == 'deptno') {
-            inputElement.attr('type', 'number');
-        } else {
-            inputElement.attr('type', 'text');
-        }
-    });
-
-    $("#project-form").submit(function() {
-        var selectedUsers = [];
-        $("#invite-list input:checked").each(function() {
-            selectedUsers.push($(this).val());
-        });
-        $("#selected-users").val(selectedUsers.join(","));
-    });
-    
-    $("#projectAddSelect-all").click(function(e) {
-    	event.preventDefault();
-        $("#invite-list input[type='checkbox']").prop('checked', true);
-    });
-    
+	    
 </script>
 
 <%@include file="../include/footer.jsp"%>
