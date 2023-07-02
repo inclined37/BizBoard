@@ -40,7 +40,10 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
-    
+
+
+    <!-- FullCalendar -->
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     
 </head>
 
@@ -89,7 +92,13 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="#" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>메인</a>
+                <se:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+                	<button onclick='window.location="${pageContext.request.contextPath}/member/projectAdd"' type="button" class="btn btn-primary rounded-pill m-2">프로젝트 생성</button>
+                </se:authorize>
+                	<!-- 
+                	<button type="button" class="btn btn-secondary rounded-pill m-2">프로젝트 생성</button>
+                	 -->
+                    <a href="${pageContext.request.contextPath}/member/main" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>메인</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-table me-2"></i>게시판</a>
                         <div class="dropdown-menu bg-transparent border-0">

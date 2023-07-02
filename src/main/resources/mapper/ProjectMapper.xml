@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Bizboard.dao.ProjectBoardDao">
+
+	<insert id="insertProjectAndMembers" parameterType="map">
+		INSERT ALL
+		INTO project (projectSeq, projectName, projectDescription,deptno,deptname,membername)
+		VALUES (project_seq.NEXTVAL, #{project.projectName},
+		#{project.projectDescription},#{project.deptno},#{project.deptname},#{project.membername})
+
+		<foreach collection="members" item="member">
+			INTO ProjectMember (projectSeq, empno)
+			VALUES (project_seq.CURRVAL, #{member.empno})
+		</foreach>
+		SELECT * FROM dual
+	</insert>
+	<!-- 
+	<select id="joinProjectSimpleDataList" resultType="com.Bizboard.project.vo.JoinProjectSimpleData">
+		SELECT
+		pm.projectseq,pm.empno,p.projectname,p.projectdescription,sub.membercount
+		FROM projectMember pm
+		JOIN
+		project p ON pm.projectseq = p.projectseq
+		JOIN
+		(SELECT projectseq, COUNT(*) AS membercount FROM projectMember GROUP BY
+		projectseq) sub ON pm.projectseq = sub.projectseq
+		WHERE
+		pm.empno = #{empno}
+		GROUP BY pm.projectseq,pm.empno, p.projectname, p.projectdescription, sub.membercount
+	</select>
+	 -->
+	<select id="joinProjectSimpleDataList" resultType="com.Bizboard.project.vo.JoinProjectSimpleData">
+		SELECT
+		pm.projectseq,pm.empno,p.deptno,p.deptname,p.membername,p.projectname,p.projectdescription,sub.membercount
+		FROM projectMember pm
+		JOIN
+		project p ON pm.projectseq = p.projectseq
+		JOIN
+		(SELECT projectseq, COUNT(*) AS membercount FROM projectMember GROUP BY
+		projectseq) sub ON pm.projectseq = sub.projectseq
+		WHERE
+		pm.empno = #{empno}
+		GROUP BY pm.projectseq,pm.empno,p.deptno,p.deptname,p.membername, p.projectname, p.projectdescription, sub.membercount
+	</select>
+	
+	<select id="JoinProjectSimpleOneData" resultType="com.Bizboard.project.vo.JoinProjectSimpleData">
+		SELECT
+		pm.projectseq,pm.empno,p.deptno,p.deptname,p.membername,p.projectname,p.projectdescription,sub.membercount
+		FROM projectMember pm
+		JOIN
+		project p ON pm.projectseq = p.projectseq
+		JOIN
+		(SELECT projectseq, COUNT(*) AS membercount FROM projectMember GROUP BY
+		projectseq) sub ON pm.projectseq = sub.projectseq
+		WHERE
+		pm.projectseq = #{param1} and pm.empno=#{param2}
+		GROUP BY pm.projectseq,pm.empno,p.deptno,p.deptname,p.membername, p.projectname, p.projectdescription, sub.membercount
+	</select>
+	
+	<insert id="insertProjectSchedule" parameterType="com.Bizboard.project.vo.ProjectSchedule">
+        INSERT INTO ProjectSchedule
+            (scheduleId, projectSeq, empno, deptno, deptname, membername, title, description, startDate, endDate)
+        VALUES
+            (scheduleId_seq.NEXTVAL, #{projectSeq}, #{empno}, #{deptno}, #{deptname}, #{membername}, #{title}, #{description}, #{startDate}, #{endDate})
+    </insert>
+	
+	<select id="projectScheduleList" resultType="com.Bizboard.project.vo.ProjectSchedule">
+		select * from
+		ProjectSchedule 
+		where projectSeq=#{projectSeq}
+	</select>
+	
+	
+	
+	
+
+</mapper>

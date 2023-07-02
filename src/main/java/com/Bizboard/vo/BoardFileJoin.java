@@ -15,6 +15,7 @@ public class BoardFileJoin {
 	private String bcontent;		//내용
 	private int bviews;				//조회수
 	private Timestamp bcreated;	//작성일(시간)
+	private Timestamp bupdated; //최근수정일(기본:null)
 	private int btCode;			//게시판 코드
 	
 	private int fbCode;			//자료실 식별번호

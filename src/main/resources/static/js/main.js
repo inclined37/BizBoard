@@ -107,7 +107,7 @@
 	});
 
 	// 검색 조건 변경시 (사원번호,부서번호,사원명) input 태그 속성 변경 -memberManagement.jsp
-	$('#empSearchSelectTag').on('change', function() {
+	$('.empSearchSelectTag').on('change', function() {
 		console.log('변경이벤트 실행');
 		var selectedValue = $(this).val();
 		console.log(selectedValue);
@@ -389,6 +389,83 @@
             }
         });
         
+    });
+	
+	$('#projectAddSelect-all').hide();
+	// 본인을 체크해제할 경우 이벤트	
+	$("#projectAddMyInvited").change(function() {
+	    if (!this.checked) {
+	        alert("본인은 무조건 참여해야합니다.");
+	        this.checked = true;
+	    }
+	});
+	
+	
+	//projectMemberSearchTag memberSearchTag
+    $('#projectMemberSearchTag').keypress(function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var searchText = $(this).val();
+            var searchType = $('#empSearchSelectTag').val();
+
+            var memberSearchData = {
+                searchText: searchText,
+                searchType: searchType
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/memberSearch',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(memberSearchData),
+                success: function(result) {
+                	if(result == ''){
+                		alert('검색결과가 없습니다.');
+                		return;
+                	}
+                	//$('#projectAddSearchBefore').remove();
+                    for (var i = 0; i < result.length; i++) {
+                        // 이미 리스트에 있는 사원인지 확인
+                        if ($("#invite-list input[value='" + result[i].empno + "']").length === 0) {
+                            var userItem = '<li class="list-group-item">';
+                            userItem += '<input type="checkbox" name="invitedMembers" value="' + result[i].empno + '"> ' + result[i].membername + ' (' + result[i].dname + ')';
+                            userItem += '</li>';
+                            $("#invite-list").append(userItem);
+                        }
+                    }
+                    $('#projectAddSelect-all').show();
+                },
+                error: function(xhr) {
+                    console.log('통신 에러');
+                    console.log(xhr.status + '에러 코드');
+                }
+            });
+        }
+    });
+
+    $('.empSearchSelectTag').on('change', function() {
+        var selectedValue = $(this).val();
+        var inputElement = $('#projectMemberSearchTag');
+
+        if (selectedValue == 'empno' || selectedValue == 'deptno') {
+            inputElement.attr('type', 'number');
+        } else {
+            inputElement.attr('type', 'text');
+        }
+    });
+
+    $("#project-form").submit(function() {
+        var selectedUsers = [];
+        $("#invite-list input:checked").each(function() {
+            selectedUsers.push($(this).val());
+        });
+        $("#selected-users").val(selectedUsers.join(","));
+    });
+    
+    $("#projectAddSelect-all").click(function(e) {
+    	event.preventDefault();
+        $("#invite-list input[type='checkbox']").prop('checked', true);
     });
 
     

@@ -40,7 +40,7 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         System.out.println(username);
         System.out.println("**********************");
         MemberAllData result = memberService.getOneMemberData(username);
-        // 세션에 사용자 데이터를 저장합니다.
+        // 세션에 사용자 데이터를 저장 - 파일 경로 주소 , 사원번호
         HttpSession session = request.getSession();
         System.out.println("***********");
         System.out.println("파일 경로 주소"+result.getFilePath());
@@ -48,8 +48,10 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         if(result.getFilePath() != null) {
         	session.setAttribute("profileUrl", result.getFilePath()+ File.separator + result.getFileStoredName());        
         }
-
-        
+        session.setAttribute("empno", result.getEmpno());
+        session.setAttribute("membername", result.getMembername());
+        session.setAttribute("deptno", result.getDeptno());
+        session.setAttribute("deptname", result.getDname());
 
         if (response.isCommitted()) {
             return;
