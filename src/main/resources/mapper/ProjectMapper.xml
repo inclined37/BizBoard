@@ -54,14 +54,22 @@
 		(SELECT projectseq, COUNT(*) AS membercount FROM projectMember GROUP BY
 		projectseq) sub ON pm.projectseq = sub.projectseq
 		WHERE
-		pm.projectseq = #{projectseq}
+		pm.projectseq = #{param1} and pm.empno=#{param2}
 		GROUP BY pm.projectseq,pm.empno,p.deptno,p.deptname,p.membername, p.projectname, p.projectdescription, sub.membercount
 	</select>
 	
+	<insert id="insertProjectSchedule" parameterType="com.Bizboard.project.vo.ProjectSchedule">
+        INSERT INTO ProjectSchedule
+            (scheduleId, projectSeq, empno, deptno, deptname, membername, title, description, startDate, endDate)
+        VALUES
+            (scheduleId_seq.NEXTVAL, #{projectSeq}, #{empno}, #{deptno}, #{deptname}, #{membername}, #{title}, #{description}, #{startDate}, #{endDate})
+    </insert>
 	
-	
-	
-	
+	<select id="projectScheduleList" resultType="com.Bizboard.project.vo.ProjectSchedule">
+		select * from
+		ProjectSchedule 
+		where projectSeq=#{projectSeq}
+	</select>
 	
 	
 	
