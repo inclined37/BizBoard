@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Bizboard.dao.BoardDao;
+import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
 import com.Bizboard.vo.BoardForm;
 import com.Bizboard.vo.BoardType;
@@ -30,6 +31,15 @@ public class FileStorageBoardService {
 		return blist;
 	}
 
+	// 파일게시판 조건 select
+	public BoardFileJoin selectFileBoard(int bcode) {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		bdao.increaseBoardViews(bcode);
+		BoardFileJoin board = bdao.selectOneFileStorageBoard(bcode);
+		return board;
+	}
+	
+
 	// 파일게시판 insert
 	public int insertFileStorageBoard(BoardFileJoin board) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
@@ -42,6 +52,14 @@ public class FileStorageBoardService {
 		board.setBtCode(boardType.getBtCode());
 
 		int result = bdao.insertFileStorageBoard(board);
+		return result;
+	}
+
+	// 파일게시판 update
+	public int updateFileStorageBoard(BoardFileJoin board) {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		int result = bdao.updateFileStorageBoard(board);
+
 		return result;
 	}
 }
