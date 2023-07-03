@@ -69,12 +69,6 @@
 		FROM Board
 		WHERE b_code = #{bcode}
 	</delete>
-	
-	<delete id="deleteAdditionalNoticeBoard">
-		DELETE 
-		FROM NoticeBoard 
-		WHERE b_code = #{bcode}
-	</delete>
 
 
 

@@ -24,7 +24,6 @@ public interface BoardDao {
 
 	// 공지형 게시판 delete
 	public int deleteNoticeBoard(int bcode);
-	public int deleteAdditionalNoticeBoard(int bcode);
 	
 
 	// ==========================================================================================

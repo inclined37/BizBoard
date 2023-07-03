@@ -66,16 +66,9 @@ public class NoticeBoardService {
 	}
 	
 	//공지게시판 delete
-	@Transactional
 	public void deleteNoticeBoard(int bcode) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		try {
-			bdao.deleteAdditionalNoticeBoard(bcode);
-			bdao.deleteNoticeBoard(bcode);
-		} catch (Exception e) {
-			//두 테이블에서 정상적으로 delete가 수행되지 못한 경우 rollback 처리
-			throw new RuntimeException("Failed to delete post", e);
-		}
+		bdao.deleteNoticeBoard(bcode);
 	}
 	
 }

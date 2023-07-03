@@ -157,19 +157,23 @@
 
 	deleteBtn.addEventListener("click", function() {
 		// 확인 메시지 출력
-		if (confirm("Are you sure you want to delete this post?")) {
+		if (confirm("게시글을 삭제하시겠습니까?")) {
 			// AJAX 요청 생성
 			$.ajax({
 				url : "/member/noticeBoardDelete",
 				type : "GET",
+				data: {
+	                bcode: ${data.bcode}
+	            },
 				success : function() {
 					// 성공적으로 삭제되었을 때의 동작
-					alert("Post deleted successfully");
+					alert("성공적으로 삭제되었습니다");
+					window.location.href = "${pageContext.request.contextPath}/member/noticeBoard";
 					// 추가적인 동작 수행 가능
 				},
 				error : function() {
 					// 삭제 실패 시의 동작
-					alert("Failed to delete post");
+					alert("삭제요청 실패");
 					// 추가적인 동작 수행 가능
 				}
 			});
