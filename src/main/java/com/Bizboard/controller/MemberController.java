@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -279,23 +282,47 @@ public class MemberController {
 	}
 
 	@GetMapping("projectBoard")
-	public String projectBoard(int projectSeq, Model model, HttpSession session) {
-		System.out.println("****************");
-		int empno = (int) session.getAttribute("empno");
-		System.out.println(projectSeq);
-		System.out.println("****************");
+	public String projectBoard(@RequestParam(defaultValue = "1") int page, int projectSeq, Model model, HttpSession session) {
+	    System.out.println("****************");
+	    int empno = (int) session.getAttribute("empno");
+	    int totalSchedules = projectBoardService.getProjectScheduleCount(projectSeq);
+	    System.out.println(projectSeq);
+	    System.out.println("****************");
+	    
+	    JoinProjectSimpleData joinProjectSimpleData = projectBoardService.JoinProjectSimpleOneData(projectSeq, empno);
+	    model.addAttribute("joinProjectSimpleData", joinProjectSimpleData);
 
-		JoinProjectSimpleData joinProjectSimpleData = projectBoardService.JoinProjectSimpleOneData(projectSeq, empno);
-		model.addAttribute("joinProjectSimpleData", joinProjectSimpleData);
+	    int pageSize = 10;
+	    int totalPage = (int) Math.ceil((double) totalSchedules / pageSize); // 총 페이지 수
+	    
+	    if (page < 1) page = 1;
+	    if (page > totalPage) page = totalPage;
+	    
+	    int startRow = (page - 1) * pageSize;
 
-		List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleList(projectSeq);
-		model.addAttribute("projectScheduleList", projectScheduleList);
-		System.out.println("********************************************");
-		System.out.println(projectScheduleList);
-		System.out.println("********************************************");
-
-		return "member/projectBoard";
+	    List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleList(projectSeq, startRow, pageSize);
+	    model.addAttribute("projectScheduleList", projectScheduleList);
+	    model.addAttribute("totalSchedules", totalSchedules);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+	    
+	    return "member/projectBoard";
 	}
+
+	
+    @GetMapping("/getProjectSchedules")
+    @ResponseBody
+    public ResponseEntity<List<ProjectSchedule>> getProjectSchedules(@RequestParam int projectSeq, HttpSession session) {
+        int empno = (int) session.getAttribute("empno");
+        List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleListAll(projectSeq);
+        return new ResponseEntity<>(projectScheduleList, HttpStatus.OK);
+    }
+	
+	
+	
+	
+	
+
 
 	@GetMapping("projectBoardInsert")
 	public String projectBoardInsert(int projectSeq, Model model) {
