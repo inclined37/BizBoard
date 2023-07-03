@@ -11,7 +11,7 @@
 		#{bcode}
 	</update>
 
-	<!-- 공지사항 전체 select -->
+	<!-- 공지사항 전체 select 
 	<select id="selectAllNoticeBoard"
 		resultType="com.Bizboard.vo.Board">
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
@@ -22,6 +22,23 @@
 		#{btCode}
 		ORDER BY
 		b_code DESC
+	</select>
+	-->
+	<select id="selectAllNoticeBoard"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
 	</select>
 
 	<!-- 공지사항 조건 select -->
@@ -54,6 +71,7 @@
 		</trim>
 	</insert>
 
+	<!-- 공지사항 update -->
 	<update id="updateNoticeBoard"
 		parameterType="com.Bizboard.vo.Board">
 		UPDATE Board
@@ -64,18 +82,18 @@
 		WHERE b_code = #{bcode}
 	</update>
 
+	<!-- 공지사항 delete -->
 	<delete id="deleteNoticeBoard">
 		DELETE
 		FROM Board
 		WHERE b_code = #{bcode}
 	</delete>
 	
-	<delete id="deleteAdditionalNoticeBoard">
-		DELETE 
-		FROM NoticeBoard 
-		WHERE b_code = #{bcode}
-	</delete>
-
+	<!-- 공지사항 전체 게시글 count -->
+	<select id="getTotalNoticeBoardCount" resultType="int">
+		SELECT count(*)
+		FROM NoticeBoard
+	</select>
 
 
 	<!-- 파일게시판 전체 select -->

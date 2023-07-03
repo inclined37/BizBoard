@@ -2,6 +2,8 @@ package com.Bizboard.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
 
@@ -11,7 +13,7 @@ public interface BoardDao {
 	void increaseBoardViews(int bcode);
 
 	// 공지형 게시판 전체 select
-	public List<Board> selectAllNoticeBoard(int btCode);
+	public List<Board> selectAllNoticeBoard(@Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
 
 	// 공지형 게시판 조건 select
 	public Board selectNoticeBoard(int bcode);
@@ -24,8 +26,9 @@ public interface BoardDao {
 
 	// 공지형 게시판 delete
 	public int deleteNoticeBoard(int bcode);
-	public int deleteAdditionalNoticeBoard(int bcode);
 	
+	//공지형 게시판 전체 게시글 수 Count
+	public int getTotalNoticeBoardCount();
 
 	// ==========================================================================================
 	// 파일형 게시판 전체 select
