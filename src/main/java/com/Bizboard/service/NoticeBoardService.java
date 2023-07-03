@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Bizboard.dao.BoardDao;
 import com.Bizboard.dao.MemberDao;
@@ -65,11 +66,16 @@ public class NoticeBoardService {
 	}
 	
 	//공지게시판 delete
-	public int deleteNoticeBoard(int bcode) {
+	@Transactional
+	public void deleteNoticeBoard(int bcode) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		int result = bdao.deleteNoticeBoard(bcode);
-		
-		return result;
+		try {
+			bdao.deleteAdditionalNoticeBoard(bcode);
+			bdao.deleteNoticeBoard(bcode);
+		} catch (Exception e) {
+			//두 테이블에서 정상적으로 delete가 수행되지 못한 경우 rollback 처리
+			throw new RuntimeException("Failed to delete post", e);
+		}
 	}
 	
 }
