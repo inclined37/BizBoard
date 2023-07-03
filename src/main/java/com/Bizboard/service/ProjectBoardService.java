@@ -50,9 +50,21 @@ public class ProjectBoardService {
 		return result;
 	}
     
-	public List<ProjectSchedule> projectScheduleList(int projectSeq){
+	public List<ProjectSchedule> projectScheduleListAll(int projectSeq){
 		ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
-		List<ProjectSchedule> result = dao.projectScheduleList(projectSeq);
+		List<ProjectSchedule> result = dao.projectScheduleListAll(projectSeq);
+		
+		return result;
+	}
+	public List<ProjectSchedule> projectScheduleList(int projectSeq, int startRow, int pageSize) {
+	    ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
+	    List<ProjectSchedule> result = dao.projectScheduleList(projectSeq,startRow,pageSize);
+	    return result;
+	}
+
+	public int getProjectScheduleCount(int projectSeq) {
+		ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
+		int result = dao.getProjectScheduleCount(projectSeq);
 		
 		return result;
 	}
