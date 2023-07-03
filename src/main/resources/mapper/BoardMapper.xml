@@ -154,7 +154,11 @@
 		WHERE b_code = #{bcode}
 	</update>
 
-
+	<delete id="deleteFileStorageBoard">
+		DELETE
+		FROM Board
+		WHERE b_code = #{bcode}
+	</delete>
 
 
 

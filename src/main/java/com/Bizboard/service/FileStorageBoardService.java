@@ -84,16 +84,11 @@ public class FileStorageBoardService {
 
 	    return result;
 	}
-
-
-
-
-	//public int updateFileStorageBoard(BoardFileJoin board) {
-		//BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		//int result = bdao.updateBoard(board);
-	        //result += bdao.updateFileStorageBoard(board);
-	    
-	    //return result;
-	//}
+	
+	//공지게시판 delete
+		public void deleteFileStorageBoard(int bcode) {
+			BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+			bdao.deleteFileStorageBoard(bcode);
+		}
 
 }

@@ -86,24 +86,24 @@ public class MemberController {
 		Board board = noticeBoardService.selectNoticeBoard(bcode);
 		model.addAttribute("data", board);
 	}
-	
-	//공지사항 글 수정
+
+	// 공지사항 글 수정
 	@PostMapping("noticeBoardUpdate")
 	public String noticeBoardUpdate(@ModelAttribute("data") Board board) {
 		System.out.println("noticeBoardUpdate POST 요청 진입");
 		System.out.println(board.toString());
 		int result = noticeBoardService.updateNoticeBoard(board);
-		return "redirect:/member/noticeBoardDetail?bcode="+board.getBcode();
+		return "redirect:/member/noticeBoardDetail?bcode=" + board.getBcode();
 	}
-	
-	//공지사항 글 삭제
+
+	// 공지사항 글 삭제
 	@GetMapping("noticeBoardDelete")
 	public String noticeBoardDelete(int bcode) {
 		System.out.println("noticeBoardDelete GET 요청 진입");
 		noticeBoardService.deleteNoticeBoard(bcode);
 		return "redirect:/member/noticeBoard";
 	}
-	
+
 	@GetMapping("AlbumBoard")
 	public void albumBoardGet() {
 
@@ -134,55 +134,49 @@ public class MemberController {
 
 	// 파일 글 수정하기
 	@PostMapping("/FileBoardUpdate")
-	public String fileBoardUpdate(
-	    @RequestParam("bcode") int bcode,
-	    @RequestParam("btitle") String btitle,
-	    @RequestParam("bcontent") String bcontent,
-	    @RequestParam(value = "file", required = false) MultipartFile file,
-	    HttpServletRequest request
-	) {
-	    BoardFileJoin board = new BoardFileJoin();
-	    board.setBcode(bcode);
-	    board.setBtitle(btitle);
-	    board.setBcontent(bcontent);
+	public String fileBoardUpdate(@RequestParam("bcode") int bcode, @RequestParam("btitle") String btitle,
+			@RequestParam("bcontent") String bcontent,
+			@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
+		BoardFileJoin board = new BoardFileJoin();
+		board.setBcode(bcode);
+		board.setBtitle(btitle);
+		board.setBcontent(bcontent);
 
-	    if (file != null && !file.isEmpty()) {
-	        // 파일 업로드 로직 작성
-				String originalFilename = file.getOriginalFilename();
-				// 파일 저장 로직을 추가하여 파일을 실제로 저장하고 저장된 파일명을 얻을 수 있습니다.
-				String storedFilename = FileUtils.generateStoredFilename(originalFilename);
-				String uploadpath = new File(request.getSession().getServletContext().getRealPath("")).getParent()
-						+ fileUploadDirectory.replace("/", File.separator);
-				FileUtils.createDirectory(uploadpath);
+		if (file != null && !file.isEmpty()) {
+			// 파일 업로드 로직 작성
+			String originalFilename = file.getOriginalFilename();
+			// 파일 저장 로직을 추가하여 파일을 실제로 저장하고 저장된 파일명을 얻을 수 있습니다.
+			String storedFilename = FileUtils.generateStoredFilename(originalFilename);
+			String uploadpath = new File(request.getSession().getServletContext().getRealPath("")).getParent()
+					+ fileUploadDirectory.replace("/", File.separator);
+			FileUtils.createDirectory(uploadpath);
 
-				String fileUploadPath = uploadpath + File.separator + storedFilename;
-				File dest = new File(fileUploadPath);
+			String fileUploadPath = uploadpath + File.separator + storedFilename;
+			File dest = new File(fileUploadPath);
 
-				int fileSize = (int) file.getSize();
+			int fileSize = (int) file.getSize();
 
-				try {
-					file.transferTo(dest);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			try {
+				file.transferTo(dest);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-				// 게시물 객체에 파일 정보 설정
-				board.setFbOriginfile(originalFilename);
-				board.setFbSavedfile(storedFilename);
-				board.setFbFilesize(fileSize);
-			
-	    }
+			// 게시물 객체에 파일 정보 설정
+			board.setFbOriginfile(originalFilename);
+			board.setFbSavedfile(storedFilename);
+			board.setFbFilesize(fileSize);
 
-	    int result = fileStorageBoardService.updateFileStorageBoard(board);
+		}
 
-	    if (result > 0) {
-	        return "redirect:/member/FileBoard";
-	    } else {
-	        return "error";
-	    }
+		int result = fileStorageBoardService.updateFileStorageBoard(board);
+
+		if (result > 0) {
+			return "redirect:/member/FileBoard";
+		} else {
+			return "error";
+		}
 	}
-
-
 
 	@GetMapping("FileBoardInsert")
 	public void fileBoard() {
@@ -228,6 +222,14 @@ public class MemberController {
 		System.out.println(board.toString());
 
 		fileStorageBoardService.insertFileStorageBoard(board);
+		return "redirect:/member/FileBoard";
+	}
+
+	// 파일게시판 삭제
+	@GetMapping("fileStorageBoardDelete")
+	public String fileStorageBoardDelete(int bcode) {
+		System.out.println("fileStorageBoardDelete GET 요청 진입");
+		fileStorageBoardService.deleteFileStorageBoard(bcode);
 		return "redirect:/member/FileBoard";
 	}
 
@@ -282,47 +284,45 @@ public class MemberController {
 	}
 
 	@GetMapping("projectBoard")
-	public String projectBoard(@RequestParam(defaultValue = "1") int page, int projectSeq, Model model, HttpSession session) {
-	    System.out.println("****************");
-	    int empno = (int) session.getAttribute("empno");
-	    int totalSchedules = projectBoardService.getProjectScheduleCount(projectSeq);
-	    System.out.println(projectSeq);
-	    System.out.println("****************");
-	    
-	    JoinProjectSimpleData joinProjectSimpleData = projectBoardService.JoinProjectSimpleOneData(projectSeq, empno);
-	    model.addAttribute("joinProjectSimpleData", joinProjectSimpleData);
+	public String projectBoard(@RequestParam(defaultValue = "1") int page, int projectSeq, Model model,
+			HttpSession session) {
+		System.out.println("****************");
+		int empno = (int) session.getAttribute("empno");
+		int totalSchedules = projectBoardService.getProjectScheduleCount(projectSeq);
+		System.out.println(projectSeq);
+		System.out.println("****************");
 
-	    int pageSize = 10;
-	    int totalPage = (int) Math.ceil((double) totalSchedules / pageSize); // 총 페이지 수
-	    
-	    if (page < 1) page = 1;
-	    if (page > totalPage) page = totalPage;
-	    
-	    int startRow = (page - 1) * pageSize;
+		JoinProjectSimpleData joinProjectSimpleData = projectBoardService.JoinProjectSimpleOneData(projectSeq, empno);
+		model.addAttribute("joinProjectSimpleData", joinProjectSimpleData);
 
-	    List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleList(projectSeq, startRow, pageSize);
-	    model.addAttribute("projectScheduleList", projectScheduleList);
-	    model.addAttribute("totalSchedules", totalSchedules);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPage", totalPage);
-	    
-	    return "member/projectBoard";
+		int pageSize = 10;
+		int totalPage = (int) Math.ceil((double) totalSchedules / pageSize); // 총 페이지 수
+
+		if (page < 1)
+			page = 1;
+		if (page > totalPage)
+			page = totalPage;
+
+		int startRow = (page - 1) * pageSize;
+
+		List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleList(projectSeq, startRow,
+				pageSize);
+		model.addAttribute("projectScheduleList", projectScheduleList);
+		model.addAttribute("totalSchedules", totalSchedules);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPage", totalPage);
+
+		return "member/projectBoard";
 	}
 
-	
-    @GetMapping("/getProjectSchedules")
-    @ResponseBody
-    public ResponseEntity<List<ProjectSchedule>> getProjectSchedules(@RequestParam int projectSeq, HttpSession session) {
-        int empno = (int) session.getAttribute("empno");
-        List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleListAll(projectSeq);
-        return new ResponseEntity<>(projectScheduleList, HttpStatus.OK);
-    }
-	
-	
-	
-	
-	
-
+	@GetMapping("/getProjectSchedules")
+	@ResponseBody
+	public ResponseEntity<List<ProjectSchedule>> getProjectSchedules(@RequestParam int projectSeq,
+			HttpSession session) {
+		int empno = (int) session.getAttribute("empno");
+		List<ProjectSchedule> projectScheduleList = projectBoardService.projectScheduleListAll(projectSeq);
+		return new ResponseEntity<>(projectScheduleList, HttpStatus.OK);
+	}
 
 	@GetMapping("projectBoardInsert")
 	public String projectBoardInsert(int projectSeq, Model model) {

@@ -39,16 +39,50 @@
 						<a>기존 파일명 : ${data.fbOriginfile}</a>
 					</div>
 
-
+					<c:if test="${pageContext.request.userPrincipal.name eq data.bid}">
 					<div class="form-floating">
 						<a class="btn btn-primary m-2"
 							href="${pageContext.request.contextPath}/member/FileBoardUpdate?bcode=${data.bcode}">글수정</a>
-						<button class="btn btn-primary m-2">글삭제</button>
+						<button type="button" id="fileBoardDelete" class="btn btn-primary m-2">글삭제</button>
 						<button class="btn btn-primary m-2">목록으로</button>
 					</div>
+					</c:if>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	const deleteBtn = document.getElementById("fileBoardDelete");
+	
+	deleteBtn.addEventListener("click", function() {
+		// 확인 메시지 출력
+		if (confirm("게시글을 삭제하시겠습니까?")) {
+			// AJAX 요청 생성
+			$.ajax({
+				url : "/member/fileStorageBoardDelete",
+				type : "GET",
+				data: {
+	                bcode: ${data.bcode}
+	            },
+				success : function() {
+					// 성공적으로 삭제되었을 때의 동작
+					alert("성공적으로 삭제되었습니다");
+					window.location.href = "${pageContext.request.contextPath}/member/FileBoard";
+					// 추가적인 동작 수행 가능
+				},
+				error : function() {
+					// 삭제 실패 시의 동작
+					alert("삭제요청 실패");
+					// 추가적인 동작 수행 가능
+				}
+			});
+		}
+	});
+</script>
+
+
+
+
 <%@include file="../include/footer.jsp"%>
