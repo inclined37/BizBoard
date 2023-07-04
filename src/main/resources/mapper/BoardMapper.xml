@@ -12,6 +12,7 @@
 	</update>
 
 	<!-- 공지사항 전체 select 
+	-->
 	<select id="selectAllNoticeBoard"
 		resultType="com.Bizboard.vo.Board">
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
@@ -23,7 +24,7 @@
 		ORDER BY
 		b_code DESC
 	</select>
-	-->
+	<!-- 
 	<select id="selectAllNoticeBoard"
 		resultType="com.Bizboard.vo.Board">
 		<![CDATA[
@@ -40,6 +41,116 @@
 		WHERE rn > #{startRow}
 		]]>
 	</select>
+	 -->
+	
+	<!-- 공지사항 게시글 검색 -->
+	<!-- 
+	<select id="selectAllNoticeBoardByValue" resultType="com.Bizboard.vo.Board">
+	    <![CDATA[
+	    SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+	    b_views, b_created, b_updated, bt_code
+	    FROM (
+	        SELECT ROWNUM AS rn, b.*
+	        FROM Board b
+	        WHERE b.bt_code = #{btCode}
+	        AND ROWNUM <= #{startRow} + #{pageSize}
+	        <choose>
+	            <when test="option == 'btitle'">
+	                AND b_title LIKE '%' || #{keyword} || '%'
+	            </when>
+	            <when test="option == 'bcontent'">
+	                AND b_content LIKE '%' || #{keyword} || '%'
+	            </when>
+	            <when test="option == 'bname'">
+	                AND b_name LIKE '%' || #{keyword} || '%'
+	            </when>
+	        </choose>
+	        ORDER BY b_code DESC
+	    )
+	    WHERE rn > #{startRow}
+	    ]]>
+	</select>
+	 -->
+	
+	<!-- 공지사항 게시글 검색 totalCount -->
+	<!-- 
+	<select id="selectNoticeBoardCountByValue" resultType="int">
+	    SELECT COUNT(*)
+	    FROM Board
+	    WHERE bt_code = #{btCode}
+	    AND (
+	        <if test="option == 'btitle'">
+	            b_title LIKE '%' || #{keyword} || '%'
+	        </if>
+	        <if test="option == 'bcontent'">
+	            b_content LIKE '%' || #{keyword} || '%'
+	        </if>
+	        <if test="option == 'bname'">
+	            b_name LIKE '%' || #{keyword} || '%'
+	        </if>
+	    )
+	</select>
+	 -->
+	
+	<!-- 공지사항 제목 select 
+	<select id="selectAllNoticeBoardByTitle"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			AND b_title = LIKE '%' || #{btitle} || '%'
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
+	</select>
+	-->
+	
+	<!-- 공지사항 내용 select 
+	<select id="selectAllNoticeBoardByContent"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			AND b_content = LIKE '%' || #{bcontent} || '%'
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
+	</select>
+	-->
+	
+	<!-- 공지사항 작성자 이름 select 
+	<select id="selectAllNoticeBoardByName"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			AND b_name = LIKE '%' || #{bname} || '%'
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
+	</select>
+	-->
 
 	<!-- 공지사항 조건 select -->
 	<select id="selectNoticeBoard"
@@ -178,7 +289,11 @@
 		WHERE b_code = #{bcode}
 	</update>
 
-
+	<delete id="deleteFileStorageBoard">
+		DELETE
+		FROM Board
+		WHERE b_code = #{bcode}
+	</delete>
 
 
 

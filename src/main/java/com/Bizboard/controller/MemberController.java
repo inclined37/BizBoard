@@ -71,6 +71,8 @@ public class MemberController {
 
 	}
 
+	/*
+	 */
 	// 공지사항 게시판 페이지 이동
 	@GetMapping("noticeBoard")
 	public void noticeBoardGet(@RequestParam(defaultValue = "1") int page, Model model) {
@@ -193,6 +195,13 @@ public class MemberController {
 	    }
 	}
 
+	// 파일게시판 삭제
+	@GetMapping("fileStorageBoardDelete")
+	public String fileStorageBoardDelete(int bcode) {
+		System.out.println("fileStorageBoardDelete GET 요청 진입");
+		fileStorageBoardService.deleteFileStorageBoard(bcode);
+		return "redirect:/member/FileBoard";
+	}
 
 
 	@GetMapping("FileBoardInsert")

@@ -15,6 +15,24 @@ public interface BoardDao {
 	// 공지형 게시판 전체 select
 	public List<Board> selectAllNoticeBoard(@Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
 
+	// 공지형 게시판 검색 - 제목 select
+	public List<Board> selectAllNoticeBoardByTitle(@Param("btitle") String btitle, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
+	
+	// 공지형 게시판 검색 - 내용 select
+	public List<Board> selectAllNoticeBoardByContent(@Param("bcontent") String bcontent, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
+	
+	// 공지형 게시판 검색 - 작성자 이름 select
+	public List<Board> selectAllNoticeBoardByName(@Param("bname") String bname, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
+	
+	// 공지형 게시판 검색 - 제목 totalCount
+	public int selectNoticeBoardByTitleCount(@Param("btitle") String btitle, @Param("btCode") int btCode);
+
+	// 공지형 게시판 검색 - 내용 totalCount
+	public int selectNoticeBoardByContentCount(@Param("bcontent") String bcontent, @Param("btCode") int btCode);
+
+	// 공지형 게시판 검색 - 작성자 이름 totalCount
+	public int selectNoticeBoardByNameCount(@Param("bname") String bname, @Param("btCode") int btCode);
+
 	// 공지형 게시판 조건 select
 	public Board selectNoticeBoard(int bcode);
 
@@ -46,4 +64,7 @@ public interface BoardDao {
 	// 파일형 게시판 update
 	public int updateFileStorageBoard(BoardFileJoin board);
 	public int updateBoard(BoardFileJoin board);
+	
+	// 파일형 게시판 delete
+	public int deleteFileStorageBoard(int bcode);
 }

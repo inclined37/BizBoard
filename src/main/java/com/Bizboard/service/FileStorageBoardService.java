@@ -85,7 +85,11 @@ public class FileStorageBoardService {
 	    return result;
 	}
 
-
+	//공지게시판 delete
+	public void deleteFileStorageBoard(int bcode) {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		bdao.deleteFileStorageBoard(bcode);
+	}
 
 
 	//public int updateFileStorageBoard(BoardFileJoin board) {
