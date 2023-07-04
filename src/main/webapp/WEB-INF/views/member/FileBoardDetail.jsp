@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
 <div class="container-fluid pt-4 px-4">
@@ -9,7 +10,7 @@
 				<h6 class="mb-4">파일게시판 상세보기</h6>
 				<form id="fileStorageBoardUpdateForm"
 					action="${pageContext.request.contextPath}/member/FileBoardUpdate"
-					method="post">
+					method="post" enctype="multipart/form-data">
 					<c:set var="data" value="${data}" />
 					<input type="hidden" name="bcode" value="${data.bcode}" />
 					<div class="form-floating mb-3">
@@ -40,30 +41,43 @@
 					<div class="form-floating mb-3">
 						<a>기존 파일명 : ${data.fbOriginfile}</a>
 					</div>
+					
+					<a href="${pageContext.request.contextPath}/member/download?fbSavedfile=${data.fbSavedfile}&fbOriginfile=${data.fbOriginfile}" target="_blank">${data.fbOriginfile}</a>
 
-					<div id="fileUploadField" class="form-floating mb-2" style="display: none;">
-						<input type="file" name="file" class="form-control" id="floatingFile" name="fbOriginfile" placeholder="파일선택">
+
+
+
+					
+
+					<div id="fileUploadField" class="form-floating mb-2"
+						style="display: none;">
+						<input type="file" name="file" class="form-control"
+							id="floatingFile" name="fbOriginfile" placeholder="파일선택">
 						<label for="floatingFile">파일</label>
 					</div>
 
 					<div id="button-area" class="form-floating">
-						<div>
-							<a href="${pageContext.request.contextPath}/member/FileBoard"
-								class="btn btn-primary m-2">목록으로</a>
-						</div>
-						<c:if test="${pageContext.request.userPrincipal.name eq data.bid}">
+						<div class="d-flex justify-content-between align-items-center">
 							<div>
-								<button type="button" id="boardDetailUpdateBtn"
-									class="btn btn-primary m-2">수정</button>
-								<button type="submit" id="boardDetailSaveBtn"
-									class="btn btn-primary m-2" style="display: none;">저장</button>
-								<button type="button" id="boardDetailCancelBtn"
-									class="btn btn-primary m-2" style="display: none;">취소</button>
-								<button type="button" id="boardDetailDeleteBtn"
-									class="btn btn-primary m-2">삭제</button>
+								<a href="${pageContext.request.contextPath}/member/FileBoard"
+									class="btn btn-primary m-2">목록으로</a>
 							</div>
-						</c:if>
+							<c:if
+								test="${pageContext.request.userPrincipal.name eq data.bid}">
+								<div>
+									<button type="button" id="boardDetailUpdateBtn"
+										class="btn btn-primary m-2">수정</button>
+									<button type="submit" id="boardDetailSaveBtn"
+										class="btn btn-primary m-2" style="display: none;">저장</button>
+									<button type="button" id="boardDetailCancelBtn"
+										class="btn btn-primary m-2" style="display: none;">취소</button>
+									<button type="button" id="boardDetailDeleteBtn"
+										class="btn btn-primary m-2">삭제</button>
+								</div>
+							</c:if>
+						</div>
 					</div>
+
 				</form>
 			</div>
 		</div>
@@ -141,7 +155,7 @@ updateBtn.addEventListener("click", function() {
 	content.readOnly = false;
 });
 
-saveBtn.addEventListener("click", function(event) {
+/* saveBtn.addEventListener("click", function(event) {
     if (title.value.trim() == '' || content.value.trim() == '') {
         event.preventDefault();
         alert('제목과 내용을 모두 입력해주세요.');
@@ -161,7 +175,7 @@ saveBtn.addEventListener("click", function(event) {
             credentials: 'same-origin' // 추가: 동일 출처 요청 설정
         })
         .then(response => {
-            if (response.ok) {
+            if (response.status === 200) {
                 return response.json(); // 응답의 JSON 데이터를 파싱
             } else {
                 throw new Error('저장에 실패했습니다.'); // 오류 발생시키기
@@ -177,23 +191,28 @@ saveBtn.addEventListener("click", function(event) {
 
             // 파일 업로드 필드 감추기
             fileUploadField.style.display = "none";
+
+            // 수정 성공 메시지 표시
+            alert("수정되었습니다");
         })
         .catch(error => {
-            alert("수정되었습니다"); // 오류 메시지 표시
+            // 오류 메시지 표시
+            alert("수정에 실패했습니다.");
         });
     }
-});
+}); */
 
 
 cancelBtn.addEventListener("click", function() {
-	saveBtn.style.display = "none";
-	cancelBtn.style.display = "none";
-	updateBtn.style.display = "inline-block";
-	deleteBtn.style.display = "inline-block";
-	title.value = previousTitle;
-	content.value = previousContent;
-	title.readOnly = true;
-	content.readOnly = true;
+    saveBtn.style.display = "none";
+    cancelBtn.style.display = "none";
+    updateBtn.style.display = "inline-block";
+    deleteBtn.style.display = "inline-block";
+    title.value = previousTitle;
+    content.value = previousContent;
+    title.readOnly = true;
+    content.readOnly = true;
+    fileUploadField.style.display = "none";
 });
 
 deleteBtn.addEventListener("click", function() {

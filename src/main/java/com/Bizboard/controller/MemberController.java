@@ -2,6 +2,9 @@ package com.Bizboard.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -75,20 +82,22 @@ public class MemberController {
 	@GetMapping("noticeBoard")
 	public void noticeBoardGet(@RequestParam(defaultValue = "1") int page, Model model) {
 		int btCode = 1000;
-		
+
 		int totalBoard = noticeBoardService.getTotalNoticeBoardCount();
 		int pageSize = 10;
-	    int totalPage = (int) Math.ceil((double) totalBoard / pageSize); // 총 페이지 수
-	    
-	    if (page < 1) page = 1;
-	    if (page > totalPage) page = totalPage;
-	    int startRow = (page - 1) * pageSize;
-	    
-	    List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode, startRow, pageSize);
+		int totalPage = (int) Math.ceil((double) totalBoard / pageSize); // 총 페이지 수
+
+		if (page < 1)
+			page = 1;
+		if (page > totalPage)
+			page = totalPage;
+		int startRow = (page - 1) * pageSize;
+
+		List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode, startRow, pageSize);
 		model.addAttribute("data", blist);
 		model.addAttribute("totalBoard", totalBoard);
 		model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPage", totalPage);
+		model.addAttribute("totalPage", totalPage);
 	}
 
 	// 공지사항 글 상세보기 페이지 이동
@@ -134,14 +143,8 @@ public class MemberController {
 	public void fileBoardDetailGet(int bcode, Model model) {
 		BoardFileJoin board = fileStorageBoardService.selectFileBoard(bcode);
 		model.addAttribute("data", board);
+		model.addAttribute("downloadLink", "/member/downloadFile/" + board.getFbSavedfile());
 	}
-
-	// 파일 글 수정 페이지 이동
-	//@GetMapping("FileBoardUpdate")
-	//public void fileBoardUpdateGet(int bcode, Model model) {
-		//BoardFileJoin board = fileStorageBoardService.selectFileBoard(bcode);
-		//model.addAttribute("data", board);
-	//}
 
 	// 파일 글 수정하기
 	@PostMapping("/FileBoardUpdate")
@@ -183,7 +186,7 @@ public class MemberController {
 		int result = fileStorageBoardService.updateFileStorageBoard(board);
 
 		if (result > 0) {
-			 return "redirect:/member/FileBoardDetail?bcode=" + bcode;
+			return "redirect:/member/FileBoardDetail?bcode=" + bcode;
 		} else {
 			return "error";
 		}
@@ -243,6 +246,29 @@ public class MemberController {
 		fileStorageBoardService.deleteFileStorageBoard(bcode);
 		return "redirect:/member/FileBoard";
 	}
+
+	// 파일다운로드
+		@GetMapping("/download")
+		@ResponseBody
+		public ResponseEntity<Object> download(HttpServletRequest request, String fbSavedfile, String fbOriginfile) {
+			String path = request.getSession().getServletContext().getRealPath("").replace("\\webapp", "") + fileUploadDirectory.replace("/", File.separator)+ "\\" + fbSavedfile;
+			try {
+				Path filePath = Paths.get(path);
+				Resource resource = new InputStreamResource(Files.newInputStream(filePath)); // 파일 resource 얻기
+				
+				File file = new File(path);
+				
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentDisposition(ContentDisposition.builder("attachment").filename(fbOriginfile).build());  // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
+				
+				return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
+			} catch(Exception e) {
+				return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+			}
+		}
+
+
+
 
 	// =================================================================================================================================
 	@GetMapping("searchResult")

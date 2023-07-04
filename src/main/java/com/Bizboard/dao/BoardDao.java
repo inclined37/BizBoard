@@ -52,4 +52,6 @@ public interface BoardDao {
 
 	// 파일형 게시판 delete
 	public int deleteFileStorageBoard(int bcode);
+
+
 }
