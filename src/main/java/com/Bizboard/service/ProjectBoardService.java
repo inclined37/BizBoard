@@ -69,5 +69,27 @@ public class ProjectBoardService {
 		return result;
 	}
 	
+	public ProjectSchedule getOneProjectSchedule(int scheduleId) {
+		ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
+		ProjectSchedule result = dao.getOneProjectSchedule(scheduleId);
+		
+		return result;
+	}
+	
+	public int oneProjectScheduleUpdate(ProjectSchedule projectSchedule) {
+		ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
+		int result = dao.oneProjectScheduleUpdate(projectSchedule);
+		
+		return result;
+	}
+	
+	public int oneProjectScheduleDelete(int scheduleId) {
+		ProjectBoardDao dao = sqlSession.getMapper(ProjectBoardDao.class);
+		int result = dao.oneProjectScheduleDelete(scheduleId);
+		
+		return result;
+	}
+	
+	
     
 }

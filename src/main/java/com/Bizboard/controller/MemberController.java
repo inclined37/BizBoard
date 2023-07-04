@@ -367,4 +367,44 @@ public class MemberController {
 		return "redirect:/member/projectBoard";
 	}
 
+	
+	@GetMapping("projectBoardDetail")
+	public String projectBoardDetail(int projectSeq, int scheduleId, Model model) {
+		System.out.println("넘어온 게시글 고유번호 scheduleId : " + scheduleId);
+		System.out.println("넘어온 프로젝트 고유번호 projectSeq : " + projectSeq);
+		
+		// scheduleId 를 받아와야함
+		System.out.println("projectBoardDetail 진입");
+		// scheduleId를 가지고 게시글 하나의 정보를 얻어야함
+		ProjectSchedule projectSchedule = projectBoardService.getOneProjectSchedule(scheduleId);
+		
+		model.addAttribute("projectSchedule", projectSchedule);
+		model.addAttribute("projectSeq", projectSeq);
+		System.out.println("***************************");
+		System.out.println(projectSchedule);
+		System.out.println("***************************");
+		
+		return "member/projectBoardDetail";
+	}
+	
+	@PostMapping("projectBoardUpdateOk")
+	public String projectBoardUpdateOk(ProjectSchedule projectSchedule, RedirectAttributes redirectAttributes) {
+		
+		projectBoardService.oneProjectScheduleUpdate(projectSchedule);
+		
+		// 다시 돌아가기위한 값
+		redirectAttributes.addAttribute("projectSeq", projectSchedule.getProjectSeq());
+		return "redirect:/member/projectBoard";
+	}
+	
+	@PostMapping("projectBoardDeleteOk")
+	public String projectBoardDeleteOk(int scheduleId,int projectSeq, RedirectAttributes redirectAttributes) {
+		
+		projectBoardService.oneProjectScheduleDelete(scheduleId);
+		
+		redirectAttributes.addAttribute("projectSeq", projectSeq);
+		return "redirect:/member/projectBoard";
+	}
+	
+	
 }

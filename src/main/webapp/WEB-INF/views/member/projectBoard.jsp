@@ -37,7 +37,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">일정고유번호</th>
+								<th scope="col">일정번호</th>
 								<th scope="col">제목</th>
 								<th scope="col">내용</th>
 								<th scope="col">시작일</th>
@@ -50,8 +50,17 @@
 								varStatus="status">
 								<tr>
 									<td>${schedule.scheduleId}</td>
-									<td>${schedule.title}</td>
-									<td>${schedule.description}</td>
+									<td>
+									    <c:choose>
+									        <c:when test="${sessionScope.empno == schedule.empno}">
+									            <a href="${pageContext.request.contextPath}/member/projectBoardDetail?scheduleId=${schedule.scheduleId}&projectSeq=${joinProjectSimpleData.projectSeq}">${schedule.title}</a>
+									        </c:when>
+									        <c:otherwise>
+									            ${schedule.title}
+									        </c:otherwise>
+									    </c:choose>
+									</td>
+										<td>${schedule.description}</td>
 									<td>${schedule.startDate}</td>
 									<td>${schedule.endDate}</td>
 									<td>${schedule.membername}</td>
@@ -114,19 +123,27 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(projectSchedules => {
 
-        // 고정 색상 배열
-        var colors = [
-            '#FF5733', '#33FF57', '#3357FF',
-            '#F3FF33', '#FF33F5', '#8D33FF',
-            '#FF6F33', '#33FFD7', '#6AFF33'
-        ];
+    	// 고정 색상 배열
+    	var colors = [
+    	    'rgba(255, 87, 51, 0.5)', // #FF5733 with 50% opacity
+    	    'rgba(51, 255, 87, 0.5)', // #33FF57 with 50% opacity
+    	    'rgba(51, 87, 255, 0.5)', // #3357FF with 50% opacity
+    	    'rgba(243, 255, 51, 0.5)', // #F3FF33 with 50% opacity
+    	    'rgba(255, 51, 245, 0.5)', // #FF33F5 with 50% opacity
+    	    'rgba(141, 51, 255, 0.5)', // #8D33FF with 50% opacity
+    	    'rgba(255, 111, 51, 0.5)', // #FF6F33 with 50% opacity
+    	    'rgba(51, 255, 215, 0.5)', // #33FFD7 with 50% opacity
+    	    'rgba(106, 255, 51, 0.5)'  // #6AFF33 with 50% opacity
+    	];
 
         // 이벤트를 FullCalendar 형식으로 변환
         var events = projectSchedules.map(function(schedule, index) {
+        	console.log('****************');
+        	console.log(schedule);
             var endDate = new Date(schedule.endDate);
             endDate.setDate(endDate.getDate() + 1); // 종료 날짜에 하루를 추가        	
             return {
-                title: schedule.membername + " - " +schedule.title,
+                title: schedule.title +" - " + schedule.membername +"(" +schedule.deptname + ")",
                 start: schedule.startDate,
                 end: endDate.toISOString().substring(0, 10), // ISO 형식으로 변환한 뒤 시간을 제거
                 backgroundColor: colors[index % colors.length], // 순환적으로 색상 할당
@@ -140,7 +157,26 @@ document.addEventListener('DOMContentLoaded', function() {
             expandRows: true,
             height: '500px',
             events: events, // 변환된 이벤트 배열을 달력에 추가
-            eventTextColor: 'black' // 이벤트 텍스트 색상을 검정으로 설정
+            eventTextColor: 'black', // 이벤트 텍스트 색상을 검정으로 설정
+            // 간단한 툴팁 추가
+		    // 간단한 툴팁 추가
+		    eventDidMount: function(info) {
+		        var tooltip = document.createElement("div");
+		        tooltip.classList.add("custom-tooltip");
+		        tooltip.innerHTML = info.event.title;
+		
+		        document.body.appendChild(tooltip);
+		
+		        info.el.onmouseover = function(event) {
+		            tooltip.style.display = "block";
+		            tooltip.style.left = event.clientX + 10 + "px";
+		            tooltip.style.top = event.clientY + 10 + "px";
+		        };
+		
+		        info.el.onmouseout = function() {
+		            tooltip.style.display = "none";
+		        };
+		    }
         });
 
         calendar.render();
