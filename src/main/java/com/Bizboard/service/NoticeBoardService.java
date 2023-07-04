@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Bizboard.dao.BoardDao;
 import com.Bizboard.dao.MemberDao;
+import com.Bizboard.dao.ProjectBoardDao;
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardForm;
 import com.Bizboard.vo.BoardType;
@@ -27,9 +28,9 @@ public class NoticeBoardService {
 	private BoardType boardType;
 
 	// 공지게시판 전체 select
-	public List<Board> selectAllNoticeBoard(int btCode) {
+	public List<Board> selectAllNoticeBoard(int btCode, int startRow, int pageSize) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		List<Board> blist = bdao.selectAllNoticeBoard(btCode);
+		List<Board> blist = bdao.selectAllNoticeBoard(btCode,startRow,pageSize);
 		return blist;
 	}
 
@@ -69,6 +70,14 @@ public class NoticeBoardService {
 	public void deleteNoticeBoard(int bcode) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
 		bdao.deleteNoticeBoard(bcode);
+	}
+	
+	//공지게시판 전체 글의 개수
+	public int getTotalNoticeBoardCount() {
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		int result = bdao.getTotalNoticeBoardCount();
+		
+		return result;
 	}
 	
 }

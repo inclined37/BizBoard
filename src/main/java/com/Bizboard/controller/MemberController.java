@@ -73,11 +73,22 @@ public class MemberController {
 
 	// 공지사항 게시판 페이지 이동
 	@GetMapping("noticeBoard")
-	public void noticeBoardGet(Model model) {
+	public void noticeBoardGet(@RequestParam(defaultValue = "1") int page, Model model) {
 		int btCode = 1000;
-		List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode);
-
+		
+		int totalBoard = noticeBoardService.getTotalNoticeBoardCount();
+		int pageSize = 10;
+	    int totalPage = (int) Math.ceil((double) totalBoard / pageSize); // 총 페이지 수
+	    
+	    if (page < 1) page = 1;
+	    if (page > totalPage) page = totalPage;
+	    int startRow = (page - 1) * pageSize;
+	    
+	    List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode, startRow, pageSize);
 		model.addAttribute("data", blist);
+		model.addAttribute("totalBoard", totalBoard);
+		model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
 	}
 
 	// 공지사항 글 상세보기 페이지 이동
@@ -126,11 +137,11 @@ public class MemberController {
 	}
 
 	// 파일 글 수정 페이지 이동
-	@GetMapping("FileBoardUpdate")
-	public void fileBoardUpdateGet(int bcode, Model model) {
-		BoardFileJoin board = fileStorageBoardService.selectFileBoard(bcode);
-		model.addAttribute("data", board);
-	}
+	//@GetMapping("FileBoardUpdate")
+	//public void fileBoardUpdateGet(int bcode, Model model) {
+		//BoardFileJoin board = fileStorageBoardService.selectFileBoard(bcode);
+		//model.addAttribute("data", board);
+	//}
 
 	// 파일 글 수정하기
 	@PostMapping("/FileBoardUpdate")
@@ -172,7 +183,7 @@ public class MemberController {
 		int result = fileStorageBoardService.updateFileStorageBoard(board);
 
 		if (result > 0) {
-			return "redirect:/member/FileBoard";
+			 return "redirect:/member/FileBoardDetail?bcode=" + bcode;
 		} else {
 			return "error";
 		}

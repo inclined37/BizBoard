@@ -9,7 +9,9 @@
 	<div class="row g-4">
 		<div class="col-12">
 			<div class="bg-light rounded h-100 p-4">
-				<h3 class="mb-4">공지게시판</h3>
+				<div id="boardHeader">
+					<h3 class="mb-4">공지게시판</h3>
+				</div>
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
@@ -41,6 +43,27 @@
 							href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글작성</a>
 					</se:authorize>
 				</div>
+				<div id="noticeBoardPagingDiv" class="d-flex justify-content-center mt-4">
+					<nav>
+						<ul class="pagination">
+							<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+								<a class="page-link"
+								href="/member/noticeBoard?page=${currentPage-1}"
+								tabindex="-1" aria-disabled="true">이전</a>
+							</li>
+							<c:forEach var="i" begin="1" end="${totalPage}">
+								<li class="page-item ${currentPage == i ? 'active' : ''}">
+									<a class="page-link" href="/member/noticeBoard?page=${i}">${i}</a>
+								</li>
+							</c:forEach>
+							<li
+								class="page-item ${currentPage == totalPage ? 'disabled' : ''}">
+								<a class="page-link"
+								href="/member/noticeBoard?page=${currentPage+1}">다음</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -49,6 +72,15 @@
 
 
 
-
+<style>
+	#boardHeader {
+		display:flex;
+		justify-content: space-between;
+	}
+	
+	#boardHeader > select {
+		padding: 0px 10px 0px;
+	}
+</style>
 
 <%@include file="../include/footer.jsp"%>
