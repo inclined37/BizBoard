@@ -170,11 +170,17 @@
 	-->
 
 	<!-- 공지사항 조건 select -->
-	<select id="selectNoticeBoard"
+	<select id="selectBoard"
 		resultType="com.Bizboard.vo.Board">
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
 		b_views,
 		b_created, b_updated, bt_code
+		FROM Board
+		WHERE b_code = #{bcode}
+	</select>
+	<select id="selectNoticeBoard"
+		resultType="com.Bizboard.vo.NoticeBoard">
+		SELECT *
 		FROM Board
 		WHERE b_code = #{bcode}
 	</select>
@@ -199,14 +205,20 @@
 		</trim>
 	</insert>
 
-	<!-- 공지사항 update -->
-	<update id="updateNoticeBoard"
+	<!-- 공지사항 update 
+	-->
+	<update id="updateBoardforNotice"
 		parameterType="com.Bizboard.vo.Board">
 		UPDATE Board
 		SET b_title = #{btitle},
-		b_content =
-		#{bcontent},
+		b_content = #{bcontent},
 		b_updated = SYSDATE
+		WHERE b_code = #{bcode}
+	</update>
+	<update id="updateNoticeBoard"
+		parameterType="com.Bizboard.vo.NoticeBoard">
+		UPDATE NoticeBoard
+		SET nb_checked = #{nbchecked}
 		WHERE b_code = #{bcode}
 	</update>
 

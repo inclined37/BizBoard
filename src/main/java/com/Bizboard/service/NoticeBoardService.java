@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Bizboard.dao.BoardDao;
 import com.Bizboard.vo.Board;
@@ -66,11 +67,26 @@ public class NoticeBoardService {
     }
 
 	// 공지게시판 조건 select
-	public Board selectNoticeBoard(int bcode) {
+	public BoardJoinNoticeBoard selectNoticeBoard(int bcode) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
 		bdao.increaseBoardViews(bcode);
-		Board board = bdao.selectNoticeBoard(bcode);
-		return board;
+		Board board = bdao.selectBoard(bcode);
+		NoticeBoard nboard = bdao.selectNoticeBoard(bcode);
+		BoardJoinNoticeBoard bjnboard = new BoardJoinNoticeBoard();
+		bjnboard.setBcode(board.getBcode());
+		bjnboard.setBcontent(board.getBcontent());
+		bjnboard.setBcreated(board.getBcreated());
+		bjnboard.setBdname(board.getBdname());
+		bjnboard.setBemail(board.getBname());
+		bjnboard.setBid(board.getBid());
+		bjnboard.setBname(board.getBname());
+		bjnboard.setBtCode(board.getBtCode());
+		bjnboard.setBtitle(board.getBtitle());
+		bjnboard.setBupdated(board.getBupdated());
+		bjnboard.setBviews(board.getBviews());
+		bjnboard.setNbchecked(nboard.getNbchecked());
+		bjnboard.setNbcode(nboard.getNbcode());
+		return bjnboard;
 	}
 	
 	// 공지게시판 insert
@@ -84,17 +100,24 @@ public class NoticeBoardService {
 
 		board.setBtCode(boardType.getBtCode());
 
-		// int result = 0;
 		int result = bdao.insertNoticeBoard(board, nboard);
 		return result;
 	}
 
 	// 공지게시판 update
-	public int updateNoticeBoard(Board board) {
+	@Transactional
+	public void updateNoticeBoard(BoardJoinNoticeBoard bjnboard) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		int result = bdao.updateNoticeBoard(board);
+		Board board = new Board();
+		NoticeBoard nboard = new NoticeBoard();
+		board.setBcode(bjnboard.getBcode());
+		board.setBcontent(bjnboard.getBcontent());
+		board.setBtitle(bjnboard.getBtitle());
+		nboard.setBcode(bjnboard.getBcode());
+		nboard.setNbchecked(bjnboard.getNbchecked());
 		
-		return result;
+		bdao.updateBoardforNotice(board);
+		bdao.updateNoticeBoard(nboard);
 	}
 	
 	// 공지게시판 delete

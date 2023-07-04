@@ -43,6 +43,14 @@
 							id="floatingTextarea" name="bcontent" readonly="readonly"
 							required>${data.bcontent}</textarea>
 					</div>
+					<div class="form-check form-check-inline" style="display: none;">
+                        <input class="form-check-input" type="radio" name="nbchecked" id="inlineRadio1" value="0" checked>
+                        <label class="form-check-label" for="inlineRadio1">일반 노출</label>
+                    </div>
+					<div class="form-check form-check-inline" style="display: none;">
+                        <input class="form-check-input" type="radio" name="nbchecked" id="inlineRadio1" value="1">
+                        <label class="form-check-label" for="inlineRadio1">상단 노출</label>
+                    </div>
 					<div id="button-area" class="form-floating">
 						<div>
 							<a href="${pageContext.request.contextPath}/member/noticeBoard"
@@ -99,6 +107,10 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+.form-check.form-check-inline {
+	margin-top: 10px;
+}
 </style>
 <script>
 	const updateBtn = document.getElementById("boardDetailUpdateBtn");
@@ -129,6 +141,8 @@
 
 		title.readOnly = false;
 		content.readOnly = false;
+		
+		$(".form-check.form-check-inline").css("display","inline-block");
 	});
 
 	saveBtn.addEventListener("click", function(event) {
@@ -141,6 +155,7 @@
 			updateBtn.style.display = "inline-block";
 			deleteBtn.style.display = "inline-block";
 			document.getElementById("noticeBoardUpdateForm").submit();
+			$(".form-check.form-check-inline").css("display","none");
 		}
 	});
 
@@ -153,6 +168,7 @@
 		content.value = previousContent;
 		title.readOnly = true;
 		content.readOnly = true;
+		$(".form-check.form-check-inline").css("display","none");
 	});
 
 	deleteBtn.addEventListener("click", function() {

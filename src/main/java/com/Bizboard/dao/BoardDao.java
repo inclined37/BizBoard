@@ -36,13 +36,15 @@ public interface BoardDao {
 	public int selectNoticeBoardByNameCount(@Param("bname") String bname, @Param("btCode") int btCode);
 
 	// 공지형 게시판 조건 select
-	public Board selectNoticeBoard(int bcode);
+	public Board selectBoard(int bcode);
+	public NoticeBoard selectNoticeBoard(int bcode);
 
 	// 공지형 게시판 insert
 	public int insertNoticeBoard(@Param("board") Board board, @Param("nboard") NoticeBoard nboard);
 
 	// 공지형 게시판 update
-	public int updateNoticeBoard(Board board);
+	public int updateBoardforNotice(Board board);
+	public int updateNoticeBoard(NoticeBoard nboard);
 
 	// 공지형 게시판 delete
 	public int deleteNoticeBoard(int bcode);

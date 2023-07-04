@@ -39,6 +39,7 @@ import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
 import com.Bizboard.vo.BoardJoinNoticeBoard;
 import com.Bizboard.vo.MemberAllData;
+import com.Bizboard.vo.NoticeBoard;
 
 @Controller
 @RequestMapping("/member/*")
@@ -95,17 +96,17 @@ public class MemberController {
 	// 공지사항 글 상세보기 페이지 이동
 	@GetMapping("noticeBoardDetail")
 	public void noticeBoardDetailGet(int bcode, Model model) {
-		Board board = noticeBoardService.selectNoticeBoard(bcode);
+		BoardJoinNoticeBoard board = noticeBoardService.selectNoticeBoard(bcode);
 		model.addAttribute("data", board);
 	}
 	
 	//공지사항 글 수정
 	@PostMapping("noticeBoardUpdate")
-	public String noticeBoardUpdate(@ModelAttribute("data") Board board) {
+	public String noticeBoardUpdate(@ModelAttribute("data") BoardJoinNoticeBoard bjnboard) {
 		System.out.println("noticeBoardUpdate POST 요청 진입");
-		System.out.println(board.toString());
-		int result = noticeBoardService.updateNoticeBoard(board);
-		return "redirect:/member/noticeBoardDetail?bcode="+board.getBcode();
+		bjnboard.toString();
+		noticeBoardService.updateNoticeBoard(bjnboard);
+		return "redirect:/member/noticeBoardDetail?bcode="+bjnboard.getBcode();
 	}
 	
 	//공지사항 글 삭제
