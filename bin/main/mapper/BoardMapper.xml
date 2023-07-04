@@ -11,19 +11,10 @@
 		#{bcode}
 	</update>
 
-	<!-- 공지사항 전체 select 
-	<select id="selectAllNoticeBoard"
-		resultType="com.Bizboard.vo.Board">
-		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
-		b_views,
-		b_created, b_updated, bt_code
-		FROM Board
-		WHERE bt_code =
-		#{btCode}
-		ORDER BY
-		b_code DESC
-	</select>
-	-->
+	<!-- 공지사항 전체 select <select id="selectAllNoticeBoard" resultType="com.Bizboard.vo.Board"> 
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content, b_views, b_created, 
+		b_updated, bt_code FROM Board WHERE bt_code = #{btCode} ORDER BY b_code DESC 
+		</select> -->
 	<select id="selectAllNoticeBoard"
 		resultType="com.Bizboard.vo.Board">
 		<![CDATA[
@@ -88,7 +79,7 @@
 		FROM Board
 		WHERE b_code = #{bcode}
 	</delete>
-	
+
 	<!-- 공지사항 전체 게시글 count -->
 	<select id="getTotalNoticeBoardCount" resultType="int">
 		SELECT count(*)
@@ -177,6 +168,12 @@
 		fb_filesize = #{fbFilesize}
 		WHERE b_code = #{bcode}
 	</update>
+
+	<delete id="deleteFileStorageBoard">
+		DELETE
+		FROM Board
+		WHERE b_code = #{bcode}
+	</delete>
 
 
 

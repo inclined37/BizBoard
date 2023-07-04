@@ -21,6 +21,10 @@ public class BoardFileJoin {
 	private String fbOriginfile;	//원본 파일이름
 	private String fbSavedfile;	//저장 파일이름
 	private int fbFilesize;		//파일 크기
+	
+	private String deptno;
+	private String dname;
+	private String loc;
 	public int getBcode() {
 		return bcode;
 	}
@@ -111,6 +115,26 @@ public class BoardFileJoin {
 	public void setFbFilesize(int fbFilesize) {
 		this.fbFilesize = fbFilesize;
 	}
+	public String getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(String deptno) {
+		this.deptno = deptno;
+	}
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public String getLoc() {
+		return loc;
+	}
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
 	
 	
+	
+
 }

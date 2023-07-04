@@ -26,9 +26,11 @@ public interface BoardDao {
 
 	// 공지형 게시판 delete
 	public int deleteNoticeBoard(int bcode);
+
 	
 	//공지형 게시판 전체 게시글 수 Count
 	public int getTotalNoticeBoardCount();
+
 
 	// ==========================================================================================
 	// 파일형 게시판 전체 select
@@ -45,5 +47,11 @@ public interface BoardDao {
 
 	// 파일형 게시판 update
 	public int updateFileStorageBoard(BoardFileJoin board);
+
 	public int updateBoard(BoardFileJoin board);
+
+	// 파일형 게시판 delete
+	public int deleteFileStorageBoard(int bcode);
+
+
 }
