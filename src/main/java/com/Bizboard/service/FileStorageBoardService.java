@@ -1,10 +1,17 @@
 package com.Bizboard.service;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.Bizboard.dao.BoardDao;
 import com.Bizboard.vo.BoardFileJoin;
@@ -22,6 +29,9 @@ public class FileStorageBoardService {
 
 	@Autowired
 	private BoardType boardType;
+	
+	@Value("${file.upload.directory.fileBoard}")
+    private String fileBoardUploadDirectory;
 
 	// 파일게시판 전체 select
 	public List<BoardFileJoin> selectAllFileStorageBoard(int btCode) {
@@ -84,20 +94,12 @@ public class FileStorageBoardService {
 
 	    return result;
 	}
-
-	//공지게시판 delete
+	
+	//파일게시판 delete
 	public void deleteFileStorageBoard(int bcode) {
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
 		bdao.deleteFileStorageBoard(bcode);
 	}
-
-
-	//public int updateFileStorageBoard(BoardFileJoin board) {
-		//BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		//int result = bdao.updateBoard(board);
-	        //result += bdao.updateFileStorageBoard(board);
-	    
-	    //return result;
-	//}
+		
 
 }

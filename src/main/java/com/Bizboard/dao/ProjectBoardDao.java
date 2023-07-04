@@ -25,5 +25,12 @@ public interface ProjectBoardDao {
 	public List<ProjectSchedule> projectScheduleList(@Param("projectSeq")int projectSeq ,@Param("startRow") int startRow, @Param("pageSize") int pageSize);
 
 	public int getProjectScheduleCount(int projectSeq);
+
+	public ProjectSchedule getOneProjectSchedule(int scheduleId); // 프로젝트 안에 있는 게시글 정보 
+	
+	public int oneProjectScheduleUpdate(ProjectSchedule projectSchedule); // 프로젝트 안에 있는 한개의 게시글 수정  
+	
+	public int oneProjectScheduleDelete(int scheduleId);
+	
 	
 }

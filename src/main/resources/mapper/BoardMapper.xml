@@ -228,7 +228,7 @@
 		FROM Board
 		WHERE b_code = #{bcode}
 	</delete>
-	
+
 	<!-- 공지사항 전체 게시글 count -->
 	<select id="getTotalNoticeBoardCount" resultType="int">
 		SELECT count(*)

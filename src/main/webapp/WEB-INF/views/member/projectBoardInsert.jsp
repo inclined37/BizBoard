@@ -39,8 +39,9 @@
         <input type="hidden" name="deptname" value="${sessionScope.deptname}">
         <input type="hidden" name="deptno" value="${sessionScope.deptno}">
         <input type="hidden" name="membername" value="${sessionScope.membername}">
-        
-        <button type="submit" class="btn btn-primary">일정 추가</button>
+        <div class="form-control">
+        	<button type="submit" class="btn btn-primary">일정 추가</button>
+        </div>
     </form>
 </div>
 
