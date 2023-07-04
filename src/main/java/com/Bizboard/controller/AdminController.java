@@ -16,6 +16,7 @@ import com.Bizboard.service.MemberService;
 import com.Bizboard.service.NoticeBoardService;
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.MemberAllData;
+import com.Bizboard.vo.NoticeBoard;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -46,18 +47,15 @@ public class AdminController {
 	}
 	
 	@PostMapping("noticeBoardInsert")
-	public String noticeBoardInsert(Board board) {
+	public String noticeBoardInsert(Board board, NoticeBoard nboard) {
 		System.out.println("noticeBoardInsert POST 요청 진입");
 		//사원의 추가정보 가져오기 -> 주입
-
 		MemberAllData mad = memberService.getOneMemberData(board.getBid());
 		board.setBname(mad.getMembername());
 		board.setBemail(mad.getEmail());
 		board.setBdname(mad.getDname());
-
-		System.out.println(board.toString());
 		
-		int result = noticeBoardService.insertNoticeBoard(board);
+		int result = noticeBoardService.insertNoticeBoard(board, nboard);
 		return "redirect:/member/noticeBoard";
 	}
 	

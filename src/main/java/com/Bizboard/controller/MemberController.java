@@ -37,6 +37,7 @@ import com.Bizboard.service.ProjectBoardService;
 import com.Bizboard.utils.FileUtils;
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
+import com.Bizboard.vo.BoardJoinNoticeBoard;
 import com.Bizboard.vo.MemberAllData;
 
 @Controller
@@ -71,8 +72,6 @@ public class MemberController {
 
 	}
 
-	/*
-	 */
 	// 공지사항 게시판 페이지 이동
 	@GetMapping("noticeBoard")
 	public void noticeBoardGet(@RequestParam(defaultValue = "1") int page, Model model) {
@@ -86,7 +85,7 @@ public class MemberController {
 	    if (page > totalPage) page = totalPage;
 	    int startRow = (page - 1) * pageSize;
 	    
-	    List<Board> blist = noticeBoardService.selectAllNoticeBoard(btCode, startRow, pageSize);
+	    List<BoardJoinNoticeBoard> blist = noticeBoardService.selectAllNoticeBoard(btCode, startRow, pageSize);
 		model.addAttribute("data", blist);
 		model.addAttribute("totalBoard", totalBoard);
 		model.addAttribute("currentPage", page);

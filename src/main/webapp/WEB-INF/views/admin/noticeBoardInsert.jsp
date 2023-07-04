@@ -9,7 +9,7 @@
 			<!-- xl 숫자 건드리면 input 태그 길어지거나 짧아짐 -->
 			<div class="bg-light rounded h-100 p-4">
 				<h6 class="mb-4">공지사항 작성</h6>
-				<form action="noticeBoardInsert" method="post">
+				<form id="noticeInsertForm" action="noticeBoardInsert" method="post">
 					<div class="form-floating mb-3">
 						<input type="text" class="form-control" id="floatingInput" name="btitle"
 							placeholder="글제목"> <label for="floatingInput">글제목</label>
@@ -24,6 +24,14 @@
 							id="floatingTextarea" name="bcontent" style="height: 150px;"></textarea>
 						<label for="floatingTextarea">글내용</label>
 					</div>
+					<div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="nbchecked" id="inlineRadio1" value="0" checked>
+                        <label class="form-check-label" for="inlineRadio1">일반 노출</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="nbchecked" id="inlineRadio1" value="1">
+                        <label class="form-check-label" for="inlineRadio1">상단 노출</label>
+                    </div>
 					<div class="form-floating">
 						<button class="btn btn-primary m-2" type="submit">글작성</button>
 					</div>
@@ -32,10 +40,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-
 
 
 

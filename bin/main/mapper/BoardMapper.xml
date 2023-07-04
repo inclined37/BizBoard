@@ -12,21 +12,22 @@
 	</update>
 
 	<!-- 공지사항 전체 select 
-	-->
 	<select id="selectAllNoticeBoard"
-		resultType="com.Bizboard.vo.Board">
-		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
-		b_views,
-		b_created, b_updated, bt_code
-		FROM Board
-		WHERE bt_code =
-		#{btCode}
+		resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+		SELECT b.b_code, b.b_id, b.b_name, b.b_email, b.b_title, b.b_content,
+		b.b_views,
+		b.b_created, b.b_updated, b.bt_code, nb.nb_checked
+		FROM Board b join noticeBoard nb on b.b_code = nb.b_code
+		WHERE b.bt_code =
+		1000
 		ORDER BY
-		b_code DESC
+		nb.nb_checked DESC, b.b_code DESC
 	</select>
+	-->
 	<!-- 
+	 -->
 	<select id="selectAllNoticeBoard"
-		resultType="com.Bizboard.vo.Board">
+		resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
 		<![CDATA[
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
 		b_views,
@@ -41,10 +42,8 @@
 		WHERE rn > #{startRow}
 		]]>
 	</select>
-	 -->
 	
-	<!-- 공지사항 게시글 검색 -->
-	<!-- 
+	<!-- 공지사항 게시글 검색 
 	<select id="selectAllNoticeBoardByValue" resultType="com.Bizboard.vo.Board">
 	    <![CDATA[
 	    SELECT b_code, b_id, b_name, b_email, b_title, b_content,
@@ -70,10 +69,9 @@
 	    WHERE rn > #{startRow}
 	    ]]>
 	</select>
-	 -->
+	-->
 	
-	<!-- 공지사항 게시글 검색 totalCount -->
-	<!-- 
+	<!-- 공지사항 게시글 검색 totalCount 
 	<select id="selectNoticeBoardCountByValue" resultType="int">
 	    SELECT COUNT(*)
 	    FROM Board
@@ -90,7 +88,7 @@
 	        </if>
 	    )
 	</select>
-	 -->
+	-->
 	
 	<!-- 공지사항 제목 select 
 	<select id="selectAllNoticeBoardByTitle"
@@ -164,21 +162,21 @@
 
 	<!-- 공지사항 insert -->
 	<insert id="insertNoticeBoard"
-		parameterType="com.Bizboard.vo.Board">
+		parameterType="map">
 		<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
 			INTO BOARD (b_code, b_id,
 			b_name, b_email, b_dname, b_title, b_content,
 			b_views, b_created,
 			bt_code)
 
-			VALUES (board_seq.NEXTVAL, #{bid}, #{bname}, #{bemail},
-			#{bdname},
-			#{btitle}, #{bcontent}, 0, sysdate, #{btCode})
+			VALUES (board_seq.NEXTVAL, #{board.bid}, #{board.bname}, #{board.bemail},
+			#{board.bdname},
+			#{board.btitle}, #{board.bcontent}, 0, sysdate, #{board.btCode})
 
 			INTO
-			NOTICEBOARD (nb_code, b_code)
+			NOTICEBOARD (nb_code, b_code, nb_checked)
 			VALUES (notice_seq.NEXTVAL,
-			board_seq.CURRVAL)
+			board_seq.CURRVAL, #{nboard.nbchecked})
 		</trim>
 	</insert>
 

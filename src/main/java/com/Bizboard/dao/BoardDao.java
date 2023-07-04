@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
+import com.Bizboard.vo.BoardJoinNoticeBoard;
+import com.Bizboard.vo.NoticeBoard;
 
 public interface BoardDao {
 
@@ -13,7 +15,7 @@ public interface BoardDao {
 	void increaseBoardViews(int bcode);
 
 	// 공지형 게시판 전체 select
-	public List<Board> selectAllNoticeBoard(@Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
+	public List<BoardJoinNoticeBoard> selectAllNoticeBoard(@Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
 
 	// 공지형 게시판 검색 - 제목 select
 	public List<Board> selectAllNoticeBoardByTitle(@Param("btitle") String btitle, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
@@ -37,7 +39,7 @@ public interface BoardDao {
 	public Board selectNoticeBoard(int bcode);
 
 	// 공지형 게시판 insert
-	public int insertNoticeBoard(Board board);
+	public int insertNoticeBoard(@Param("board") Board board, @Param("nboard") NoticeBoard nboard);
 
 	// 공지형 게시판 update
 	public int updateNoticeBoard(Board board);
