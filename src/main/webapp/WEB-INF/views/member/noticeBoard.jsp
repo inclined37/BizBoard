@@ -16,7 +16,7 @@
 					<table id="noticeBoardTable" class="table">
 						<thead>
 							<tr>
-								<th scope="col">글번호</th>
+								<th scope="col"><div class="common-notice">글번호</div></th>
 								<th scope="col">제목</th>
 								<th scope="col">작성자</th>
 								<th scope="col">작성일</th>
@@ -25,9 +25,16 @@
 						</thead>
 						<tbody>
 							<c:forEach var="board" items="${data}">
-								<tr>
-									<th scope="row">${board.bcode}</th>
-									<td><a href="${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}">${board.btitle}</a></td>
+								<tr <c:if test="${board.nbchecked eq 1}">class="accentRow"</c:if>>
+									<c:if test="${board.nbchecked eq 1}">
+										<td><div class="important-notice">중요</div></td>
+									</c:if>
+									<c:if test="${board.nbchecked eq 0}">
+										<th scope="row"><div class="common-notice">${board.bcode}</div></th>
+									</c:if>
+									<td><a <c:if test="${board.nbchecked eq 1}">class="accent"</c:if>
+									<c:if test="${board.nbchecked eq 0}">class="not-accent"</c:if>
+									 href="${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}">${board.btitle}</a></td>
 									<td>${board.bname}</td>
 									<td>${board.bcreated}</td>
 									<td>${board.bviews}</td>
@@ -97,6 +104,33 @@
 #boardHeader>select {
 	padding: 0px 10px 0px;
 }
+
+.accentRow {
+	background-color: #EAEDF0;
+}
+
+.accent {
+	color: #F57171;
+}
+
+.not-accent {
+	color: #757575;
+}
+
+.important-notice {
+	background-color: rgba(255,182,182,0.5);
+	text-align: center;
+	color: #F57171;
+	border-radius: 2px;
+	border: 1px;
+	border-color: #F57171;
+	border-style: solid;
+}
+
+.common-notice {
+	text-align: center;
+}
+
 </style>
 
 

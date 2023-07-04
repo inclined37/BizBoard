@@ -24,10 +24,28 @@
 		nb.nb_checked DESC, b.b_code DESC
 	</select>
 	-->
-	<!-- 
-	 -->
 	<select id="selectAllNoticeBoard"
 		resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+		<![CDATA[
+		SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+		)n where n.rn>#{startRow}
+		]]>
+	</select>
+	<!-- 
+	 <select id="selectAllNoticeBoard"
+		resultType="com.Bizboard.vo.Board">
 		<![CDATA[
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
 		b_views,
@@ -42,6 +60,7 @@
 		WHERE rn > #{startRow}
 		]]>
 	</select>
+	 -->
 	
 	<!-- 공지사항 게시글 검색 
 	<select id="selectAllNoticeBoardByValue" resultType="com.Bizboard.vo.Board">
