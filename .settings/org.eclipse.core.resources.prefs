@@ -1,9 +1,10 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=cbbd1bd4dde6a1f909da013cf904d8e6a85e0b4a
 eclipse.preferences.version=1
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/common/test.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/include/footer.jsp=UTF-8
-<<<<<<< HEAD
-=======
+encoding//src/main/webapp/WEB-INF/views/member/noticeBoardDetail.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/projectBoardInsert.jsp=UTF-8
 encoding/<project>=UTF-8
->>>>>>> cbbd1bd4dde6a1f909da013cf904d8e6a85e0b4a
