@@ -61,7 +61,7 @@
          <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="${pageContext.request.contextPath}/common/main" class="navbar-brand mx-4 mb-3">
+                <a href="${pageContext.request.contextPath}/member/main" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>BizBOARD</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -109,7 +109,9 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-table me-2"></i>게시판</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/member/noticeBoard" class="dropdown-item">-공지게시판</a>
+                            <!-- 
                             <a href="${pageContext.request.contextPath}/member/AlbumBoard" class="dropdown-item">-앨범게시판</a>
+                             -->
                             <a href="${pageContext.request.contextPath}/member/FileBoard" class="dropdown-item">-파일공유게시판</a>
                         </div>
                     </div>
