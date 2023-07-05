@@ -89,25 +89,149 @@
 	    ]]>
 	</select>
 	-->
+	<!-- 
+	<select id="selectAllNoticeBoardByTitle" resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+    <![CDATA[
+    	SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        AND b_title LIKE '%' || #{btitle} || '%'
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+		)n where n.rn>#{startRow}
+    ]]>
+	</select>
+	<select id="selectAllNoticeBoardByContent" resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+    <![CDATA[
+    	SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        AND b_title LIKE '%' || #{bcontent} || '%'
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+		)n where n.rn>#{startRow}
+    ]]>
+	</select>
+	<select id="selectAllNoticeBoardByName" resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+    <![CDATA[
+    	SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        AND b_title LIKE '%' || #{bname} || '%'
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		)n where n.rn>#{startRow}
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+    ]]>
+	</select>
+	 -->
+	 <select id="selectAllNoticeBoardByTitle" resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+    <![CDATA[
+    	SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        AND REGEXP_LIKE(b_title, #{btitle}, 'i')
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+		)n where n.rn > #{startRow}
+    ]]>
+	</select>
+	 <select id="selectAllNoticeBoardByContent" resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+    <![CDATA[
+    	SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        AND REGEXP_LIKE(b_content, #{bcontent}, 'i')
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+		)n where n.rn > #{startRow}
+    ]]>
+	</select>
+	<select id="selectAllNoticeBoardByName" resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+    <![CDATA[
+    	SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        AND REGEXP_LIKE(b_name, #{bname}, 'i')
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+		)n where n.rn > #{startRow}
+    ]]>
+	</select>
 	
-	<!-- 공지사항 게시글 검색 totalCount 
-	<select id="selectNoticeBoardCountByValue" resultType="int">
+	<!-- 공지사항 조건 검색 totalCount -->
+	<select id="selectNoticeBoardByTitleCount" resultType="int">
+	<![CDATA[
 	    SELECT COUNT(*)
 	    FROM Board
 	    WHERE bt_code = #{btCode}
-	    AND (
-	        <if test="option == 'btitle'">
-	            b_title LIKE '%' || #{keyword} || '%'
-	        </if>
-	        <if test="option == 'bcontent'">
-	            b_content LIKE '%' || #{keyword} || '%'
-	        </if>
-	        <if test="option == 'bname'">
-	            b_name LIKE '%' || #{keyword} || '%'
-	        </if>
-	    )
+	    AND REGEXP_LIKE(b_title, #{btitle}, 'i')
+	]]>
 	</select>
-	-->
+	<select id="selectNoticeBoardByContentCount" resultType="int">
+	<![CDATA[
+	    SELECT COUNT(*)
+	    FROM Board
+	    WHERE bt_code = #{btCode}
+	    AND REGEXP_LIKE(b_content, #{bcontent}, 'i')
+	]]>
+	</select>
+	<select id="selectNoticeBoardByNameCount" resultType="int">
+	<![CDATA[
+	    SELECT COUNT(*)
+	    FROM Board
+	    WHERE bt_code = #{btCode}
+	    AND REGEXP_LIKE(b_name, #{bname}, 'i')
+	]]>
+	</select>
+	    
 	
 	<!-- 공지사항 제목 select 
 	<select id="selectAllNoticeBoardByTitle"
@@ -160,14 +284,15 @@
 			SELECT ROWNUM AS rn, b.*
 			FROM Board b
 			WHERE b.bt_code = #{btCode}
-			AND ROWNUM <= #{startRow} + #{pageSize}
 			AND b_name = LIKE '%' || #{bname} || '%'
+			AND ROWNUM <= #{startRow} + #{pageSize}
 			ORDER BY b_code DESC
 		)
 		WHERE rn > #{startRow}
 		]]>
 	</select>
 	-->
+	
 
 	<!-- 공지사항 조건 select -->
 	<select id="selectBoard"

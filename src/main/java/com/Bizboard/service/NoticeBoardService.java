@@ -34,9 +34,9 @@ public class NoticeBoardService {
 	}
 	
 	// 공지게시판 검색 select
-	public List<Board> selectAllNoticeBoardByValue(String option, String keyword, int btCode, int startRow, int pageSize){
+	public List<BoardJoinNoticeBoard> selectAllNoticeBoardByValue(String option, String keyword, int btCode, int startRow, int pageSize){
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		List<Board> selectList = null;
+		List<BoardJoinNoticeBoard> selectList = null;
 		
 		//조건이 무엇인지에 따라 다른 메서드 호출
 		if("btitle".equals(option)) {

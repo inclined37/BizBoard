@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 
@@ -36,7 +37,9 @@
 									<c:if test="${board.nbchecked eq 0}">class="not-accent"</c:if>
 									 href="${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}">${board.btitle}</a></td>
 									<td>${board.bname}</td>
-									<td>${board.bcreated}</td>
+									<%-- <td>${board.bcreated}</td> --%>
+									<c:set var="formattedDate" value="${fn:substring(board.bcreated, 0, 10)}" />
+									<td>${formattedDate}</td>
 									<td>${board.bviews}</td>
 								</tr>
 							</c:forEach>
@@ -54,15 +57,14 @@
 					<select id="searchOption"
 						class="BoardSearchSelectTag form-select form-select-sm mb-2 form-control"
 						aria-label=".form-select-sm example">
-						<option value="" disabled="disabled">--검색--</option>
-						<option value="btitle">제목</option>
+						<option value="btitle" selected>제목</option>
 						<option value="bcontent">내용</option>
 						<option value="bname">작성자 이름</option>
 					</select>
 					<p>&nbsp;&nbsp;</p>
-					<input id="searchInput"
-						class="form-control border-0 mb-2 BoardSearchTag" type="text"
-						placeholder="Search">
+					<input id="searchInput" 
+					class="form-control border-0 mb-2 BoardSearchTag" type="text" 
+					placeholder="검색어를 입력해주세요">
 					<!-- <button id="searchButton" class="btn btn-primary m-2" type="submit">검색</button> -->
 				</div>
 				<div id="noticeBoardPagingDiv"
@@ -135,102 +137,191 @@
 
 
 <script>
-	$(document).ready(function() {
-		/* 게시글 전체 목록 가져오기 
-		function loadAllPosts() {
-		    $.ajax({
-		      url: "/api/getAllNoticeBoard",
-		      type: "GET",
-		      success: function(response) {
-		        // 게시글 목록을 받아와서 View 페이지 업데이트
-		        let tbody = $("#noticeBoardTable tbody");
-		        tbody.empty(); // tbody 비우기
-				console.log(response);
-		        if (response.length == 0) {
-		          // 게시글이 없을 경우
-		          let message = "<tr><td colspan='5'>등록된 게시글이 없습니다.</td></tr>";
-		          tbody.append(message);
-		        } else {
-		          // 게시글이 있을 경우
-		          $.each(response, function(index, board) {
-		            let row = $('<tr>');
-		            row.append($('<th scope="row">').text(board.bcode));
-		            //row.append($('<td>').html(`<a href="${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}">${board.bcode}</a>`).text(board.btitle));
-		            let titleLink = $('<a>').attr('href', "${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}").text(board.btitle);
-          			row.append($('<td>').append(titleLink));
-		            row.append($('<td>').text(board.bname));
-		            row.append($('<td>').text(board.bcreated));
-		            row.append($('<td>').text(board.bviews));
-		            tbody.append(row);
-		          });
-		        }
-		      },
-		      error: function() {
-		        console.error("게시글 목록 가져오기 실패");
-		        let tbody = $("#boardTable tbody");
-		        tbody.empty();
-		        let message = "<tr><td colspan='5'>게시글 목록을 가져오는 중 오류가 발생했습니다.</td></tr>";
-		        tbody.append(message);
-		      }
-		    });
-		  }
-		
-		  loadAllPosts();
-		  $(".page-link").click(function() {
-			  let currentPage = this.$(".page-link").val();
-			  loadAllPosts();
-			  console.log("페이지 값은");
-			  let page = $(".page-item .active").val();
-				console.log(page);
-		  })
-		  */
-		
-		
-		/* 게시글 동적 검색 기능 
-		$("#searchButton").keyup(function() {
-			let searchOption = $("#searchOption").val();
-			let searchKeyword = $("#searchInput").val();
+$(document).ready(function() {
+	  /* 게시글 전체 목록 가져오기 */
+	  function loadAllPosts() {
+	    $.ajax({
+	      url: "/api/getAllNoticeBoard",
+	      type: "GET",
+	      success: function(response) {
+	        // 게시글 목록을 받아와서 View 페이지 업데이트
+	        let tbody = $("#noticeBoardTable tbody");
+	        tbody.empty(); // tbody 비우기
+	        //console.log(response);
+	        if (response.length == 0) {
+	          // 게시글이 없을 경우
+	          let message = "<tr><td colspan='5'>등록된 게시글이 없습니다.</td></tr>";
+	          tbody.append(message);
+	        } else {
+	          // 게시글이 있을 경우
+	          $.each(response, function(index, board) {
+	            let row = $('<tr>');
+	            if(board.nbchecked == 1) {
+	            	row.addClass("accentRow"); // 스타일 클래스 추가
+	                row.append($('<td>').html('<div class="important-notice">중요</div>'));
+	            	let titleLink = $('<a>').attr('href', "${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=" + board.bcode).text(board.btitle).addClass("accent");
+	            	row.append($('<td>').append(titleLink));
+	            } else {
+	            	console.log()
+	            	row.append($('<td scope="row">').html('<div class="common-notice">' + board.bcode + '</div>'));
+	            	let titleLink = $('<a>').attr('href', "${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=" + board.bcode).text(board.btitle).addClass("not-accent");
+	            	row.append($('<td>').append(titleLink));
+	            }
+	            row.append($('<td>').text(board.bname));
+	            row.append($('<td>').text(board.bcreated.substring(0, 10)));
+	            row.append($('<td>').text(board.bviews));
+	            tbody.append(row);
+	          });
+	          
+	          //동적 페이징 처리
+	          let pageArea = $("#noticeBoardPagingDiv nav ul");
+	          pageArea.empty();
+	          
+	          let currentPage = ${currentPage};
+	          let totalPage = ${totalPage};
+	          
+	          //이전 페이지 버튼
+	          let prevBtn = $('<li>').addClass('page-item disabled');
+	          let prevA = $('<a>').addClass('page-link')
+	                          .attr({
+	                            'href': '#',
+	                            'tabindex': '-1',
+	                            'aria-disabled': 'true'
+	                          })
+	                          .text('이전');
+	          prevBtn.append(prevA);
+	          pageArea.append(prevBtn);
 
-			if (!searchKeyword) {
-			    // 검색창에 null 값이 입력된 경우 전체 목록 가져오기
-	      		loadAllPosts();
-		    } else {
-		      // 유효한 검색어가 입력된 경우
-		        $.ajax({
-		            url: "/api/noticeBoardSearch",
-		        	type: "POST",
-		        	data: {
-		          		option: searchOption,
-		          		keyword: searchKeyword
-		        	},
-		        	success: function(response) {
-		          	  let tbody = $("#boardTable tbody");
-		          	  tbody.empty();
+	          //페이지 버튼
+	          for(let i=1; i<=totalPage; i++) {
+	        	if(i == 1){
+	        	  let pageBtn = $('<li>').addClass('page-item active');
+	        	  let pageA = $('<a>').addClass('page-link')
+					.attr('href', '#').text(i);
+				  pageBtn.append(pageA);
+				  pageArea.append(pageBtn);
+	        	} else {
+	        	  let pageBtn = $('<li>').addClass('page-item');
+	        	  let pageA = $('<a>').addClass('page-link')
+					.attr('href', '#').text(i);
+				  pageBtn.append(pageA);
+				  pageArea.append(pageBtn);
+	        	}
+	        	
+	          }
+	          
+	          //다음 페이지 버튼
+	          let nextBtn = $('<li>').addClass('page-item ');
+	          let nextA = $('<a>').addClass('page-link')
+	                          .attr({
+	                            'href': '#',
+	                            'tabindex': '-1',
+	                            'aria-disabled': 'true'
+	                          })
+	                          .text('다음');
+	          nextBtn.append(nextA);
+	          pageArea.append(nextBtn);
+	        }
+	      },
+	      error: function() {
+	        console.error("게시글 목록 가져오기 실패");
+	        //let tbody = $("#noticeBoardTable tbody");
+	        //tbody.empty();
+	        //let message = "<tr><td colspan='5'>게시글 목록을 가져오는 중 오류가 발생했습니다.</td></tr>";
+	        //tbody.append(message);
+	      }
+	    });
+	  }
+	  
 
-				      if (response.length === 0) {
-				          let message = "<tr><td colspan='5'>검색된 결과가 없습니다.</td></tr>";
-				          tbody.append(message);
-				      } else {
-				          for (let i = 0; i < response.length; i++) {
-				            let board = response[i];
-				            let row = `<tr>
-				                         <th scope="row">${board.bcode}</th>
-				                         <td><a href="${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}">${board.btitle}</a></td>
-				                         <td>${board.bname}</td>
-				                         <td>${board.bcreated}</td>
-				                         <td>${board.bviews}</td>
-				                       </tr>`;
-				            tbody.append(row);
-				          }
-		              }
-		        	},
-		        	error: function() {
-		          		console.error("검색 요청 실패");
-		        	}
-		      	});
-		      }
-		  });
-		*/
-		});
+	  
+	  /* 게시글 동적 검색 기능 */
+	  $("#searchInput").keyup(function() {
+	    let searchOption = $("#searchOption").val();
+	    let searchKeyword = $("#searchInput").val();
+
+	    if (!searchKeyword) {
+	      // 검색창에 null 값이 입력된 경우 전체 목록 가져오기
+	      loadAllPosts();
+		  //location.reload();
+	    } else {
+	      // 유효한 검색어가 입력된 경우
+	      $.ajax({
+	        url: "/api/noticeBoardSearch",
+	        type: "POST",
+	        data: JSON.stringify({
+	            option: searchOption,
+	            keyword: searchKeyword
+	        }),
+	        contentType: "application/json",
+	        success: function(response) {
+	          let tbody = $("#noticeBoardTable tbody");
+	          tbody.empty();
+	          if (response.length == 0) {
+	            //검색된 결과가 존재하지 않습니다
+	          } else {
+				  console.log(response);
+	              $.each(response, function(index, board) {
+	  	            let row = $('<tr>');
+	  	            row.append($('<th scope="row">').text(board.bcode));
+	  	            let titleLink = $('<a>').attr('href', "${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=" + board.bcode).text(board.btitle);
+	  	            row.append($('<td>').append(titleLink));
+	  	            row.append($('<td>').text(board.bname));
+	  	            row.append($('<td>').text(board.bcreated.substring(0, 10)));
+	  	            row.append($('<td>').text(board.bviews));
+	  	            tbody.append(row);
+	  	          });
+	              
+	              
+	            //동적 페이징 처리
+		          let pageArea = $("#noticeBoardPagingDiv nav ul");
+		          pageArea.empty();
+		          
+		          let currentPage = ${currentPage};
+		          let totalPage = ${totalPage};
+		          
+		          //이전 페이지 버튼
+		          let prevBtn = $('<li>').addClass(`page-item ${currentPage == 1 ? 'disabled' : ''}`);
+		          let prevA = $('<a>').addClass('page-link')
+		                          .attr({
+		                            'href': `/api/getAllNoticeBoard?page=${currentPage - 1}`,
+		                            'tabindex': '-1',
+		                            'aria-disabled': 'true'
+		                          })
+		                          .text('이전');
+		          prevBtn.append(prevA);
+		          pageArea.append(prevBtn);
+
+		          //페이지 버튼
+		        	let pageBtn = $('<li>').addClass('page-item active');
+		        	let pageA = $('<a>').addClass('page-link')
+		        					.attr('href', '#').text(1);
+		        	pageBtn.append(pageA);
+		        	pageArea.append(pageBtn);
+		          
+		          //다음 페이지 버튼
+		          let nextBtn = $('<li>').addClass('page-item disabled');
+		          let nextA = $('<a>').addClass('page-link')
+		                          .attr({
+		                            'href': `/api/getAllNoticeBoard?page=${currentPage - 1}`,
+		                            'tabindex': '-1',
+		                            'aria-disabled': 'true'
+		                          })
+		                          .text('다음');
+		          nextBtn.append(nextA);
+		          pageArea.append(nextBtn);
+	          
+	          }
+	        },
+	        error: function() {
+	            console.error("검색 요청 실패");
+	            let pageArea = $("#noticeBoardPagingDiv nav ul");
+		          pageArea.empty();
+	        }
+	    });
+	  }
+	});
+});
+
 </script>
 <%@include file="../include/footer.jsp"%>

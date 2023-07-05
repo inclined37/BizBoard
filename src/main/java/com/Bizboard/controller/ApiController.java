@@ -19,6 +19,7 @@ import com.Bizboard.service.AdminService;
 import com.Bizboard.service.MemberService;
 import com.Bizboard.service.NoticeBoardService;
 import com.Bizboard.vo.Board;
+import com.Bizboard.vo.BoardJoinNoticeBoard;
 import com.Bizboard.vo.Dept;
 import com.Bizboard.vo.MemberAllData;
 import com.Bizboard.vo.MemberSearchData;
@@ -83,54 +84,54 @@ public class ApiController {
 	}
 
 	// 공지사항 게시글 전체 리스트
-	/*
-	 * @GetMapping("getAllNoticeBoard") public ResponseEntity<?>
-	 * getNoticeBoardList(@RequestParam(defaultValue = "1") int page) {
-	 * System.out.println("API 게시글 전체 리스트 반환 GET 요청 진입"); int btcode = 1000;
-	 * 
-	 * int totalBoard = noticeBoardService.getTotalNoticeBoardCount(); int pageSize
-	 * = 10; int totalPage = (int) Math.ceil((double) totalBoard / pageSize); // 총
-	 * 페이지 수
-	 * 
-	 * if (page < 1) page = 1; if (page > totalPage) page = totalPage; int startRow
-	 * = (page - 1) * pageSize;
-	 * 
-	 * List<Board> blist = noticeBoardService.selectAllNoticeBoard(btcode, startRow,
-	 * pageSize);
-	 * 
-	 * model.addAttribute("data", blist); model.addAttribute("totalBoard",
-	 * totalBoard); model.addAttribute("currentPage", page);
-	 * model.addAttribute("totalPage", totalPage);
-	 * 
-	 * return new ResponseEntity<List>(blist, HttpStatus.OK); }
-	 */
+	@GetMapping("getAllNoticeBoard")
+	public ResponseEntity<?> getNoticeBoardList(@RequestParam(defaultValue = "1") int page, Model model) {
+		System.out.println("API 게시글 전체 리스트 반환 GET 요청 진입"); 
+		int btcode = 1000;
+		  
+		int totalBoard = noticeBoardService.getTotalNoticeBoardCount(); 
+		int pageSize = 10; 
+		int totalPage = (int) Math.ceil((double) totalBoard / pageSize); // 총 페이지 수
+		  
+		if (page < 1) page = 1; 
+		if (page > totalPage) page = totalPage; 
+		int startRow = (page - 1) * pageSize;
+		  
+		List<BoardJoinNoticeBoard> blist = noticeBoardService.selectAllNoticeBoard(btcode, startRow, pageSize);
+		  
+		model.addAttribute("data", blist); 
+		model.addAttribute("totalBoard",totalBoard); 
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPage", totalPage);
+		  
+		return new ResponseEntity<List>(blist, HttpStatus.OK); 
+	}
 
 	// 공지사항 게시글 검색 기능
-	/*
-	 * @PostMapping("noticeBoardSearch")
-	 * 
-	 * @ResponseBody public void noticeBoardSearchList(@RequestParam(defaultValue =
-	 * "1") int page,
-	 * 
-	 * @RequestBody Map<String, String> searchRequest, Model model) {
-	 * System.out.println("공지사항 게시글 검색 POST 요청 진입"); int btcode = 1000; String
-	 * searchOption = searchRequest.get("option"); String searchKeyword =
-	 * searchRequest.get("keyword");
-	 * 
-	 * int totalBoard =
-	 * noticeBoardService.selectNoticeBoardCountByValue(searchOption, searchKeyword,
-	 * btcode); int pageSize = 10; int totalPage = (int) Math.ceil((double)
-	 * totalBoard / pageSize); // 총 페이지 수
-	 * 
-	 * if (page < 1) page = 1; if (page > totalPage) page = totalPage; int startRow
-	 * = (page - 1) * pageSize;
-	 * 
-	 * List<Board> blist =
-	 * noticeBoardService.selectAllNoticeBoardByValue(searchOption, searchKeyword,
-	 * btcode, 0, 0); model.addAttribute("data", blist);
-	 * model.addAttribute("totalBoard", totalBoard);
-	 * model.addAttribute("currentPage", page); model.addAttribute("totalPage",
-	 * totalPage); }
-	 */
+	@PostMapping("noticeBoardSearch")
+	@ResponseBody 
+	public ResponseEntity<?> noticeBoardSearchList(@RequestParam(defaultValue = "1") int page,
+			@RequestBody Map<String, String> searchRequest, Model model) {
+		System.out.println("공지사항 게시글 검색 POST 요청 진입"); 
+		int btcode = 1000; 
+		String searchOption = searchRequest.get("option"); 
+		String searchKeyword = searchRequest.get("keyword");
+	  
+		int totalBoard = noticeBoardService.selectNoticeBoardCountByValue(searchOption, searchKeyword, btcode); 
+		int pageSize = 10; 
+		int totalPage = (int) Math.ceil((double)totalBoard / pageSize); // 총 페이지 수
+	  
+		if (page < 1) page = 1; 
+		if (page > totalPage) page = totalPage; 
+		int startRow = (page - 1) * pageSize;
+		
+		List<BoardJoinNoticeBoard> blist = noticeBoardService.selectAllNoticeBoardByValue(searchOption, searchKeyword, btcode, startRow, pageSize); 
+		model.addAttribute("data", blist);
+		model.addAttribute("totalBoard", totalBoard);
+		model.addAttribute("currentPage", page); 
+		model.addAttribute("totalPage", totalPage); 
+		return new ResponseEntity<List>(blist, HttpStatus.OK);
+	}
+	 
 
 }
