@@ -30,9 +30,12 @@
 					</div>
 
 					<div class="form-floating">
-						<textarea class="form-control" placeholder="Leave a comment here"
+						<!--<textarea class="form-control" placeholder="Leave a comment here"
 							id="floatingTextarea" name="bcontent" style="height: 150px;"
-							>${data.bcontent}</textarea>
+							>${data.bcontent}</textarea> -->
+							<textarea class="summernote" name="bcontent" style="height: 150px;">
+							${data.bcontent}
+							</textarea>
 					</div>
 
 					<div class="form-floating mb-3">
@@ -58,4 +61,17 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$('.summernote').summernote({
+	  height: 150,
+	  /* lang: "ko-KR" */
+	});
+	
+	$(document).ready(function() {
+	      //content값 가져오기
+	      let content = '${post.bcontent}';
+	      $('#summernote').summernote('code', content);
+	   });
+</script>
 <%@include file="../include/footer.jsp"%>
