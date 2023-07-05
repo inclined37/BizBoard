@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,11 +43,9 @@ import com.Bizboard.service.MemberService;
 import com.Bizboard.service.NoticeBoardService;
 import com.Bizboard.service.ProjectBoardService;
 import com.Bizboard.utils.FileUtils;
-import com.Bizboard.vo.Board;
 import com.Bizboard.vo.BoardFileJoin;
 import com.Bizboard.vo.BoardJoinNoticeBoard;
 import com.Bizboard.vo.MemberAllData;
-import com.Bizboard.vo.NoticeBoard;
 
 @Controller
 @RequestMapping("/member/*")
@@ -145,6 +144,26 @@ public class MemberController {
 		model.addAttribute("data", board);
 		model.addAttribute("downloadLink", "/member/downloadFile/" + board.getFbSavedfile());
 	}
+	
+	// 파일 글 수정 페이지 이동
+		@GetMapping("FileBoardUpdate")
+		public void fileBoardUpdateGet(int bcode, Model model) {
+			BoardFileJoin board = fileStorageBoardService.selectFileBoard(bcode);
+			model.addAttribute("data", board);
+		}
+		
+	@GetMapping("/member/FileBoardUpdate/{bcode}")
+    public String getFileBoardUpdatePage(@PathVariable("bcode") int bcode, Model model) {
+        // bcode를 사용하여 파일 게시판 데이터를 검색합니다.
+		BoardFileJoin data = fileStorageBoardService.selectFileBoard(bcode);
+        
+        // 데이터를 뷰로 전달합니다.
+        model.addAttribute("data", data);
+        
+        return "/member/FileBoardUpdate";
+    }
+
+
 
 	// 파일 글 수정하기
 	@PostMapping("/FileBoardUpdate")

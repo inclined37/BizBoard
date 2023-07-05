@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 
+
 <div class="container-fluid pt-4 px-4">
 	<div class="row g-4">
 		<div class="col-sm-12 col-xl-12">
@@ -33,21 +34,19 @@
 					</div>
 
 					<div class="form-floating">
-						<textarea class="form-control" placeholder="Leave a comment here"
-							id="floatingTextarea" name="bcontent" style="height: 150px;"
-							readonly="readonly">${data.bcontent}</textarea>
+						<div class="form-control"
+							style="height: 500px; background-color: #E9ECEF; border: 1px solid #CED4DA;">${data.bcontent}
+						</div>
 					</div>
 
 					<div class="form-floating mb-3">
-						<a>기존 파일명 : ${data.fbOriginfile}</a>
+						<a>기존 파일 : ${data.fbOriginfile}</a> <a
+							href="${pageContext.request.contextPath}/member/download?fbSavedfile=${data.fbSavedfile}&fbOriginfile=${data.fbOriginfile}"
+							target="_blank">다운로드</a>
 					</div>
-					
-					<a href="${pageContext.request.contextPath}/member/download?fbSavedfile=${data.fbSavedfile}&fbOriginfile=${data.fbOriginfile}" target="_blank">${data.fbOriginfile}</a>
 
 
 
-
-					
 
 					<div id="fileUploadField" class="form-floating mb-2"
 						style="display: none;">
@@ -65,8 +64,10 @@
 							<c:if
 								test="${pageContext.request.userPrincipal.name eq data.bid}">
 								<div>
-									<button type="button" id="boardDetailUpdateBtn"
-										class="btn btn-primary m-2">수정</button>
+									<!-- <button type="button" id="boardDetailUpdateBtn"
+										class="btn btn-primary m-2">수정</button> -->
+									<a class="btn btn-primary m-2"
+										href="${pageContext.request.contextPath}/member/FileBoardUpdate?bcode=${data.bcode}">글수정</a>
 									<button type="submit" id="boardDetailSaveBtn"
 										class="btn btn-primary m-2" style="display: none;">저장</button>
 									<button type="button" id="boardDetailCancelBtn"
@@ -141,66 +142,6 @@ function adjustTextareaHeight() {
 
 window.addEventListener('DOMContentLoaded', adjustTextareaHeight);
 window.addEventListener('resize', adjustTextareaHeight);
-
-updateBtn.addEventListener("click", function() {
-	updateBtn.style.display = "none";
-	deleteBtn.style.display = "none";
-	saveBtn.style.display = "inline-block";
-	cancelBtn.style.display = "inline-block";
-
-	previousTitle = title.value;
-	previousContent = content.value;
-
-	title.readOnly = false;
-	content.readOnly = false;
-});
-
-/* saveBtn.addEventListener("click", function(event) {
-    if (title.value.trim() == '' || content.value.trim() == '') {
-        event.preventDefault();
-        alert('제목과 내용을 모두 입력해주세요.');
-    } else {
-        saveBtn.style.display = "none";
-        cancelBtn.style.display = "none";
-        updateBtn.style.display = "inline-block";
-        deleteBtn.style.display = "inline-block";
-
-        // 파일 업로드 정보를 FormData에 추가
-        const formData = new FormData(form);
-
-        // FormData를 AJAX 요청의 데이터로 사용
-        fetch(form.action, {
-            method: form.method,
-            body: formData,
-            credentials: 'same-origin' // 추가: 동일 출처 요청 설정
-        })
-        .then(response => {
-            if (response.status === 200) {
-                return response.json(); // 응답의 JSON 데이터를 파싱
-            } else {
-                throw new Error('저장에 실패했습니다.'); // 오류 발생시키기
-            }
-        })
-        .then(data => {
-            // 페이지 내의 데이터 업데이트
-            title.value = data.btitle;
-            content.value = data.bcontent;
-            title.readOnly = true;
-            content.readOnly = true;
-            // 추가적인 업데이트 작업 수행 가능
-
-            // 파일 업로드 필드 감추기
-            fileUploadField.style.display = "none";
-
-            // 수정 성공 메시지 표시
-            alert("수정되었습니다");
-        })
-        .catch(error => {
-            // 오류 메시지 표시
-            alert("수정에 실패했습니다.");
-        });
-    }
-}); */
 
 
 cancelBtn.addEventListener("click", function() {
@@ -280,6 +221,13 @@ closeButton.addEventListener("click", function() {
   userInfo.innerHTML = ""; // 내용 비우기
   userInfo.style.display = "none";
 });
+
+updateBtn.addEventListener("click", function() {
+    window.location.href = "${pageContext.request.contextPath}/member/FileBoardUpdate.jsp";
+});
+
+
+
 
 
 </script>

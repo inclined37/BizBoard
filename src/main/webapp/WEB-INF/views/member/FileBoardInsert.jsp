@@ -22,11 +22,11 @@
 							for="floatingInput">작성자</label>
 					</div>
 					<div class="form-floating mb-3">
-						<input class="form-control" placeholder="Leave a comment here"
+						<!-- <input class="form-control" placeholder="Leave a comment here"
 
-							id="floatingTextarea" name="bcontent" style="height: 150px;"></input> <label
-
-							for="floatingTextarea">글내용</label>
+							id="floatingTextarea" name="bcontent" style="height: 150px;"></input> -->
+							 
+							<textarea class="summernote" name="bcontent"></textarea>
 					</div>
 					<div class="form-floating mb-2">
 						<input type="file" name="file" class="form-control"
@@ -37,7 +37,7 @@
 					</div>
 
 					<div class="form-floating">
-						<button class="btn btn-primary m-2" type="submit">글작성</button>
+						<button class="btn btn-primary m-2" id = "submit-btn" type="submit">글작성</button>
 					</div>
 				</form>
 			</div>
@@ -49,6 +49,11 @@
 
 
 
-
+<script>
+	$('.summernote').summernote({
+	  height: 150,
+	  /* lang: "ko-KR" */
+	});
+</script>
 
 <%@include file="../include/footer.jsp"%>
