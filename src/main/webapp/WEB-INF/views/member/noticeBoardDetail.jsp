@@ -14,29 +14,33 @@
 				<form class="noticeBoardUpdateForm" action="noticeBoardUpdate"
 					method="post">
 					<input type="hidden" name="bcode" value="${data.bcode}" />
-					<div>
-						<input type="text" class="form-control" id="floatingInput"
+					<div class="form-floating mb-2">
+						<input type="text" class="form-control" id="floatingInput" id="floatingText"
 							name="btitle" value="${data.btitle}" placeholder="글제목"
 							readonly="readonly" required>
+							<label for="floatingText">글제목</label>
 					</div>
 					<div class="form-floating">
 						<div id="boardDetailHeaderInfo">
 							<div class="profile-image-admin"></div>
-							<div id="board-desc">
-								<p style="font-size: 14px">${data.bname}</p>
-								<c:if test="${empty data.bupdated}">
-									<p style="font-size: 12px">
-										작성일: ${data.bcreated}<span>&nbsp;&nbsp;&nbsp;조회
-											${data.bviews}</span>
-									</p>
-								</c:if>
-								<c:if test="${not empty data.bupdated}">
-									<p style="font-size: 12px">
-										최근수정일: ${data.bupdated}<span>&nbsp;&nbsp;&nbsp;조회
-											${data.bviews}</span>
-									</p>
-								</c:if>
-							</div>
+<div id="board-desc" style="border-left: 4px solid #007bff; background-color: #f2f2f2; padding: 10px; margin: 10px 0px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
+    <p style="font-size: 14px; margin: 0; font-weight: bold;">
+        <span style="color: #2c3e50;">${data.bname}</span>
+        <span style="color: #3498db;">${data.bdname}</span>
+        <span style="color: #27ae60;">${data.bemail}</span>
+    </p>
+    <c:if test="${empty data.bupdated}">
+        <p style="font-size: 12px; margin: 0;">
+            작성일: <em>${data.bcreated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+        </p>
+    </c:if>
+    <c:if test="${not empty data.bupdated}">
+        <p style="font-size: 12px; margin: 0;">
+            최근수정일: <em>${data.bupdated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+        </p>
+    </c:if>
+</div>
+
 						</div>
 					</div>
 					<div>

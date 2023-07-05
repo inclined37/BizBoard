@@ -20,6 +20,16 @@ public class BoardJoinNoticeBoard {
 	
 	private int nbcode;		//공지 식별번호
 	private int nbchecked;	//공지게시글 상단고정여부
+	
+	
+	
+	@Override
+	public String toString() {
+		return "BoardJoinNoticeBoard [bcode=" + bcode + ", bid=" + bid + ", bname=" + bname + ", bemail=" + bemail
+				+ ", bdname=" + bdname + ", btitle=" + btitle + ", bcontent=" + bcontent + ", bviews=" + bviews
+				+ ", bcreated=" + bcreated + ", bupdated=" + bupdated + ", btCode=" + btCode + ", nbcode=" + nbcode
+				+ ", nbchecked=" + nbchecked + "]";
+	}
 	public int getBcode() {
 		return bcode;
 	}

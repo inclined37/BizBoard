@@ -90,12 +90,18 @@
                     </se:authorize>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">${pageContext.request.userPrincipal.name}</h6>
+                        <h6 class="mb-0">${sessionScope.membername} <span style="color: #3498db;">${sessionScope.deptname}</span></h6>
                     <se:authorize access="hasAnyRole('ROLE_ADMIN')">
+                        <h6 class="mb-0"><span style="color: #27ae60;">[시스템관리자]</span></h6>
+                        <!-- 
                         <h6 class="mb-0">관리자</h6>
+                         -->
                     </se:authorize>
                     <se:authorize access="hasAnyRole('ROLE_USER')">
-                        <h6 class="mb-0">일반회원</h6>
+                        <h6 class="mb-0"><span style="color: #27ae60;">[일반회원]</span></h6>
+                        <!-- 
+                        <h6 class="mb-0">[일반회원]</h6>
+                         -->
                     </se:authorize>
                         <span></span>
                     </div>
@@ -112,7 +118,6 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-table me-2"></i>게시판</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/member/noticeBoard" class="dropdown-item">-공지게시판</a>
-                            <a href="${pageContext.request.contextPath}/member/AlbumBoard" class="dropdown-item">-앨범게시판</a>
                             <a href="${pageContext.request.contextPath}/member/FileBoard" class="dropdown-item">-파일공유게시판</a>
                         </div>
                     </div>

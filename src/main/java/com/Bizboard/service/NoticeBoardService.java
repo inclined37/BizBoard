@@ -77,7 +77,7 @@ public class NoticeBoardService {
 		bjnboard.setBcontent(board.getBcontent());
 		bjnboard.setBcreated(board.getBcreated());
 		bjnboard.setBdname(board.getBdname());
-		bjnboard.setBemail(board.getBname());
+		bjnboard.setBemail(board.getBemail());
 		bjnboard.setBid(board.getBid());
 		bjnboard.setBname(board.getBname());
 		bjnboard.setBtCode(board.getBtCode());

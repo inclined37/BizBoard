@@ -2,12 +2,17 @@
 @font-face {
 	font-family: 'Jalnan';
 	/*
-	src: url('../font/NEXON Lv2 Gothic Medium.ttf') format('truetype');
 	src: url('../font/ELAND 초이스 M.ttf') format('truetype');
 	src: url('../font/SCDream5.otf') format('truetype');
+	src: url('../font/NEXON Lv2 Gothic Medium.ttf') format('truetype');
+	src: url('../font/야놀자_야체_Regular.ttf') format('truetype');
+	src: url('../font/Maplestory Bold.ttf') format('truetype');
+	src: url('../font/Jalnan.ttf') format('truetype');
+	src: url('../font/NEXON Lv2 Gothic Medium.ttf') format('truetype');
 	src: url('../font/NEXON Lv2 Gothic Bold.ttf') format('truetype');
-	*/
 	src: url('../font/ELAND 초이스 B.ttf') format('truetype');
+	*/
+	src: url('../font/SCDream7.otf') format('truetype');
 	
 	
 }

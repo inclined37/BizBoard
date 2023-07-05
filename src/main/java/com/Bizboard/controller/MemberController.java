@@ -107,6 +107,9 @@ public class MemberController {
 	@GetMapping("noticeBoardDetail")
 	public void noticeBoardDetailGet(int bcode, Model model) {
 		BoardJoinNoticeBoard board = noticeBoardService.selectNoticeBoard(bcode);
+		System.out.println("**********************");
+		System.out.println(board);
+		System.out.println("**********************");
 		model.addAttribute("data", board);
 	}
 

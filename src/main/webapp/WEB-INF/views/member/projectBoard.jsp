@@ -17,22 +17,32 @@
 		</div>
 		<div class="col-lg-6">
 			<!-- 프로젝트 정보 영역 -->
-			<div class="card">
-				<div class="card-header">프로젝트 정보</div>
-				<div class="card-body">
-					<p class="card-title">프로젝트명 :
-						${joinProjectSimpleData.projectName}</p>
-					<p class="card-text">설명 :
-						${joinProjectSimpleData.projectDescription}</p>
-					<p class="card-subtitle mb-2 text-muted">생성자:
+			<div class="card"
+				style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+				<div class="card-header"
+					style="background-color: #3498db; color: #ffffff; font-weight: bold;">프로젝트
+					정보</div>
+				<div class="card-body" style="padding: 20px;">
+					<p class="card-title"
+						style="color: #2c3e50; font-size: 18px; margin-bottom: 10px;">
+						프로젝트명 : <span style="font-weight: normal; color: #7f8c8d;">${joinProjectSimpleData.projectName}</span>
+					</p>
+					<p class="card-text" style="color: #7f8c8d; font-size: 14px;">설명
+						: ${joinProjectSimpleData.projectDescription}</p>
+					<p class="card-subtitle mb-2"
+						style="color: #95a5a6; font-size: 12px;">생성자:
 						${joinProjectSimpleData.membername}
 						[${joinProjectSimpleData.deptname}]</p>
-					<p class="card-text">참가 인원수:
-						${joinProjectSimpleData.memberCount}</p>
+					<p class="card-text" style="color: #bdc3c7; font-size: 14px;">참가
+						인원수: ${joinProjectSimpleData.memberCount}</p>
 				</div>
 			</div>
-			<div class="card">
-				<div class="card-header">일정목록</div>
+
+			<!-- 일정목록 영역 -->
+			<div class="card"
+				style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+				<div class="card-header"
+					style="background-color: #e74c3c; color: #ffffff; font-weight: bold;">일정목록</div>
 				<div class="card-body">
 					<table class="table">
 						<thead>
@@ -50,17 +60,17 @@
 								varStatus="status">
 								<tr>
 									<td>${schedule.scheduleId}</td>
-									<td>
-									    <c:choose>
-									        <c:when test="${sessionScope.empno == schedule.empno}">
-									            <a href="${pageContext.request.contextPath}/member/projectBoardDetail?scheduleId=${schedule.scheduleId}&projectSeq=${joinProjectSimpleData.projectSeq}">${schedule.title}</a>
-									        </c:when>
-									        <c:otherwise>
-									            ${schedule.title}
-									        </c:otherwise>
-									    </c:choose>
-									</td>
-										<td>${schedule.description}</td>
+									<td><c:choose>
+											<c:when test="${sessionScope.empno == schedule.empno}">
+												<a
+													href="${pageContext.request.contextPath}/member/projectBoardDetail?scheduleId=${schedule.scheduleId}&projectSeq=${joinProjectSimpleData.projectSeq}"
+													style="color: #3498db;">${schedule.title}</a>
+											</c:when>
+											<c:otherwise>
+                                        ${schedule.title}
+                                    </c:otherwise>
+										</c:choose></td>
+									<td>${schedule.description}</td>
 									<td>${schedule.startDate}</td>
 									<td>${schedule.endDate}</td>
 									<td>${schedule.membername}</td>
@@ -68,34 +78,6 @@
 							</c:forEach>
 						</tbody>
 					</table>
-
-				<div id="memberManagementPagingDiv" class="d-flex justify-content-center mt-4">
-					<nav>
-						<ul class="pagination">
-							<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-								<a class="page-link"
-								href="/member/projectBoard?page=${currentPage-1}&projectSeq=${joinProjectSimpleData.projectSeq}"
-								tabindex="-1" aria-disabled="true">이전</a>
-							</li>
-							<c:forEach var="i" begin="1" end="${totalPage}">
-								<li class="page-item ${currentPage == i ? 'active' : ''}">
-									<a class="page-link" href="/member/projectBoard?page=${i}&projectSeq=${joinProjectSimpleData.projectSeq}">${i}</a>
-								</li>
-							</c:forEach>
-							<li
-								class="page-item ${currentPage == totalPage ? 'disabled' : ''}">
-								<a class="page-link"
-								href="/member/projectBoard?page=${currentPage+1}&projectSeq=${joinProjectSimpleData.projectSeq}">다음</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-
-
-
-
-
-
 					<div class="text-right">
 						<form
 							action="${pageContext.request.contextPath}/member/projectBoardInsert"
@@ -111,6 +93,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </div>
 <script>

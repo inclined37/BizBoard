@@ -294,7 +294,7 @@
 	-->
 	
 
-	<!-- 공지사항 조건 select -->
+	<!-- 공지사항 조건 select 원본
 	<select id="selectBoard"
 		resultType="com.Bizboard.vo.Board">
 		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
@@ -303,6 +303,16 @@
 		FROM Board
 		WHERE b_code = #{bcode}
 	</select>
+	-->
+	
+	<select id="selectBoard"
+		resultType="com.Bizboard.vo.Board">
+		SELECT *
+		FROM Board
+		WHERE b_code = #{bcode}
+	</select>
+	
+	
 	<select id="selectNoticeBoard"
 		resultType="com.Bizboard.vo.NoticeBoard">
 		SELECT *

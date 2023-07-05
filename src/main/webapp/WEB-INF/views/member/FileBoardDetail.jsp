@@ -26,22 +26,24 @@
 					<div class="form-floating">
 						<div style="display: flex; align-items: center;">
 							<div class="profile-image-admin"></div>
-							<div id="board-desc">
-								<p class="bname"
-									style="margin-bottom: 0; font-size: 14px; cursor: pointer;">${data.bname}</p>
-								<c:if test="${empty data.bupdated}">
-								<p style="font-size: 12px">
-									작성일: ${data.bcreated}<span>&nbsp;&nbsp;&nbsp;조회
-										${data.bviews}</span>
-								</p>
-								</c:if>
-								<c:if test="${not empty data.bupdated}">
-									<p style="font-size: 12px">
-										최근수정일: ${data.bupdated}<span>&nbsp;&nbsp;&nbsp;조회
-											${data.bviews}</span>
-									</p>
-								</c:if>
-							</div>
+<div id="board-desc" style="border-left: 4px solid #007bff; background-color: #f2f2f2; padding: 10px; margin: 10px 0px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
+    <p style="font-size: 14px; margin: 0; font-weight: bold;">
+        <span style="color: #2c3e50;">${data.bname}</span>
+        <span style="color: #3498db;">${data.bdname}</span>
+        <span style="color: #27ae60;">${data.bemail}</span>
+    </p>
+    <c:if test="${empty data.bupdated}">
+        <p style="font-size: 12px; margin: 0;">
+            작성일: <em>${data.bcreated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+        </p>
+    </c:if>
+    <c:if test="${not empty data.bupdated}">
+        <p style="font-size: 12px; margin: 0;">
+            최근수정일: <em>${data.bupdated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+        </p>
+    </c:if>
+</div>
+
 						</div>
 					</div>
 
