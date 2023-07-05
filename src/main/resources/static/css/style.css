@@ -1,7 +1,12 @@
 /********** Template CSS **********/
 @font-face {
 	font-family: 'Jalnan';
+	/*
 	src: url('../font/Jalnan.ttf') format('truetype');
+	*/
+	src: url('../font/SCDream5.otf') format('truetype');
+	
+	
 }
 
 :root {

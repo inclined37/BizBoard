@@ -50,7 +50,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
                 .logoutSuccessUrl("/logout")
-                .logoutSuccessUrl("/common/main")
+                .logoutSuccessUrl("/common/login")
                 .permitAll()
                 .and()
             .exceptionHandling()
