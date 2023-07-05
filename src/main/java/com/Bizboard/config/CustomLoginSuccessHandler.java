@@ -46,7 +46,8 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         System.out.println("파일 경로 주소"+result.getFilePath());
         System.out.println("***********");
         if(result.getFilePath() != null) {
-        	session.setAttribute("profileUrl", result.getFilePath()+ File.separator + result.getFileStoredName());        
+        	//session.setAttribute("profileUrl", result.getFilePath()+ File.separator + result.getFileStoredName());        
+        	session.setAttribute("profileUrl", File.separator + result.getFileStoredName());        
         }
         session.setAttribute("empno", result.getEmpno());
         session.setAttribute("membername", result.getMembername());

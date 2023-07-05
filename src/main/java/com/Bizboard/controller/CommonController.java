@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,6 @@ public class CommonController {
 	@Value("${file.upload.directory.profile}")
 	private String uploadDirectory;
 
-	@GetMapping("main")
-	public void main() {
-
-	}
-
 	@GetMapping("login")
 	public void login() {
 		System.out.println("login 페이지 이동");
@@ -60,7 +56,7 @@ public class CommonController {
 		
 
 	}
-
+	/*
 	@PostMapping("signup")
 	public String signup(@RequestParam("file") MultipartFile file, Members members, MembersDetail membersDetail,
 			HttpServletRequest request) {
@@ -70,11 +66,16 @@ public class CommonController {
 				String originalFilename = file.getOriginalFilename();
 				String storedFilename = FileUtils.generateStoredFilename(originalFilename);
 				//경로 : C:\Duzon\Spring\SpringBootLabs\BizBoard\src\main\webapp\
-				System.out.println("경로 : " + request.getSession().getServletContext().getRealPath("")); // getParent로 상위경로 이동
-				/*
-				String uploadpath = new File(request.getSession().getServletContext().getRealPath("")).getParent()
-						+ uploadDirectory.replace("/", File.separator); // File.separator "\"를 나타냄
-						*/
+				
+				String path="/temp";
+
+				ServletContext context= request.getSession().getServletContext();
+
+				String realPath=context.getRealPath(path);
+				System.out.println("업로드시 경로 : "+realPath);
+				
+				
+				
 				String uploadpath = new File(request.getSession().getServletContext().getRealPath(""))
 						+ uploadDirectory.replace("/", File.separator); // File.separator "\"를 나타냄
 				System.out.println(uploadpath);
@@ -104,7 +105,45 @@ public class CommonController {
 
 		return "common/main";
 	}
-	
+	*/
+	@PostMapping("signup")
+	public String signup(@RequestParam("file") MultipartFile file, Members members, MembersDetail membersDetail,
+	                     HttpServletRequest request) {
+	    if (!file.isEmpty()) {
+	        try {
+	            // 파일 업로드 처리
+	            String originalFilename = file.getOriginalFilename();
+	            String storedFilename = FileUtils.generateStoredFilename(originalFilename);
+
+	            // 업로드 디렉터리 설정
+	            String uploadDirectory = "/home/ubuntu/war/upload/profile";
+
+	            // 해당 폴더가 없을 경우 생성
+	            FileUtils.createDirectory(uploadDirectory);
+
+	            String fileUploadPath = uploadDirectory + File.separator + storedFilename;
+	            File dest = new File(fileUploadPath);
+	            file.transferTo(dest);
+
+	            // MembersDetail 객체에 파일 정보 설정
+	            membersDetail.setFileOriginalName(originalFilename);
+	            membersDetail.setFileStoredName(storedFilename);
+	            membersDetail.setFilePath(uploadDirectory);
+	        } catch (IOException e) {
+	            System.out.println(e.getMessage());
+	        }
+	    }
+
+	    System.out.println(members);
+	    System.out.println(membersDetail);
+
+	    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+	    members.setPassword(bCryptPasswordEncoder.encode(members.getPassword()));
+
+	    memberService.memberInsert(members, membersDetail);
+
+	    return "member/main";
+	}
 	@GetMapping("index")
 	public String ager() {
 		
