@@ -1,7 +1,7 @@
 /************************************************************************************/
 /* custom css */
 /************************************************************************************/
-
+/* 
 #loginform-area {
 	width: 500px;
 }
@@ -134,4 +134,126 @@
 #boardDetailHeaderInfo {
 	display: flex; 
 	align-items: center;
+} */
+
+/* 아이디 셀렉터 */
+#boardDetailHeaderInfo {
+	display: flex;
+	align-items: center;
+}
+
+#boardHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#button-area {
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#loginform-area {
+	width: 500px;
+}
+
+#noticeBoardPagingDiv nav {
+	margin-top: 40px;
+	align-items: center;
+}
+
+#noticeBoardSearchDiv {
+	margin-top: 20px;
+	justify-content: center;
+}
+
+#noticeBoardSearchDiv input {
+	width: 50%;
+}
+
+#noticeBoardSearchDiv option {
+	padding: 8px 0px;
+}
+
+#noticeBoardSearchDiv select {
+	width: 160px;
+}
+
+#backToBoardList {
+	margin-bottom: 100px;
+}
+
+#board-desc {
+	margin-left: 10px;
+}
+
+#board-desc > p {
+	margin-bottom: 0px;
+}
+
+/* 클래스 셀렉터 */
+.accent {
+	color: #F57171;
+}
+
+.accent:hover {
+	color: #F03636;
+}
+
+.accentRow {
+	background-color: #EAEDF0;
+}
+
+.backToBoard {
+	height: 20px;
+}
+
+.btn {
+	background-color: #64A2FF;
+	border-color: #64A2FF;
+}
+
+.btn:hover {
+	background-color: #80C2FF;
+	border-color: #80C2FF;
+}
+
+.common-notice {
+	text-align: center;
+}
+
+.form-check.form-check-inline {
+	margin-top: 10px;
+}
+
+.important-notice {
+	background-color: rgba(255, 182, 182, 0.5);
+	text-align: center;
+	color: #F57171;
+	border-radius: 2px;
+	border: 1px solid #F57171;
+}
+
+.not-accent {
+	color: #757575;
+}
+
+.not-accent:hover {
+	color: #A5A5A5;
+}
+
+.page-item.active,
+.page-link.active {
+	background-color: #64A2FF;
+	border-color: #64A2FF;
+}
+
+.profile-image-admin {
+	width: 60px;
+	height: 60px;
+	margin: 10px;
+	background-image: url('../img/admin.png');
+	background-size: contain;
+	background-repeat: no-repeat;
 }

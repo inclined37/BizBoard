@@ -15,13 +15,15 @@
 					method="post" enctype="multipart/form-data">
 					<c:set var="data" value="${data}" />
 					<input type="hidden" name="bcode" value="${data.bcode}" />
-					<div class="form-floating mb-3">
+					<div>
 						<div id="userInfo"></div>
-						<input type="text" class="form-control" id="floatingInput"
-							name="btitle" value="${data.btitle}" placeholder="글제목"
-							readonly="readonly">
+						<div class="form-floating mb-2">
+							<input id="signupuserid" type="text" name="btitle" value="${data.btitle}"
+								class="form-control" id="floatingText" placeholder="jhondoe" readOnly="readonly">
+							<label for="floatingText">제목</label>
+						</div>
 					</div>
-					<div class="form-floating mb-3">
+					<div class="form-floating">
 						<div style="display: flex; align-items: center;">
 							<div class="profile-image-admin"></div>
 							<div id="board-desc">
@@ -43,8 +45,8 @@
 						</div>
 					</div>
 
-					<div class="form-floating">
-						<div class="form-control"
+					<div>
+						<div id="floatingTextarea" class="form-control"
 							style="height: 500px; background-color: #E9ECEF; border: 1px solid #CED4DA;">${data.bcontent}
 						</div>
 					</div>
