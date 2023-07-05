@@ -54,6 +54,17 @@
 	  height: 150,
 	  /* lang: "ko-KR" */
 	});
+	document.querySelector('#floatingFile').addEventListener('change', function (event) {
+	    // 파일 선택시 이벤트 발생
+	    var file = event.target.files[0];
+	    var maxFileSize = 10 * 1024 * 1024; // 10MB
+	    
+	    // 선택된 파일의 크기가 10MB를 초과하면 경고를 표시하고 선택 취소
+	    if (file && file.size > maxFileSize) {
+	        alert('파일 용량은 10MB까지 가능합니다.');
+	        event.target.value = ''; // 파일 선택을 취소
+	    }
+ 	});
 </script>
 
 <%@include file="../include/footer.jsp"%>

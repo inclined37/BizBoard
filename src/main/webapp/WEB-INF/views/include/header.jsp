@@ -36,13 +36,19 @@
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/jinstyle.css" rel="stylesheet">
+
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- summbernote -->
+	
+    <!-- summernote -->
 	<script src="../js/summernote/summernote-lite.js"></script>
 	<script src="../js/summernote/lang/summernote-ko-KR.js"></script>
-
 	<link rel="stylesheet" href="../css/summernote/summernote-lite.css">
+    
+
+
+    <!-- FullCalendar -->
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     
 </head>
 
@@ -68,7 +74,18 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </se:authorize>
                     <se:authorize access="hasAnyRole('ROLE_USER')">
-                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+                    <c:choose>
+  						<c:when test="${empty sessionScope.profileUrl}">
+	                        <img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
+  						</c:when>
+  						<c:otherwise>
+  						<!-- 
+	                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+  						 -->
+  						 	<img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+  						 
+  						</c:otherwise>
+					</c:choose>
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </se:authorize>
                     </div>
@@ -84,24 +101,31 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>메인</a>
+                <se:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+                	<button onclick='window.location="${pageContext.request.contextPath}/member/projectAdd"' type="button" class="btn btn-primary rounded-pill m-2">프로젝트 생성</button>
+                </se:authorize>
+                	<!-- 
+                	<button type="button" class="btn btn-secondary rounded-pill m-2">프로젝트 생성</button>
+                	 -->
+                    <a href="${pageContext.request.contextPath}/member/main" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>메인</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>게시판</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-table me-2"></i>게시판</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/member/noticeBoard" class="dropdown-item">-공지게시판</a>
                             <a href="${pageContext.request.contextPath}/member/AlbumBoard" class="dropdown-item">-앨범게시판</a>
                             <a href="${pageContext.request.contextPath}/member/FileBoard" class="dropdown-item">-파일공유게시판</a>
                         </div>
                     </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
+                    
                     <!-- 
+                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                      -->
                  <se:authorize access="hasAnyRole('ROLE_ADMIN')">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>관리자 메뉴</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-keyboard me-2"></i>관리자 메뉴</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="${pageContext.request.contextPath}/admin/main" class="dropdown-item">관리자 메인</a>
                             <a href="${pageContext.request.contextPath}/admin/deptManagement" class="dropdown-item">부서관리</a>
@@ -159,7 +183,10 @@
                                     	<img class="rounded-circle" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
+                                		<img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+                                		<!-- 
 	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+                                		 -->
                     				</se:authorize>
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -174,8 +201,18 @@
                                     	<img class="rounded-circle" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
-	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
-                    				</se:authorize>
+					                    <c:choose>
+					  						<c:when test="${empty sessionScope.profileUrl}">
+						                        <img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
+					  						</c:when>
+					  						<c:otherwise>
+					  							<!-- 
+					  							<img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+					  							 -->
+						                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+					  						</c:otherwise>
+										</c:choose>                    				
+									</se:authorize>
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -216,7 +253,17 @@
                             <span class="d-none d-lg-inline-flex">로그인 해주세요.</span>
                             </se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_USER')">
-	                            <img class="rounded-circle me-lg-2" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+	                        	<c:choose>
+	  								<c:when test="${empty sessionScope.profileUrl}">
+		                        		<img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
+	  								</c:when>
+	  								<c:otherwise>
+	  									<!-- 
+		                        		<img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+	  									 -->
+	  									 <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+	  								</c:otherwise>
+								</c:choose>
                         	</se:authorize>
                         	<se:authorize access="hasAnyRole('ROLE_ADMIN')">
 	                            <img class="rounded-circle me-lg-2" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
