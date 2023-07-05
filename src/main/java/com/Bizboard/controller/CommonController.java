@@ -36,7 +36,7 @@ public class CommonController {
 	@Autowired
 	private AdminService adminService;
 
-
+	// 로컬
 	@Value("${file.upload.directory.profile}")
 	private String uploadDirectory;
 
@@ -56,7 +56,7 @@ public class CommonController {
 		
 
 	}
-	/*
+	/* 로컬
 	@PostMapping("signup")
 	public String signup(@RequestParam("file") MultipartFile file, Members members, MembersDetail membersDetail,
 			HttpServletRequest request) {

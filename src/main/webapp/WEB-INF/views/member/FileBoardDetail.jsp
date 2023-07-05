@@ -45,9 +45,6 @@
 							target="_blank">다운로드</a>
 					</div>
 
-
-
-
 					<div id="fileUploadField" class="form-floating mb-2"
 						style="display: none;">
 						<input type="file" name="file" class="form-control"
