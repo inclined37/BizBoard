@@ -7,10 +7,11 @@
 	<div class="row g-4">
 		<div class="col-sm-12 col-xl-12">
 			<a href="${pageContext.request.contextPath}/member/noticeBoard">▶공지게시판</a>
+			<div class="backToBoard"></div>
 			<!-- xl 숫자 건드리면 input 태그 길어지거나 짧아짐 -->
 			<div class="bg-light rounded h-100 p-4">
 				<c:set var="data" value="${data}" />
-				<form id="noticeBoardUpdateForm" action="noticeBoardUpdate"
+				<form class="noticeBoardUpdateForm" action="noticeBoardUpdate"
 					method="post">
 					<input type="hidden" name="bcode" value="${data.bcode}" />
 					<div>
@@ -19,8 +20,8 @@
 							readonly="readonly" required>
 					</div>
 					<div class="form-floating">
-						<div id="" style="display: flex; align-items: center;">
-							<div id="profile-image"></div>
+						<div id="boardDetailHeaderInfo">
+							<div class="profile-image-admin"></div>
 							<div id="board-desc">
 								<p style="font-size: 14px">${data.bname}</p>
 								<c:if test="${empty data.bupdated}">
@@ -75,6 +76,7 @@
 	</div>
 </div>
 <style>
+/*
 #backToBoardList {
 	margin-bottom: 100px;
 }
@@ -111,6 +113,7 @@
 .form-check.form-check-inline {
 	margin-top: 10px;
 }
+*/
 </style>
 <script>
 	const updateBtn = document.getElementById("boardDetailUpdateBtn");

@@ -22,10 +22,10 @@
 						<thead>
 							<tr>
 								<th scope="col"><div class="common-notice">글번호</div></th>
-								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
-								<th scope="col">작성일</th>
-								<th scope="col">조회수</th>
+								<th scope="col"><div class="common-notice">제목</div></th>
+								<th scope="col"><div class="common-notice">작성자</div></th>
+								<th scope="col"><div class="common-notice">작성일</div></th>
+								<th scope="col"><div class="common-notice">조회수</div></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,11 +40,11 @@
 									<td><a <c:if test="${board.nbchecked eq 1}">class="accent"</c:if>
 									<c:if test="${board.nbchecked eq 0}">class="not-accent"</c:if>
 									 href="${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=${board.bcode}">${board.btitle}</a></td>
-									<td>${board.bname}</td>
+									<td><div class="common-notice">${board.bname}</div></td>
 									<%-- <td>${board.bcreated}</td> --%>
 									<c:set var="formattedDate" value="${fn:substring(board.bcreated, 0, 10)}" />
-									<td>${formattedDate}</td>
-									<td>${board.bviews}</td>
+									<td><div class="common-notice">${formattedDate}</div></td>
+									<td><div class="common-notice">${board.bviews}</div></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -65,7 +65,6 @@
 					<input id="searchInput" 
 					class="form-control border-0 mb-2 BoardSearchTag" type="text" 
 					placeholder="검색어를 입력해주세요">
-					<!-- <button id="searchButton" class="btn btn-primary m-2" type="submit">검색</button> -->
 				</div>
 				<div id="noticeBoardPagingDiv"
 					class="d-flex justify-content-center mt-4">
@@ -98,8 +97,30 @@
 
 
 <style>
+/*
+.btn {
+	background-color: #64A2FF;
+	border-color: #64A2FF;
+}
+
+.page-link.active {
+	background-color: #64A2FF;
+	border-color: #64A2FF;
+}
+
+.page-item.active {
+	background-color: #64A2FF;
+	border-color: #64A2FF;
+}
+
+.btn:hover {
+	background-color: #80C2FF;
+	border-color: #80C2FF;
+}
+
 #boardHeader {
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 }
 
@@ -138,7 +159,7 @@
 	width: 160px;
 }
 
-#noticeBoardSearchDiv > select > option {
+#noticeBoardSearchDiv option {
 	padding: 8px 0px;
 }
 
@@ -150,6 +171,7 @@
 	margin-top: 40px;
 	align-items: center;
 }
+*/
 </style>
 
 
@@ -184,9 +206,9 @@ $(document).ready(function() {
 	            	let titleLink = $('<a>').attr('href', "${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=" + board.bcode).text(board.btitle).addClass("not-accent");
 	            	row.append($('<td>').append(titleLink));
 	            }
-	            row.append($('<td>').text(board.bname));
-	            row.append($('<td>').text(board.bcreated.substring(0, 10)));
-	            row.append($('<td>').text(board.bviews));
+	            row.append($('<td>').text(board.bname).addClass("common-notice"));
+	            row.append($('<td>').text(board.bcreated.substring(0, 10)).addClass("common-notice"));
+	            row.append($('<td>').text(board.bviews).addClass("common-notice"));
 	            tbody.append(row);
 	          });
 	          
@@ -277,15 +299,15 @@ $(document).ready(function() {
 	          if (response.length == 0) {
 	            //검색된 결과가 존재하지 않습니다
 	          } else {
-				  console.log(response);
+				  //console.log(response);
 	              $.each(response, function(index, board) {
 	  	            let row = $('<tr>');
 	  	            row.append($('<th scope="row">').text(board.bcode));
-	  	            let titleLink = $('<a>').attr('href', "${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=" + board.bcode).text(board.btitle);
-	  	            row.append($('<td>').append(titleLink));
-	  	            row.append($('<td>').text(board.bname));
-	  	            row.append($('<td>').text(board.bcreated.substring(0, 10)));
-	  	            row.append($('<td>').text(board.bviews));
+	  	            let titleLink = $('<a>').attr('href', "${pageContext.request.contextPath}/member/noticeBoardDetail?bcode=" + board.bcode).text(board.btitle).addClass("not-accent");
+	  	            row.append($('<td>').append(titleLink).addClass("not-accent"));
+	  	            row.append($('<td>').text(board.bname).addClass("common-notice not-accent"));
+	  	            row.append($('<td>').text(board.bcreated.substring(0, 10)).addClass("common-notice not-accent"));
+	  	            row.append($('<td>').text(board.bviews).addClass("common-notice not-accent"));
 	  	            tbody.append(row);
 	  	          });
 	              

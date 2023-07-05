@@ -2,15 +2,21 @@
 @font-face {
 	font-family: 'Jalnan';
 	/*
-	src: url('../font/Jalnan.ttf') format('truetype');
-	*/
+	src: url('../font/NEXON Lv2 Gothic Medium.ttf') format('truetype');
+	src: url('../font/ELAND 초이스 M.ttf') format('truetype');
 	src: url('../font/SCDream5.otf') format('truetype');
+	src: url('../font/NEXON Lv2 Gothic Bold.ttf') format('truetype');
+	*/
+	src: url('../font/ELAND 초이스 B.ttf') format('truetype');
 	
 	
 }
 
 :root {
+	/*
 	--primary: #009CFF;
+	*/
+	--primary: #64A2FF;
 	--light: #F3F6F9;
 	--dark: #191C24;
 }
@@ -280,7 +286,7 @@ body {
 }
 /*이재훈 별도 추가*/
 .memberTableBodyTdTag {
-	color: #009CFF;
+	color: var(--primary);;
 	cursor: pointer;
 }
 

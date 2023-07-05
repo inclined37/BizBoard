@@ -6,9 +6,10 @@
 <div class="container-fluid pt-4 px-4">
 	<div class="row g-4">
 		<div class="col-sm-12 col-xl-12">
+			<a href="${pageContext.request.contextPath}/member/FileBoard">▶파일공유게시판</a>
+			<div class="backToBoard"></div>
 			<!-- xl 숫자 건드리면 input 태그 길어지거나 짧아짐 -->
 			<div class="bg-light rounded h-100 p-4">
-				<h6 class="mb-4">파일게시판 상세보기</h6>
 				<form id="fileStorageBoardUpdateForm"
 					action="${pageContext.request.contextPath}/member/FileBoardUpdate"
 					method="post" enctype="multipart/form-data">
@@ -22,13 +23,22 @@
 					</div>
 					<div class="form-floating mb-3">
 						<div style="display: flex; align-items: center;">
-							<div
-								style="width: 60px; height: 60px; background-size: contain; background-image: url('../img/admin.png'); margin-right: 10px;"></div>
-							<div>
+							<div class="profile-image-admin"></div>
+							<div id="board-desc">
 								<p class="bname"
 									style="margin-bottom: 0; font-size: 14px; cursor: pointer;">${data.bname}</p>
-								<p style="margin-bottom: 0; font-size: 12px">${data.bcreated}</p>
-								<p style="margin-bottom: 0; font-size: 12px">${data.bupdated}</p>
+								<c:if test="${empty data.bupdated}">
+								<p style="font-size: 12px">
+									작성일: ${data.bcreated}<span>&nbsp;&nbsp;&nbsp;조회
+										${data.bviews}</span>
+								</p>
+								</c:if>
+								<c:if test="${not empty data.bupdated}">
+									<p style="font-size: 12px">
+										최근수정일: ${data.bupdated}<span>&nbsp;&nbsp;&nbsp;조회
+											${data.bviews}</span>
+									</p>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -38,15 +48,11 @@
 							style="height: 500px; background-color: #E9ECEF; border: 1px solid #CED4DA;">${data.bcontent}
 						</div>
 					</div>
-
 					<div class="form-floating mb-3">
 						<a>기존 파일 : ${data.fbOriginfile}</a> <a
 							href="${pageContext.request.contextPath}/member/download?fbSavedfile=${data.fbSavedfile}&fbOriginfile=${data.fbOriginfile}"
 							target="_blank">다운로드</a>
 					</div>
-
-
-
 
 					<div id="fileUploadField" class="form-floating mb-2"
 						style="display: none;">
@@ -78,7 +84,6 @@
 							</c:if>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</div>
