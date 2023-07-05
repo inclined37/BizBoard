@@ -18,23 +18,19 @@ public interface BoardDao {
 	public List<BoardJoinNoticeBoard> selectAllNoticeBoard(@Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
 
 	// 공지형 게시판 검색 - 제목 select
-	public List<Board> selectAllNoticeBoardByTitle(@Param("btitle") String btitle, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
-	
+	public List<BoardJoinNoticeBoard> selectAllNoticeBoardByTitle(@Param("btitle") String btitle, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
 	// 공지형 게시판 검색 - 내용 select
-	public List<Board> selectAllNoticeBoardByContent(@Param("bcontent") String bcontent, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
-	
+	public List<BoardJoinNoticeBoard> selectAllNoticeBoardByContent(@Param("bcontent") String bcontent, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
 	// 공지형 게시판 검색 - 작성자 이름 select
-	public List<Board> selectAllNoticeBoardByName(@Param("bname") String bname, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
+	public List<BoardJoinNoticeBoard> selectAllNoticeBoardByName(@Param("bname") String bname, @Param("btCode") int btCode, @Param("startRow") int startRow, @Param("pageSize") int pageSize);
 	
 	// 공지형 게시판 검색 - 제목 totalCount
 	public int selectNoticeBoardByTitleCount(@Param("btitle") String btitle, @Param("btCode") int btCode);
-
 	// 공지형 게시판 검색 - 내용 totalCount
 	public int selectNoticeBoardByContentCount(@Param("bcontent") String bcontent, @Param("btCode") int btCode);
-
 	// 공지형 게시판 검색 - 작성자 이름 totalCount
 	public int selectNoticeBoardByNameCount(@Param("bname") String bname, @Param("btCode") int btCode);
-
+	
 	// 공지형 게시판 조건 select
 	public Board selectBoard(int bcode);
 	public NoticeBoard selectNoticeBoard(int bcode);

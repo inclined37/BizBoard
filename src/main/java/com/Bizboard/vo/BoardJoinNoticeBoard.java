@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import lombok.Data;
 
-@Data
 public class BoardJoinNoticeBoard {
 	private int bcode;				//글 번호
 	private String bid;			//작성자 아이디
@@ -21,4 +20,84 @@ public class BoardJoinNoticeBoard {
 	
 	private int nbcode;		//공지 식별번호
 	private int nbchecked;	//공지게시글 상단고정여부
+	public int getBcode() {
+		return bcode;
+	}
+	public void setBcode(int bcode) {
+		this.bcode = bcode;
+	}
+	public String getBid() {
+		return bid;
+	}
+	public void setBid(String bid) {
+		this.bid = bid;
+	}
+	public String getBname() {
+		return bname;
+	}
+	public void setBname(String bname) {
+		this.bname = bname;
+	}
+	public String getBemail() {
+		return bemail;
+	}
+	public void setBemail(String bemail) {
+		this.bemail = bemail;
+	}
+	public String getBdname() {
+		return bdname;
+	}
+	public void setBdname(String bdname) {
+		this.bdname = bdname;
+	}
+	public String getBtitle() {
+		return btitle;
+	}
+	public void setBtitle(String btitle) {
+		this.btitle = btitle;
+	}
+	public String getBcontent() {
+		return bcontent;
+	}
+	public void setBcontent(String bcontent) {
+		this.bcontent = bcontent;
+	}
+	public int getBviews() {
+		return bviews;
+	}
+	public void setBviews(int bviews) {
+		this.bviews = bviews;
+	}
+	public Timestamp getBcreated() {
+		return bcreated;
+	}
+	public void setBcreated(Timestamp bcreated) {
+		this.bcreated = bcreated;
+	}
+	public Timestamp getBupdated() {
+		return bupdated;
+	}
+	public void setBupdated(Timestamp bupdated) {
+		this.bupdated = bupdated;
+	}
+	public int getBtCode() {
+		return btCode;
+	}
+	public void setBtCode(int btCode) {
+		this.btCode = btCode;
+	}
+	public int getNbcode() {
+		return nbcode;
+	}
+	public void setNbcode(int nbcode) {
+		this.nbcode = nbcode;
+	}
+	public int getNbchecked() {
+		return nbchecked;
+	}
+	public void setNbchecked(int nbchecked) {
+		this.nbchecked = nbchecked;
+	}
+	
+	
 }
