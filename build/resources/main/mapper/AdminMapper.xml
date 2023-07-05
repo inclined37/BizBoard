@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Bizboard.dao.AdminDao">
+
+
+<select id="getDeptList" resultType="com.Bizboard.vo.Dept">
+	select * from dept order by deptno asc
+</select>
+
+<insert id="deptInsert" parameterType="com.Bizboard.vo.Dept">
+	insert into dept(deptno,dname,loc) values(#{deptno},#{dname},#{loc})
+</insert>
+
+
+<update id="deptUpdate" parameterType="com.Bizboard.vo.Dept">
+	update dept set dname = #{dname} , loc = #{loc} where  deptno = #{deptno} 
+</update>
+
+
+<select id="getMemberAllDataSearchList" parameterType="com.Bizboard.vo.MemberSearchData" resultType="com.Bizboard.vo.MemberAllData">
+  SELECT m.userid, m.password, m.status,
+         md.empno, md.membername, md.deptno, md.job,
+         md.hiredate, md.enddate, md.sal, md.birthday,
+         md.phonenumber, md.tel, md.email, md.fileoriginalname,
+         md.filestoredname, md.filepath,
+         d.dname , d.loc
+  FROM members m
+  JOIN membersdetail md ON m.userid = md.userid
+  JOIN dept d ON md.deptno = d.deptno
+  WHERE
+    <choose>
+      <when test="searchType == 'empno'">
+        md.empno = #{searchText}
+      </when>
+      <when test="searchType == 'deptno'">
+        md.deptno = #{searchText}
+      </when>
+      <when test="searchType == 'membername'">
+        md.membername LIKE '%' || #{searchText} || '%'
+      </when>
+    </choose>
+</select>
+
+<select id="getMemberAllDataList" resultType="com.Bizboard.vo.MemberAllData">
+  SELECT m.userid, m.password, m.status,
+         md.empno, md.membername, md.deptno, md.job,
+         md.hiredate, md.enddate, md.sal, md.birthday,
+         md.phonenumber, md.tel, md.email, md.fileoriginalname,
+         md.filestoredname, md.filepath,
+         d.dname , d.loc
+  FROM members m
+  JOIN membersdetail md ON m.userid = md.userid
+  JOIN dept d ON md.deptno = d.deptno
+</select>
+
+<select id="getTotalMemberCount" resultType="int">
+	select count(*) from members
+</select>
+
+
+
+<select id="getMemberAllDataPagingList" parameterType="map" resultType="com.Bizboard.vo.MemberAllData">
+<![CDATA[
+  SELECT *
+  FROM (
+    SELECT ROWNUM AS rn, m.userid, m.password, m.status, md.empno, md.membername, md.deptno, md.job, md.hiredate, md.enddate, md.sal, md.birthday, md.phonenumber, md.tel, md.email, md.fileoriginalname, md.filestoredname, md.filepath, d.dname, d.loc
+    FROM members m
+    JOIN membersdetail md ON m.userid = md.userid
+    JOIN dept d ON md.deptno = d.deptno
+    WHERE ROWNUM <= #{startRow} + #{pageSize}
+  )
+  WHERE rn > #{startRow}
+]]>
+</select>
+
+
+
+
+</mapper>
+
+
+
+

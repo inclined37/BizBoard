@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Bizboard.dao.BoardDao">
+
+	<!-- 조회수 증가 -->
+	<update id="increaseBoardViews">
+		UPDATE Board
+		SET b_views = b_views + 1
+		WHERE b_code =
+		#{bcode}
+	</update>
+
+	<!-- 공지사항 전체 select 
+	<select id="selectAllNoticeBoard"
+		resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+		SELECT b.b_code, b.b_id, b.b_name, b.b_email, b.b_title, b.b_content,
+		b.b_views,
+		b.b_created, b.b_updated, b.bt_code, nb.nb_checked
+		FROM Board b join noticeBoard nb on b.b_code = nb.b_code
+		WHERE b.bt_code =
+		1000
+		ORDER BY
+		nb.nb_checked DESC, b.b_code DESC
+	</select>
+	-->
+	<select id="selectAllNoticeBoard"
+		resultType="com.Bizboard.vo.BoardJoinNoticeBoard">
+		<![CDATA[
+		SELECT
+			*
+		FROM (
+		    SELECT ROWNUM AS rn, bnb.*
+		    FROM (
+		        SELECT
+		            *
+		        FROM Board b
+		        JOIN NoticeBoard nb ON b.b_code = nb.b_code
+		        WHERE b.bt_code = #{btCode}
+		        ORDER BY nb.nb_checked DESC, b.b_code DESC
+		    ) bnb
+		    WHERE ROWNUM <= #{startRow} + #{pageSize}
+		)n where n.rn>#{startRow}
+		]]>
+	</select>
+	<!-- 
+	 <select id="selectAllNoticeBoard"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
+	</select>
+	 -->
+	
+	<!-- 공지사항 게시글 검색 
+	<select id="selectAllNoticeBoardByValue" resultType="com.Bizboard.vo.Board">
+	    <![CDATA[
+	    SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+	    b_views, b_created, b_updated, bt_code
+	    FROM (
+	        SELECT ROWNUM AS rn, b.*
+	        FROM Board b
+	        WHERE b.bt_code = #{btCode}
+	        AND ROWNUM <= #{startRow} + #{pageSize}
+	        <choose>
+	            <when test="option == 'btitle'">
+	                AND b_title LIKE '%' || #{keyword} || '%'
+	            </when>
+	            <when test="option == 'bcontent'">
+	                AND b_content LIKE '%' || #{keyword} || '%'
+	            </when>
+	            <when test="option == 'bname'">
+	                AND b_name LIKE '%' || #{keyword} || '%'
+	            </when>
+	        </choose>
+	        ORDER BY b_code DESC
+	    )
+	    WHERE rn > #{startRow}
+	    ]]>
+	</select>
+	-->
+	
+	<!-- 공지사항 게시글 검색 totalCount 
+	<select id="selectNoticeBoardCountByValue" resultType="int">
+	    SELECT COUNT(*)
+	    FROM Board
+	    WHERE bt_code = #{btCode}
+	    AND (
+	        <if test="option == 'btitle'">
+	            b_title LIKE '%' || #{keyword} || '%'
+	        </if>
+	        <if test="option == 'bcontent'">
+	            b_content LIKE '%' || #{keyword} || '%'
+	        </if>
+	        <if test="option == 'bname'">
+	            b_name LIKE '%' || #{keyword} || '%'
+	        </if>
+	    )
+	</select>
+	-->
+	
+	<!-- 공지사항 제목 select 
+	<select id="selectAllNoticeBoardByTitle"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			AND b_title = LIKE '%' || #{btitle} || '%'
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
+	</select>
+	-->
+	
+	<!-- 공지사항 내용 select 
+	<select id="selectAllNoticeBoardByContent"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			AND b_content = LIKE '%' || #{bcontent} || '%'
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
+	</select>
+	-->
+	
+	<!-- 공지사항 작성자 이름 select 
+	<select id="selectAllNoticeBoardByName"
+		resultType="com.Bizboard.vo.Board">
+		<![CDATA[
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM (
+			SELECT ROWNUM AS rn, b.*
+			FROM Board b
+			WHERE b.bt_code = #{btCode}
+			AND ROWNUM <= #{startRow} + #{pageSize}
+			AND b_name = LIKE '%' || #{bname} || '%'
+			ORDER BY b_code DESC
+		)
+		WHERE rn > #{startRow}
+		]]>
+	</select>
+	-->
+
+	<!-- 공지사항 조건 select -->
+	<select id="selectBoard"
+		resultType="com.Bizboard.vo.Board">
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views,
+		b_created, b_updated, bt_code
+		FROM Board
+		WHERE b_code = #{bcode}
+	</select>
+	<select id="selectNoticeBoard"
+		resultType="com.Bizboard.vo.NoticeBoard">
+		SELECT *
+		FROM Board
+		WHERE b_code = #{bcode}
+	</select>
+
+	<!-- 공지사항 insert -->
+	<insert id="insertNoticeBoard"
+		parameterType="map">
+		<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+			INTO BOARD (b_code, b_id,
+			b_name, b_email, b_dname, b_title, b_content,
+			b_views, b_created,
+			bt_code)
+
+			VALUES (board_seq.NEXTVAL, #{board.bid}, #{board.bname}, #{board.bemail},
+			#{board.bdname},
+			#{board.btitle}, #{board.bcontent}, 0, sysdate, #{board.btCode})
+
+			INTO
+			NOTICEBOARD (nb_code, b_code, nb_checked)
+			VALUES (notice_seq.NEXTVAL,
+			board_seq.CURRVAL, #{nboard.nbchecked})
+		</trim>
+	</insert>
+
+	<!-- 공지사항 update 
+	-->
+	<update id="updateBoardforNotice"
+		parameterType="com.Bizboard.vo.Board">
+		UPDATE Board
+		SET b_title = #{btitle},
+		b_content = #{bcontent},
+		b_updated = SYSDATE
+		WHERE b_code = #{bcode}
+	</update>
+	<update id="updateNoticeBoard"
+		parameterType="com.Bizboard.vo.NoticeBoard">
+		UPDATE NoticeBoard
+		SET nb_checked = #{nbchecked}
+		WHERE b_code = #{bcode}
+	</update>
+
+	<!-- 공지사항 delete -->
+	<delete id="deleteNoticeBoard">
+		DELETE
+		FROM Board
+		WHERE b_code = #{bcode}
+	</delete>
+
+	<!-- 공지사항 전체 게시글 count -->
+	<select id="getTotalNoticeBoardCount" resultType="int">
+		SELECT count(*)
+		FROM NoticeBoard
+	</select>
+
+
+	<!-- 파일게시판 전체 select -->
+	<select id="selectAllFileStorageBoard"
+		resultType="com.Bizboard.vo.BoardFileJoin">
+		SELECT *
+		FROM Board B
+		JOIN FileStorageBoard F ON B.b_code =
+		F.b_code
+		WHERE bt_code = #{btCode}
+		ORDER BY B.b_code DESC
+	</select>
+
+	<!-- 파일게시판 조건 select -->
+	<select id="selectFileStorageBoard"
+		resultType="com.Bizboard.vo.BoardFileJoin">
+		SELECT b_code, b_id, b_name, b_email, b_title, b_content,
+		b_views, b_dname,
+		b_created, b_updated, bt_code
+		FROM Board
+		WHERE b_code =
+		#{bcode}
+	</select>
+
+
+	<!-- 파일게시판 조건2 select -->
+	<select id="selectOneFileStorageBoard"
+		resultType="com.Bizboard.vo.BoardFileJoin">
+		SELECT B.b_code, B.b_id, B.b_name, B.b_email, B.b_dname,
+		B.b_title, B.b_content, B.b_views, B.b_created, B.b_updated,
+		B.bt_Code,
+		F.fb_Code, F.fb_Originfile, F.fb_Savedfile, F.fb_Filesize
+		FROM Board B
+		JOIN FileStorageBoard F ON B.b_code = F.b_code
+		WHERE
+		B.b_code = #{bcode}
+	</select>
+
+
+
+
+	<!-- 파일게시판 insert -->
+	<insert id="insertFileStorageBoard"
+		parameterType="com.Bizboard.vo.BoardFileJoin">
+		<trim prefix="INSERT ALL" suffix="SELECT 1 FROM DUAL">
+			INTO BOARD (b_code, b_id,
+			b_name, b_email, b_dname, b_title, b_content,
+			b_views, b_created,
+			bt_code)
+			VALUES (board_seq.NEXTVAL, #{bid}, #{bname}, #{bemail},
+			#{bdname},
+			#{btitle}, #{bcontent}, 0, sysdate, #{btCode})
+
+			INTO
+			FileStorageBoard (fb_code, b_code, fb_originfile, fb_savedfile,
+			fb_filesize)
+			VALUES (file_seq.NEXTVAL, board_seq.CURRVAL,
+			#{fbOriginfile},
+			#{fbSavedfile}, #{fbFilesize})
+		</trim>
+	</insert>
+
+	<!-- 파일게시판 수정 -->
+	<update id="updateBoard"
+		parameterType="com.Bizboard.vo.BoardFileJoin">
+		UPDATE BOARD
+		SET
+		b_code = #{bcode}, b_title = #{btitle},
+		b_content = #{bcontent}, b_updated =
+		sysdate
+		WHERE b_code = #{bcode}
+	</update>
+
+	<update id="updateFileStorageBoard"
+		parameterType="com.Bizboard.vo.BoardFileJoin">
+		UPDATE FILESTORAGEBOARD
+		SET
+		b_code = #{bcode},
+		fb_originfile = #{fbOriginfile}, fb_savedfile =
+		#{fbSavedfile},
+		fb_filesize = #{fbFilesize}
+		WHERE b_code = #{bcode}
+	</update>
+
+	<delete id="deleteFileStorageBoard">
+		DELETE
+		FROM Board
+		WHERE b_code = #{bcode}
+	</delete>
+
+
+
+</mapper>

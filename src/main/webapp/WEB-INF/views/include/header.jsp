@@ -76,7 +76,11 @@
 	                        <img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
   						</c:when>
   						<c:otherwise>
+  						<!-- 
 	                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+  						 -->
+  						 	<img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+  						 
   						</c:otherwise>
 					</c:choose>
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
@@ -176,7 +180,10 @@
                                     	<img class="rounded-circle" src="../img/admin.png" alt="" style="width: 40px; height: 40px;">
                     				</se:authorize>
                                 	<se:authorize access="hasAnyRole('ROLE_USER')">
+                                		<img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+                                		<!-- 
 	                                    <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+                                		 -->
                     				</se:authorize>
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -196,6 +203,9 @@
 						                        <img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
 					  						</c:when>
 					  						<c:otherwise>
+					  							<!-- 
+					  							<img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+					  							 -->
 						                        <img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
 					  						</c:otherwise>
 										</c:choose>                    				
@@ -245,7 +255,10 @@
 		                        		<img class="rounded-circle" src="../img/noProfile.jpg" alt="" style="width: 40px; height: 40px;">
 	  								</c:when>
 	  								<c:otherwise>
+	  									<!-- 
 		                        		<img class="rounded-circle" src="${pageContext.request.contextPath}${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
+	  									 -->
+	  									 <img class="rounded-circle" src="${pageContext.request.contextPath}/upload/profile${sessionScope.profileUrl}" alt="" style="width: 40px; height: 40px;">
 	  								</c:otherwise>
 								</c:choose>
                         	</se:authorize>
