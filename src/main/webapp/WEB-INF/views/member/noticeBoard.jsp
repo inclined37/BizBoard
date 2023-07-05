@@ -12,6 +12,10 @@
 			<div class="bg-light rounded h-100 p-4">
 				<div id="boardHeader">
 					<h3 class="mb-4">공지게시판</h3>
+					<se:authorize access="hasAnyRole('ROLE_ADMIN')">
+						<a class="btn btn-primary m-2"
+							href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글쓰기</a>
+					</se:authorize>
 				</div>
 				<div class="table-responsive">
 					<table id="noticeBoardTable" class="table">
@@ -48,12 +52,8 @@
 					<c:if test="${empty data}">
 						<div class="container-fluid pt-4 pb-4">등록된 게시물이 없습니다</div>
 					</c:if>
-					<se:authorize access="hasAnyRole('ROLE_ADMIN')">
-						<a class="btn btn-primary m-2"
-							href="${pageContext.request.contextPath}/admin/noticeBoardInsert">글작성</a>
-					</se:authorize>
 				</div>
-				<div class="d-none d-md-flex ms-4">
+				<div id="noticeBoardSearchDiv" class="d-none d-md-flex ms-4">
 					<select id="searchOption"
 						class="BoardSearchSelectTag form-select form-select-sm mb-2 form-control"
 						aria-label=".form-select-sm example">
@@ -103,10 +103,6 @@
 	justify-content: space-between;
 }
 
-#boardHeader>select {
-	padding: 0px 10px 0px;
-}
-
 .accentRow {
 	background-color: #EAEDF0;
 }
@@ -133,6 +129,27 @@
 	text-align: center;
 }
 
+#noticeBoardSearchDiv {
+	margin-top: 20px;
+	justify-content: center;
+}
+
+#noticeBoardSearchDiv select {
+	width: 160px;
+}
+
+#noticeBoardSearchDiv > select > option {
+	padding: 8px 0px;
+}
+
+#noticeBoardSearchDiv input {
+	width: 50%;
+}
+
+#noticeBoardPagingDiv nav{
+	margin-top: 40px;
+	align-items: center;
+}
 </style>
 
 
