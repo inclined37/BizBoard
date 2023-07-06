@@ -18,29 +18,28 @@
 						<input type="text" class="form-control" id="floatingInput" id="floatingText"
 							name="btitle" value="${data.btitle}" placeholder="글제목"
 							readonly="readonly" required>
-							<label for="floatingText">글제목</label>
+						<label for="floatingText">글제목</label>
 					</div>
 					<div class="form-floating">
 						<div id="boardDetailHeaderInfo">
 							<div class="profile-image-admin"></div>
-<div id="board-desc" style="border-left: 4px solid #007bff; background-color: #f2f2f2; padding: 10px; margin: 10px 0px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
-    <p style="font-size: 14px; margin: 0; font-weight: bold;">
-        <span style="color: #2c3e50;">${data.bname}</span>
-        <span style="color: #3498db;">${data.bdname}</span>
-        <span style="color: #27ae60;">${data.bemail}</span>
-    </p>
-    <c:if test="${empty data.bupdated}">
-        <p style="font-size: 12px; margin: 0;">
-            작성일: <em>${data.bcreated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
-        </p>
-    </c:if>
-    <c:if test="${not empty data.bupdated}">
-        <p style="font-size: 12px; margin: 0;">
-            최근수정일: <em>${data.bupdated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
-        </p>
-    </c:if>
-</div>
-
+							<div id="board-desc" style="border-left: 4px solid #007bff; background-color: #f2f2f2; padding: 10px; margin: 10px 0px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
+							    <p style="font-size: 14px; margin: 0; font-weight: bold;">
+							        <span style="color: #2c3e50;">${data.bname}</span>
+							        <span style="color: #3498db;">${data.bdname}</span>
+							        <span style="color: #27ae60;">${data.bemail}</span>
+							    </p>
+							    <c:if test="${empty data.bupdated}">
+							        <p style="font-size: 12px; margin: 0;">
+							            작성일: <em>${data.bcreated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+							        </p>
+							    </c:if>
+							    <c:if test="${not empty data.bupdated}">
+							        <p style="font-size: 12px; margin: 0;">
+							            최근수정일: <em>${data.bupdated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+							        </p>
+							    </c:if>
+							</div>
 						</div>
 					</div>
 					<div>
@@ -79,46 +78,8 @@
 		</div>
 	</div>
 </div>
-<style>
-/*
-#backToBoardList {
-	margin-bottom: 100px;
-}
 
-#profile-image {
-	width: 60px;
-	height: 60px;
-	margin: 10px;
-	background-image: url('../img/admin.png');
-	background-size: contain;
-	background-repeat: no-repeat;
-}
 
-#board-desc {
-	margin-left: 10px;
-}
-
-#board-desc>p {
-	margin-bottom: 0px;
-}
-
-#floatingInput #floatingTextarea {
-	padding-top: 10px;
-	resize: none;
-	background-color: white;
-}
-
-#button-area {
-	margin-top: 10px;
-	display: flex;
-	justify-content: space-between;
-}
-
-.form-check.form-check-inline {
-	margin-top: 10px;
-}
-*/
-</style>
 <script>
 	const updateBtn = document.getElementById("boardDetailUpdateBtn");
 	const saveBtn = document.getElementById("boardDetailSaveBtn");
@@ -192,12 +153,10 @@
 					// 성공적으로 삭제되었을 때의 동작
 					alert("성공적으로 삭제되었습니다");
 					window.location.href = "${pageContext.request.contextPath}/member/noticeBoard";
-					// 추가적인 동작 수행 가능
 				},
 				error : function() {
 					// 삭제 실패 시의 동작
 					alert("삭제요청 실패");
-					// 추가적인 동작 수행 가능
 				}
 			});
 		}

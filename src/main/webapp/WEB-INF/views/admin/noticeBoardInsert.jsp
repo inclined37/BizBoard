@@ -34,6 +34,7 @@
                     </div>
 					<div class="form-floating">
 						<button class="btn btn-primary m-2" type="submit">글작성</button>
+						<a class="btn btn-primary m-2" id="cancle-btn" href="${pageContext.request.contextPath}/member/noticeBoard">취소</a>
 					</div>
 				</form>
 			</div>

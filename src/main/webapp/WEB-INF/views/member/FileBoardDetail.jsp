@@ -26,36 +26,35 @@
 					<div class="form-floating">
 						<div style="display: flex; align-items: center;">
 							<div class="profile-image-admin"></div>
-<div id="board-desc" style="border-left: 4px solid #007bff; background-color: #f2f2f2; padding: 10px; margin: 10px 0px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
-    <p style="font-size: 14px; margin: 0; font-weight: bold;">
-        <span style="color: #2c3e50;">${data.bname}</span>
-        <span style="color: #3498db;">${data.bdname}</span>
-        <span style="color: #27ae60;">${data.bemail}</span>
-    </p>
-    <c:if test="${empty data.bupdated}">
-        <p style="font-size: 12px; margin: 0;">
-            작성일: <em>${data.bcreated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
-        </p>
-    </c:if>
-    <c:if test="${not empty data.bupdated}">
-        <p style="font-size: 12px; margin: 0;">
-            최근수정일: <em>${data.bupdated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
-        </p>
-    </c:if>
-</div>
-
+							<div id="board-desc" style="border-left: 4px solid #007bff; background-color: #f2f2f2; padding: 10px; margin: 10px 0px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
+							    <p style="font-size: 14px; margin: 0; font-weight: bold;">
+							        <span style="color: #2c3e50;">${data.bname}</span>
+							        <span style="color: #3498db;">${data.bdname}</span>
+							        <span style="color: #27ae60;">${data.bemail}</span>
+							    </p>
+							    <c:if test="${empty data.bupdated}">
+							        <p style="font-size: 12px; margin: 0;">
+							            작성일: <em>${data.bcreated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+							        </p>
+							    </c:if>
+							    <c:if test="${not empty data.bupdated}">
+							        <p style="font-size: 12px; margin: 0;">
+							            최근수정일: <em>${data.bupdated}</em><span>&nbsp;&nbsp;&nbsp;조회 ${data.bviews}</span>
+							        </p>
+							    </c:if>
+							</div>
 						</div>
 					</div>
-
 					<div>
 						<div id="floatingTextarea" class="form-control"
 							style="height: 500px; background-color: #E9ECEF; border: 1px solid #CED4DA;">${data.bcontent}
 						</div>
 					</div>
+					<div class="backToBoard"></div>
 					<div class="form-floating mb-3">
-						<a>기존 파일 : ${data.fbOriginfile}</a> <a
-							href="${pageContext.request.contextPath}/member/download?fbSavedfile=${data.fbSavedfile}&fbOriginfile=${data.fbOriginfile}"
-							target="_blank">다운로드</a>
+						<a>기존 파일 : ${data.fbOriginfile}</a>
+						<a href="${pageContext.request.contextPath}/member/download?fbSavedfile=${data.fbSavedfile}&fbOriginfile=${data.fbOriginfile}"
+							target="_blank">&nbsp;&nbsp;다운로드</a>
 					</div>
 
 					<div id="fileUploadField" class="form-floating mb-2"
@@ -65,28 +64,26 @@
 						<label for="floatingFile">파일</label>
 					</div>
 
-					<div id="button-area" class="form-floating">
-						<div class="d-flex justify-content-between align-items-center">
-							<div>
-								<a href="${pageContext.request.contextPath}/member/FileBoard"
-									class="btn btn-primary m-2">목록으로</a>
-							</div>
-							<c:if
-								test="${pageContext.request.userPrincipal.name eq data.bid}">
-								<div>
-									<!-- <button type="button" id="boardDetailUpdateBtn"
-										class="btn btn-primary m-2">수정</button> -->
-									<a class="btn btn-primary m-2"
-										href="${pageContext.request.contextPath}/member/FileBoardUpdate?bcode=${data.bcode}">글수정</a>
-									<button type="submit" id="boardDetailSaveBtn"
-										class="btn btn-primary m-2" style="display: none;">저장</button>
-									<button type="button" id="boardDetailCancelBtn"
-										class="btn btn-primary m-2" style="display: none;">취소</button>
-									<button type="button" id="boardDetailDeleteBtn"
-										class="btn btn-primary m-2">삭제</button>
-								</div>
-							</c:if>
+					<div id="button-area" class="d-flex justify-content-between align-items-center">
+						<div>
+							<a href="${pageContext.request.contextPath}/member/FileBoard"
+								class="btn btn-primary m-2">목록으로</a>
 						</div>
+						<c:if
+							test="${pageContext.request.userPrincipal.name eq data.bid}">
+							<div>
+								<!-- <button type="button" id="boardDetailUpdateBtn"
+									class="btn btn-primary m-2">수정</button> -->
+								<a class="btn btn-primary m-2"
+									href="${pageContext.request.contextPath}/member/FileBoardUpdate?bcode=${data.bcode}">수정</a>
+								<button type="submit" id="boardDetailSaveBtn"
+									class="btn btn-primary m-2" style="display: none;">저장</button>
+								<button type="button" id="boardDetailCancelBtn"
+									class="btn btn-primary m-2" style="display: none;">취소</button>
+								<button type="button" id="boardDetailDeleteBtn"
+									class="btn btn-primary m-2">삭제</button>
+							</div>
+						</c:if>
 					</div>
 				</form>
 			</div>
@@ -96,7 +93,7 @@
 
 
 <style>
-.bname {
+/* .bname {
 	position: relative;
 }
 
@@ -105,13 +102,13 @@
 	position: absolute;
 	z-index: 9999;
 	background-color: #f9f9f9;
-	padding: 15px; /* 패딩을 더 추가 */
+	padding: 15px;  패딩을 더 추가 
 	border: 1px solid #ccc;
 	font-size: 14px;
-	box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* 그림자 색상 조정 */
-	max-width: 320px; /* 최대 너비 지정 */
-	word-wrap: break-word; /* 긴 텍스트 줄 바꿈 처리 */
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 색상 조정 */
+	box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);  그림자 색상 조정 
+	max-width: 320px;  최대 너비 지정 
+	word-wrap: break-word;  긴 텍스트 줄 바꿈 처리 
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);  그림자 색상 조정 
 	top: -9px;
 }
 
@@ -128,8 +125,8 @@
 	background-color: #f9f9f9;
 	border: none;
 	cursor: pointer;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 색상 조정 */
-}
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);  그림자 색상 조정 
+} */
 </style>
 
 <script>

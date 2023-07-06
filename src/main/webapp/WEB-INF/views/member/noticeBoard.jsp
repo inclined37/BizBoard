@@ -57,6 +57,7 @@
 					<select id="searchOption"
 						class="BoardSearchSelectTag form-select form-select-sm mb-2 form-control"
 						aria-label=".form-select-sm example">
+						<option value="" disabled="disabled">--검색--</option>
 						<option value="btitle" selected>제목</option>
 						<option value="bcontent">내용</option>
 						<option value="bname">작성자 이름</option>
@@ -93,86 +94,6 @@
 	</div>
 </div>
 
-
-
-
-<style>
-/*
-.btn {
-	background-color: #64A2FF;
-	border-color: #64A2FF;
-}
-
-.page-link.active {
-	background-color: #64A2FF;
-	border-color: #64A2FF;
-}
-
-.page-item.active {
-	background-color: #64A2FF;
-	border-color: #64A2FF;
-}
-
-.btn:hover {
-	background-color: #80C2FF;
-	border-color: #80C2FF;
-}
-
-#boardHeader {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.accentRow {
-	background-color: #EAEDF0;
-}
-
-.accent {
-	color: #F57171;
-}
-
-.not-accent {
-	color: #757575;
-}
-
-.important-notice {
-	background-color: rgba(255,182,182,0.5);
-	text-align: center;
-	color: #F57171;
-	border-radius: 2px;
-	border: 1px;
-	border-color: #F57171;
-	border-style: solid;
-}
-
-.common-notice {
-	text-align: center;
-}
-
-#noticeBoardSearchDiv {
-	margin-top: 20px;
-	justify-content: center;
-}
-
-#noticeBoardSearchDiv select {
-	width: 160px;
-}
-
-#noticeBoardSearchDiv option {
-	padding: 8px 0px;
-}
-
-#noticeBoardSearchDiv input {
-	width: 50%;
-}
-
-#noticeBoardPagingDiv nav{
-	margin-top: 40px;
-	align-items: center;
-}
-*/
-</style>
 
 
 <script>

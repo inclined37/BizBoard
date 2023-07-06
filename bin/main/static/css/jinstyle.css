@@ -1,140 +1,6 @@
 /************************************************************************************/
 /* custom css */
 /************************************************************************************/
-/* 
-#loginform-area {
-	width: 500px;
-}
-
-.btn {
-	background-color: #64A2FF;
-	border-color: #64A2FF;
-}
-
-.page-link.active {
-	background-color: #64A2FF;
-	border-color: #64A2FF;
-}
-
-.page-item.active {
-	background-color: #64A2FF;
-	border-color: #64A2FF;
-}
-
-.btn:hover {
-	background-color: #80C2FF;
-	border-color: #80C2FF;
-}
-
-#boardHeader {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.accentRow {
-	background-color: #EAEDF0;
-}
-
-.accent {
-	color: #F57171;
-}
-
-.accent:hover {
-	color: #F03636;
-}
-
-.not-accent {
-	color: #757575;
-}
-
-.not-accent:hover {
-	color: #A5A5A5;
-}
-
-.important-notice {
-	background-color: rgba(255,182,182,0.5);
-	text-align: center;
-	color: #F57171;
-	border-radius: 2px;
-	border: 1px;
-	border-color: #F57171;
-	border-style: solid;
-}
-
-.common-notice {
-	text-align: center;
-}
-
-#noticeBoardSearchDiv {
-	margin-top: 20px;
-	justify-content: center;
-}
-
-#noticeBoardSearchDiv select {
-	width: 160px;
-}
-
-#noticeBoardSearchDiv option {
-	padding: 8px 0px;
-}
-
-#noticeBoardSearchDiv input {
-	width: 50%;
-}
-
-#noticeBoardPagingDiv nav{
-	margin-top: 40px;
-	align-items: center;
-}
-
-#backToBoardList {
-	margin-bottom: 100px;
-}
-
-.backToBoard {
-	height: 20px;
-}
-
-.profile-image-admin {
-	width: 60px;
-	height: 60px;
-	margin: 10px;
-	background-image: url('../img/admin.png');
-	background-size: contain;
-	background-repeat: no-repeat;
-}
-
-#board-desc {
-	margin-left: 10px;
-}
-
-#board-desc>p {
-	margin-bottom: 0px;
-}
-
-#floatingInput {
-	resize: none;
-}
-
-#floatingTextarea {
-	resize: none;
-}
-
-#button-area {
-	margin-top: 10px;
-	display: flex;
-	justify-content: space-between;
-}
-
-.form-check.form-check-inline {
-	margin-top: 10px;
-}
-
-#boardDetailHeaderInfo {
-	display: flex; 
-	align-items: center;
-} */
 
 /* 아이디 셀렉터 */
 #boardDetailHeaderInfo {
@@ -172,12 +38,29 @@
 	width: 50%;
 }
 
-#noticeBoardSearchDiv option {
+/* #noticeBoardSearchDiv option {
 	padding: 8px 0px;
-}
+} */
 
 #noticeBoardSearchDiv select {
 	width: 160px;
+	background-color: white;
+}
+
+#memberSearchDiv {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+#memberSearchDiv select {
+	width: 160px;
+	background-color: white;
+}
+
+#memberSearchDiv input {
+	width: 30%;
+	height: 45px;
 }
 
 #backToBoardList {
@@ -190,6 +73,16 @@
 
 #board-desc > p {
 	margin-bottom: 0px;
+}
+
+#cancle-btn {
+	background-color: #B6B6B6;
+	border-color: #B6B6B6;
+}
+
+#cancle-btn:hover {
+	background-color: #C6C6C6;
+	border-color: #C6C6C6;
 }
 
 /* 클래스 셀렉터 */
@@ -256,4 +149,12 @@
 	background-image: url('../img/admin.png');
 	background-size: contain;
 	background-repeat: no-repeat;
+}
+
+.empSearchSelectTag {
+	padding: 10px;
+}
+
+#memberSearchTag {
+	
 }

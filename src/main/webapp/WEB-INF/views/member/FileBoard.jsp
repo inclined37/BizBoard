@@ -14,7 +14,7 @@
 					<h3 class="mb-4">자료게시판</h3>
 					<se:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
 						<a class="btn btn-primary m-2"
-							href="${pageContext.request.contextPath}/member/FileBoardInsert">글작성</a>
+							href="${pageContext.request.contextPath}/member/FileBoardInsert">글쓰기</a>
 					</se:authorize>
 				</div>
 				<div class="table-responsive">
@@ -47,6 +47,23 @@
 					<c:if test="${empty data}">
 						<div class="container-fluid pt-4 pb-4">등록된 게시물이 없습니다</div>
 					</c:if>
+				</div>
+				<div id="noticeBoardPagingDiv"
+					class="d-flex justify-content-center mt-4">
+					<nav>
+						<ul class="pagination">
+							<li class="page-item disabled">
+								<a class="page-link" href="#" tabindex="-1"
+								aria-disabled="true">이전</a>
+							</li>
+							<li class="page-item active">
+								<a class="page-link" href="#">1</a>
+							</li>
+							<li class="page-item disabled">
+								<a class="page-link" href="#">다음</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>

@@ -52,9 +52,8 @@
 
 
 					<div class="form-floating">
-						<button type="submit" class="btn btn-primary m-2">글수정</button>
-						<button class="btn btn-primary m-2">글삭제</button>
-						<button class="btn btn-primary m-2">목록으로</button>
+						<button type="submit" class="btn btn-primary m-2">확인</button>
+						<button class="btn btn-primary m-2">취소</button>
 					</div>
 				</form>
 			</div>

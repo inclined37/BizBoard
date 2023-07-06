@@ -40,18 +40,16 @@
 					</div>
 				</div>
 				<div id="memberSearchResults" class="mt-4"></div>
-				<div class="d-none d-md-flex ms-4">
-					<select class="empSearchSelectTag"
-						class="form-select form-select-sm mb-2 form-control"
-						aria-label=".form-select-sm example">
-						<option value="" disabled="disabled">--검색--</option>
-						<option value="empno">사원번호</option>
+				<div id="memberSearchDiv" class="d-none d-md-flex ms-4">
+                    <select class="empSearchSelectTag form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                        <option value="" disabled="disabled">--검색--</option>
+						<option value="empno" selected>사원번호</option>
 						<option value="deptno">부서번호</option>
 						<option value="membername">사원명</option>
-					</select>
+                    </select>
 					<p>&nbsp;&nbsp;</p>
 					<input class="form-control border-0 mb-2 empSearchTag"
-						type="number" placeholder="Search" id="memberSearchTag">
+						type="number" placeholder="검색어를 입력해주세요" id="memberSearchTag">
 				</div>
 				<div id="memberManagementPagingDiv" class="d-flex justify-content-center mt-4">
 					<nav>
@@ -66,8 +64,7 @@
 									<a class="page-link" href="/admin/memberManagement?page=${i}">${i}</a>
 								</li>
 							</c:forEach>
-							<li
-								class="page-item ${currentPage == totalPage ? 'disabled' : ''}">
+							<li class="page-item ${currentPage == totalPage ? 'disabled' : ''}">
 								<a class="page-link"
 								href="/admin/memberManagement?page=${currentPage+1}">다음</a>
 							</li>
@@ -79,4 +76,12 @@
 		</div>
 	</div>
 </div>
+
+
+<style>
+#adminPageGetMemberList {
+	color: white;
+}
+
+</style>
 <%@include file="../include/footer.jsp"%>
